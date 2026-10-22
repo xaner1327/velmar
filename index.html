@@ -263,6 +263,7 @@ select { font: inherit; font-size: 14px; color: var(--ink); background: #2A231B;
 .slot button { padding: 4px 8px; font-size: 12px; margin-top: 4px; }
 #death { pointer-events: none; background: rgba(60, 0, 0, 0.45); opacity: 0; transition: opacity .4s; }
 #death.show { opacity: 1; }
+.gpf { outline: 3px solid #FFD86B !important; outline-offset: 2px; box-shadow: 0 0 12px rgba(255,216,107,0.6) !important; }
 #death h1 { color: #F0D7D2; text-shadow: 0 3px 0 #400; }
 @media (max-width: 360px) { .slots { grid-template-columns: 1fr; } }
 /* Celular en horizontal: pantalla baja; todo se compacta para no encimarse */
@@ -323,6 +324,7 @@ select { font: inherit; font-size: 14px; color: var(--ink); background: #2A231B;
     <p class="sub">Un reino de ratas, lobos, huesos y un ogro que nadie ha vencido.</p>
     <ul class="help">
       <li><b>Caminar:</b> flechas o WASD, o toca el suelo. En celular, usa el joystick.</li>
+      <li><b>Control (Xbox):</b> palanca para caminar, A atacar o hablar, X poción, Y equipo, B runa, RB Raziel, Start ajustes.</li>
       <li><b>Atacar:</b> toca o haz clic en un monstruo. Tu personaje lo sigue y ataca solo.</li>
       <li><b>Xanera:</b> dentro de sus muros nadie te ataca. La sacerdotisa te cura y el herrero vende equipo.</li>
       <li><b>Misiones:</b> el Capitán Aldric, junto a la fuente, te encarga cacerías y búsquedas.</li>
@@ -2604,7 +2606,7 @@ addEventListener('keydown', e => {
 });
 addEventListener('keyup', e => { const i = keyStack.indexOf(e.code); if (i >= 0) keyStack.splice(i, 1); });
 addEventListener('blur', () => { keyStack.length = 0; padDir = null; });
-const heldDir = () => padDir || (keyStack.length ? KEYMAP[keyStack[keyStack.length - 1]] : null);
+const heldDir = () => padDir || gpDir || (keyStack.length ? KEYMAP[keyStack[keyStack.length - 1]] : null);
 const joy = $('joy'), knob = $('joyKnob');
 let joyId = null;
 function joyMove(e) {
@@ -2621,6 +2623,73 @@ joy.addEventListener('pointermove', e => { if (e.pointerId === joyId) joyMove(e)
 const joyEnd = e => { if (e.pointerId !== joyId) return; joyId = null; padDir = null; knob.style.transform = ''; joy.classList.remove('on'); };
 ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(t => joy.addEventListener(t, joyEnd));
 joy.addEventListener('contextmenu', e => e.preventDefault());
+
+// ================= Control (Xbox y otros) =================
+// Palanca/cruceta: caminar. A: atacar o hablar. X: poción. Y: equipo. B: runa. RB: Raziel. Start: Ajustes.
+// En menús: palanca/cruceta para moverse entre botones, A para elegir, B para cerrar.
+let gpDir = null, gpPrev = [], gpNavT = 0, gpSeen = false;
+try { if ('gamepadInputEmulation' in navigator) navigator.gamepadInputEmulation = 'gamepad'; } catch (_) {}
+addEventListener('gamepadconnected', () => { if (!gpSeen) { gpSeen = true; if (typeof log === 'function' && playing) log('Control conectado. A: atacar o hablar · X: poción · Y: equipo · B: runa · RB: Raziel · Start: Ajustes.', '#9FD0FF'); } });
+function gpOverlay() {
+  const ov = [...document.querySelectorAll('.overlay')].filter(o => o.id !== 'death' && !o.hidden && getComputedStyle(o).display !== 'none');
+  return ov[ov.length - 1] || null;
+}
+function gpFocusables(root) {
+  return [...root.querySelectorAll('button, input, select, [tabindex]:not([tabindex="-1"])')].filter(el => !el.disabled && el.offsetParent !== null && el.getBoundingClientRect().width > 0);
+}
+function gpFocus(el) {
+  document.querySelectorAll('.gpf').forEach(x => x.classList.remove('gpf'));
+  if (!el) return; el.classList.add('gpf'); try { el.focus({ preventScroll: true }); } catch (_) { el.focus(); }
+  el.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+}
+function gpNav(root, dx, dy) {
+  const list = gpFocusables(root); if (!list.length) return;
+  const cur = list.includes(document.activeElement) ? document.activeElement : null;
+  if (!cur) { gpFocus(list[0]); return; }
+  const a = cur.getBoundingClientRect(), ax = a.left + a.width / 2, ay = a.top + a.height / 2;
+  let best = null, bs = 1e9;
+  for (const el of list) {
+    if (el === cur) continue;
+    const b = el.getBoundingClientRect(), vx = b.left + b.width / 2 - ax, vy = b.top + b.height / 2 - ay;
+    const along = vx * dx + vy * dy; if (along <= 4) continue;
+    const side = Math.abs(dx ? vy : vx), sc = along + side * 2.5;
+    if (sc < bs) { bs = sc; best = el; }
+  }
+  if (best) gpFocus(best);
+}
+function pollPad(dt) {
+  const pads = navigator.getGamepads ? [...navigator.getGamepads()].filter(Boolean) : [];
+  const gp = pads[0]; gpDir = null;
+  if (!gp) return;
+  const btn = i => !!(gp.buttons[i] && (gp.buttons[i].pressed || gp.buttons[i].value > 0.5));
+  const down = i => btn(i) && !gpPrev[i];
+  const ax = gp.axes[0] || 0, ay = gp.axes[1] || 0;
+  let dx = btn(14) ? -1 : btn(15) ? 1 : 0, dy = btn(12) ? -1 : btn(13) ? 1 : 0;
+  if (!dx && !dy && Math.hypot(ax, ay) > 0.5) { if (Math.abs(ax) > Math.abs(ay)) dx = Math.sign(ax); else dy = Math.sign(ay); }
+  const ov = gpOverlay();
+  if (ov) {
+    gpNavT -= dt;
+    if ((dx || dy) && gpNavT <= 0) { gpNav(ov, dx, dy); gpNavT = 0.22; }
+    if (!dx && !dy) gpNavT = 0;
+    if (down(0)) { const el = document.activeElement; if (el && ov.contains(el) && el !== document.body) el.click(); else gpNav(ov, 0, 1); }
+    if (down(1) || (down(9) && ov.id === 'cfg')) {
+      if (ov.id === 'create') { const b = $('cBack'); if (b && b.offsetParent) b.click(); }
+      else dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape', key: 'Escape' }));
+    }
+  } else if (playing) {
+    if (dx || dy) gpDir = [dx, dy];
+    if (down(0)) { const n = nearNpc(); if (n) openDialog(n); else attackNearest(); }
+    if (down(2)) drinkPotion();
+    if (down(3)) openEquip();
+    if (down(1)) castFire();
+    if (down(5)) petToggle();
+    if (down(9)) openCfg();
+  }
+  const ovId = ov ? ov.id : null;
+  if (ov && gpOverlay.lastOv !== ovId) { const l = gpFocusables(ov); if (l.length && !ov.contains(document.activeElement)) gpFocus(l[0]); }
+  gpOverlay.lastOv = ovId;
+  gpPrev = gp.buttons.map((b, i) => btn(i));
+}
 $('bAtk').addEventListener('click', () => { if (!playing) return; const n = nearNpc(); if (n) openDialog(n); else attackNearest(); });
 $('bRune').addEventListener('click', () => playing && castFire());
 $('bPet').addEventListener('click', () => playing && petToggle());
@@ -3386,6 +3455,7 @@ function updateHud() {
 let last = 0;
 function loop(t) {
   const dt = Math.min(0.05, (t - (last || t)) / 1000); last = t;
+  try { pollPad(dt); } catch (_) {}
   if (playing && !uiOpen()) update(dt);
   else now += dt;
   updateFx(dt);
