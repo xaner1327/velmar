@@ -2,7 +2,7 @@
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="description" content="Velmar: medieval fantasy RPG for all ages, in English and Spanish. Juego de aventuras de fantasía medieval para todas las edades. Created by Xaner.">
 </head>
 <body>
@@ -33,6 +33,9 @@ body {
   -webkit-user-select: none; user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+/* iPhone: evita el zoom al tocar dos veces o al escribir (los campos de texto miden 16px o más) */
+html, body { touch-action: manipulation; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+input, textarea, select { font-size: max(16px, 1em); }
 #cv { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
 .panel {
   background: var(--panel);
@@ -180,7 +183,7 @@ body.touch.nojoy #log { bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); wi
 .opt > div { flex: 1; min-width: 0; }
 .opt small { display: block; color: var(--muted); font-weight: 500; }
 .opt button { min-width: 112px; padding: 8px 10px; }
-select { font: inherit; font-size: 14px; color: var(--ink); background: #2A231B; border: 1px solid var(--edge); border-radius: 5px; padding: 6px 8px; margin-top: 6px; width: 100%; max-width: 100%; }
+select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B; border: 1px solid var(--edge); border-radius: 5px; padding: 6px 8px; margin-top: 6px; width: 100%; max-width: 100%; }
 .opt button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
 .row.icons { justify-content: center; gap: 24px; }
 .row .ico { flex: none; width: 64px; height: 64px; padding: 0; border-radius: 50%; display: grid; place-items: center;
@@ -218,7 +221,7 @@ select { font: inherit; font-size: 14px; color: var(--ink); background: #2A231B;
 .cfields { flex: 1 1 240px; min-width: 0; display: grid; gap: 6px; }
 .clabel { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 800; margin-top: 4px; }
 #cName, .opt textarea { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B; border: 1px solid var(--edge); border-radius: 6px; padding: 8px 10px; width: 100%; box-sizing: border-box; user-select: text; -webkit-user-select: text; }
-.opt textarea { font-size: 12px; resize: none; }
+.opt textarea { font-size: 16px; resize: none; }
 .opt.col { flex-direction: column; align-items: stretch; }
 .opt.col .row button { flex: 1 1 auto; }
 .choices { display: flex; gap: 8px; flex-wrap: wrap; }
