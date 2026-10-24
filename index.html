@@ -90,11 +90,12 @@ input, textarea, select { font-size: max(16px, 1em); }
   pointer-events: none; opacity: 0; transition: opacity .6s;
 }
 #zone.show { opacity: 1; }
+#bCfg svg { width: 24px; height: 24px; display: block; }
 #bCfg {
   position: fixed;
   top: calc(env(safe-area-inset-top, 0px) + 62px);
   right: calc(env(safe-area-inset-right, 0px) + 8px);
-  padding: 6px 10px; font-size: 13px;
+  padding: 6px; font-size: 13px; border-radius: 50%; line-height: 0;
 }
 #log {
   position: fixed;
@@ -118,6 +119,7 @@ input, textarea, select { font-size: max(16px, 1em); }
   border: 3px solid rgba(79,169,217,0.9); box-shadow: 0 0 0 2px rgba(0,0,0,0.45), 0 0 10px rgba(79,169,217,0.35);
   display: grid; place-items: center;
 }
+.act.cd { opacity: .4; }
 .act svg { width: 64%; height: 64%; display: block; }
 .act:active { transform: scale(0.94); box-shadow: 0 0 0 2px rgba(0,0,0,0.45); }
 .act i { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); font-style: normal; font-size: 11px; font-weight: 800; color: #F1E6CC; background: rgba(14,11,8,0.85); border: 1px solid rgba(79,169,217,0.9); border-radius: 8px; padding: 0 5px; line-height: 15px; }
@@ -136,6 +138,46 @@ body.touch .act.big i.key { display: none; }
 .act.s5 i.key { font-size: 9px; }
 .act.s6 { left: 194px; top: 60px; width: 44px; height: 44px; border-width: 2px; }
 .act.s6 svg { width: 60%; height: 60%; }
+.act.s7 { left: 22px; top: -2px; width: 44px; height: 44px; border-width: 2px; }
+.act.s8 { left: -20px; top: 112px; width: 40px; height: 40px; border-width: 2px; }
+.act.s8 b { min-width: 18px; height: 18px; line-height: 18px; font-size: 11px; }
+.act.sw { left: 62px; top: 42px; width: 28px; height: 28px; border-width: 2px; z-index: 2; }
+.act.sw svg { width: 70%; height: 70%; }
+#runeIco { display: contents; }
+.act.s7 svg, .act.s8 svg { width: 66%; height: 66%; }
+#bShop { border-color: #E4B54A; }
+#buffChip { position: fixed; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 92px); z-index: 6; padding: 4px 12px; border-radius: 14px;
+  background: rgba(20,15,10,0.88); border: 2px solid #E4B54A; color: #FFE7A8; font-weight: 800; font-size: 14px; pointer-events: none; font-variant-numeric: tabular-nums; }
+#specMenu { position: fixed; right: calc(env(safe-area-inset-right, 0px) + 200px); bottom: calc(env(safe-area-inset-bottom, 0px) + 150px); z-index: 24; width: 230px;
+  background: rgba(20,15,10,0.96); border: 2px solid #8A6A2A; border-radius: 12px; padding: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
+#specMenu button { display: flex; align-items: center; gap: 8px; width: 100%; margin: 3px 0; padding: 8px 10px; text-align: left; font-size: 14px; }
+#specMenu button span { flex: 1; }
+#specMenu button em { font-style: normal; font-weight: 800; color: #FFE7A8; }
+@media (max-width: 520px) { #specMenu { right: 12px; bottom: 210px; } }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+.tabs button { flex: 1 1 auto; padding: 7px 8px; font-size: 13px; min-width: 0; }
+.tabs button[aria-selected="true"] { border-color: var(--gold); color: var(--gold); background: #3A2C10; }
+#lostChip { position: fixed; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 124px); z-index: 7; padding: 5px 14px; border-radius: 14px; max-width: calc(100% - 24px); text-align: center;
+  background: rgba(40,6,4,0.92); border: 2px solid #FF4A3D; color: #FF5A4E; font-weight: 900; font-size: 15px; pointer-events: none; text-shadow: 0 1px 0 #000; font-variant-numeric: tabular-nums; }
+#buffChip.paused { opacity: .75; border-style: dashed; }
+.gemplus { padding: 5px 10px; font-size: 13px; }
+.setdetail .backbtn { margin-bottom: 8px; }
+.settop { display: flex; gap: 12px; align-items: center; margin-bottom: 8px; }
+.settop canvas { background: rgba(255,255,255,0.05); border: 1px solid #4B3D29; border-radius: 10px; flex: none; }
+.settop h3 { margin: 0 0 4px; }
+.setbonus { margin: 0; color: #9FD0FF; font-weight: 700; }
+.buyset { width: 100%; margin-top: 10px; padding: 12px; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+.item.clickable > div { cursor: pointer; }
+.gembal { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 10px; padding: 8px 10px; border-radius: 10px; background: #0F2233; border: 2px solid #4FA9D9; margin-bottom: 4px; }
+.gembal b { color: #BFE6FF; font-size: 17px; } .gembal small { color: #9FC3DA; font-size: 12px; }
+.item button.short { opacity: .6; }
+.vaultbtn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin: 4px 0 6px; padding: 8px; }
+.shopdemo.halloween { background: #3A1E08; border-color: #FF9A2E; color: #FFD3A0; }
+.shopdemo { background: #3A2C10; border: 1px dashed #E4B54A; color: #FFE7A8; border-radius: 8px; padding: 6px 10px; font-size: 13px; margin: 0 0 10px; }
+.shopsec { color: var(--gold); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 800; margin: 12px 0 4px; }
+.item .tag { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 6px; background: #C8362F; color: #fff; font-size: 11px; font-weight: 800; vertical-align: middle; }
+.item .old { text-decoration: line-through; opacity: .6; margin-right: 4px; font-weight: 500; }
+.item .bundle { width: 40px; height: 40px; flex: none; display: grid; place-items: center; font-size: 26px; }
 #chatbar { position: fixed; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 66px); width: min(540px, calc(100% - 20px)); z-index: 25;
   background: rgba(20,15,10,0.94); border: 2px solid #8A6A2A; border-radius: 12px; padding: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.5); }
 #chatHist { max-height: 96px; overflow-y: auto; font-size: 14px; line-height: 1.3; margin-bottom: 6px; }
@@ -322,7 +364,7 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
   #hud { padding: 3px 8px; max-width: 420px; gap: 8px; }
   #hLvl { font-size: 1rem; }
   .bar { height: 12px; } .bar span { font-size: 10px; line-height: 12px; }
-  #bCfg { top: calc(env(safe-area-inset-top, 0px) + 6px); right: calc(env(safe-area-inset-right, 0px) + 8px); padding: 5px 9px; }
+  #bCfg { top: calc(env(safe-area-inset-top, 0px) + 6px); right: calc(env(safe-area-inset-right, 0px) + 8px); padding: 5px; }
   #hud { right: auto; width: min(420px, calc(100% - 120px)); }
   #tut { top: calc(env(safe-area-inset-top, 0px) + 50px); left: 50%; transform: translateX(-50%); width: min(460px, calc(100% - 340px)); min-width: 260px; padding: 6px 9px; }
   #tut p { font-size: 13px; margin: 2px 0 6px; }
@@ -355,10 +397,10 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
 <div id="tut" class="panel" hidden>
   <small id="tutStep"></small>
   <p id="tutText"></p>
-  <div class="row"><button id="tutSay" class="ico sm" aria-label="Escuchar" title="Escuchar"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h32a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-9 8v-8H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="#FFF3DA" stroke="#2D7FB8" stroke-width="2.5" stroke-linejoin="round"/><circle cx="16" cy="21" r="2.6" fill="#2D7FB8"/><circle cx="24" cy="21" r="2.6" fill="#2D7FB8"/><circle cx="32" cy="21" r="2.6" fill="#2D7FB8"/></svg></button><button id="tutSkip">Omitir tutorial</button></div>
+  <div class="row"><button id="tutOk" hidden>Entendido</button><button id="tutSay" class="ico sm" aria-label="Escuchar" title="Escuchar"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h32a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-9 8v-8H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="#FFF3DA" stroke="#2D7FB8" stroke-width="2.5" stroke-linejoin="round"/><circle cx="16" cy="21" r="2.6" fill="#2D7FB8"/><circle cx="24" cy="21" r="2.6" fill="#2D7FB8"/><circle cx="32" cy="21" r="2.6" fill="#2D7FB8"/></svg></button><button id="tutSkip">Omitir tutorial</button></div>
 </div>
 <div id="zone"></div>
-<button id="bCfg" hidden>Ajustes</button>
+<button id="bCfg" hidden aria-label="Ajustes" title="Ajustes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm8.4 4.6-1.9-.4a6.9 6.9 0 0 1-.6 1.5l1.1 1.6-1.6 1.6-1.6-1.1c-.5.3-1 .5-1.5.6l-.4 1.9h-2.2l-.4-1.9a6.9 6.9 0 0 1-1.5-.6l-1.6 1.1-1.6-1.6 1.1-1.6c-.3-.5-.5-1-.6-1.5l-1.9-.4v-2.2l1.9-.4c.1-.5.3-1 .6-1.5L4.6 7l1.6-1.6 1.6 1.1c.5-.3 1-.5 1.5-.6l.4-1.9h2.2l.4 1.9c.5.1 1 .3 1.5.6l1.6-1.1L19 7l-1.1 1.6c.3.5.5 1 .6 1.5l1.9.4z" fill="#F1E6CC" stroke="#3A2C1A" stroke-width=".8"/></svg></button>
 <div id="log" aria-live="polite"></div>
 
 <div id="joy" hidden aria-label="Joystick para caminar"><div id="joyKnob"></div></div>
@@ -367,12 +409,18 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
   <button id="bAtk" class="act big" aria-label="Atacar (Espacio)" title="Atacar o hablar (Espacio)"><i class="key">Espacio</i><span id="atkIcon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M36 6l6 0 0 6-18 18-6-6z" fill="#BFE6FF" stroke="#2D7FB8" stroke-width="2" stroke-linejoin="round"/><path d="M14 26l8 8M11 31l6 6" stroke="#E4B54A" stroke-width="4" stroke-linecap="round"/><circle cx="10" cy="38" r="3.5" fill="#E4B54A"/></svg></span></button>
   <button id="bPot" class="act s1" aria-label="Poción (Q)" title="Poción (Q)"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 6h10v4h-2v6c6 2 10 7 10 13a13 13 0 0 1-26 0c0-6 4-11 10-13v-6h-2z" fill="#3A2C1A" stroke="#F1E6CC" stroke-width="2" stroke-linejoin="round"/><path d="M13 30a11 11 0 0 0 22 0z" fill="#E2453B"/><circle cx="20" cy="33" r="2" fill="#FFB0A8"/></svg><b id="hPot">3</b><i>1</i></button>
   <button id="bEq" class="act s2" aria-label="Equipo (I)" title="Equipo (I)"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8l8 4 8-4 10 8-5 6-3-2v20H14V20l-3 2-5-6z" fill="#8A9099" stroke="#F1E6CC" stroke-width="2" stroke-linejoin="round"/><path d="M14 28h20" stroke="#E4B54A" stroke-width="3"/></svg><i>2</i></button>
-  <button id="bRune" class="act s3 locked" aria-label="Runa de fuego (3)" title="Runa de fuego (3)"><b id="hRune" hidden>0</b><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l14 10v20L24 44 10 34V14z" fill="#2B2040" stroke="#B48CFF" stroke-width="2" stroke-linejoin="round"/><path d="M24 12v24M17 18l14 12M31 18L17 30" stroke="#D9C4FF" stroke-width="2.5" stroke-linecap="round"/></svg><i>3</i></button>
+  <button id="bRune" class="act s3 locked" aria-label="Runa (3)" title="Runa (3)"><b id="hRune" hidden>0</b><span id="runeIco"></span><i>3</i></button>
+  <button id="bRuneSw" class="act sw" hidden aria-label="Cambiar runa (C)" title="Cambiar runa (C)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h12l-3-3M19 15H7l3 3" fill="none" stroke="#F1E6CC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <button id="bMap" class="act s5" aria-label="Mapa (M)" title="Mapa (M)"><i class="key">M</i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 12l11-4 14 4 11-4v28l-11 4-14-4-11 4z" fill="#E9D9B0" stroke="#5A3A1A" stroke-width="2.5" stroke-linejoin="round"/><path d="M17 8v28M31 12v28" stroke="#5A3A1A" stroke-width="2" opacity=".55"/><path d="M11 26c4-6 8 2 12-3s6-6 9-2" fill="none" stroke="#C8362F" stroke-width="2.5" stroke-dasharray="3 3" stroke-linecap="round"/><path d="M33 17l4 4m0-4l-4 4" stroke="#C8362F" stroke-width="2.6" stroke-linecap="round"/></svg></button>
   <button id="bChat" class="act s6" hidden aria-label="Chat (T)" title="Chat (T)"><b id="chatN" hidden>0</b><i class="key">T</i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h32a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-9 8v-8H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="#F1E6CC" stroke="#12324A" stroke-width="2.5" stroke-linejoin="round"/><circle cx="15" cy="21" r="2.6" fill="#4FA9D9"/><circle cx="24" cy="21" r="2.6" fill="#4FA9D9"/><circle cx="33" cy="21" r="2.6" fill="#4FA9D9"/></svg></button>
   <button id="bPet" class="act s4 locked" aria-label="Llamar a Raziel (R)" title="Raziel (R)"><svg viewBox="0 0 48 48" aria-hidden="true"><g stroke="#12324A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M14 27L4 18l2 13 4-2 1 5 5-4z" fill="#7FD6B8"/><path d="M34 27l10-9-2 13-4-2-1 5-5-4z" fill="#7FD6B8"/><path d="M33 39c5 1 8-2 7-5" fill="none"/><path d="M15 43c-2-9 2-17 9-17s11 8 9 17z" fill="#46B596"/><path d="M19 43c0-6 2-10 5-10s5 4 5 10z" fill="#F2E2B0"/><path d="M16 12c-1-4 0-7 2-9 0 3 1 5 3 6zM32 12c1-4 0-7-2-9 0 3-1 5-3 6z" fill="#F2E2B0"/><ellipse cx="24" cy="18" rx="11.5" ry="9.5" fill="#46B596"/><path d="M24 8.5l-2 4 2 1.5 2-1.5z" fill="#FFD24A"/></g><ellipse cx="19.5" cy="18" rx="2.3" ry="2.8" fill="#12324A"/><ellipse cx="28.5" cy="18" rx="2.3" ry="2.8" fill="#12324A"/><circle cx="20.3" cy="17" r=".9" fill="#fff"/><circle cx="29.3" cy="17" r=".9" fill="#fff"/><circle cx="16" cy="22" r="1.8" fill="#F29BB8"/><circle cx="32" cy="22" r="1.8" fill="#F29BB8"/><path d="M21.5 23c1.5 1.6 3.5 1.6 5 0" fill="none" stroke="#12324A" stroke-width="1.6" stroke-linecap="round"/><path d="M22 37v3M26 37v3" stroke="#12324A" stroke-width="1.3" stroke-linecap="round" opacity=".5"/></svg><i>4</i></button>
+  <button id="bShop" class="act s7" hidden aria-label="Tienda (B)" title="Tienda (B)"><i class="key">B</i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18h28l-3 22H13z" fill="#E4B54A" stroke="#3A2C1A" stroke-width="2.5" stroke-linejoin="round"/><path d="M17 18v-4a7 7 0 0 1 14 0v4" fill="none" stroke="#F1E6CC" stroke-width="3" stroke-linecap="round"/><path d="M24 25l2 4 4 .5-3 3 .8 4-3.8-2-3.8 2 .8-4-3-3 4-.5z" fill="#FFF3DA"/></svg></button>
+  <button id="bSpec" class="act s8" hidden aria-label="Pociones especiales (F)" title="Pociones especiales (F)"><b id="hSpec">0</b><i class="key">F</i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 6h10v4h-2v6c6 2 10 7 10 13a13 13 0 0 1-26 0c0-6 4-11 10-13v-6h-2z" fill="#3A2C1A" stroke="#F1E6CC" stroke-width="2" stroke-linejoin="round"/><path d="M13 30a11 11 0 0 0 22 0z" fill="#B46CFF"/><path d="M24 23l1.6 3.4 3.6.4-2.7 2.4.8 3.6-3.3-1.9-3.3 1.9.8-3.6-2.7-2.4 3.6-.4z" fill="#FFE14A"/></svg></button>
 </div>
 
+<div id="buffChip" hidden></div>
+<div id="lostChip" hidden aria-live="polite"></div>
+<div id="specMenu" hidden role="dialog" aria-label="Pociones especiales"></div>
 <div id="chatbar" hidden>
   <div id="chatHist" aria-live="polite"></div>
   <div id="chatQuick"></div>
@@ -386,7 +434,7 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
     <p class="sub">Un reino de ratas, lobos, huesos y un ogro que nadie ha vencido.</p>
     <ul class="help">
       <li><b>Caminar:</b> flechas o WASD, o toca el suelo. En celular, usa el joystick.</li>
-      <li><b>Control (Xbox):</b> palanca para caminar, A atacar o hablar, X poción, Y equipo, B runa, RB Raziel, Start ajustes.</li>
+      <li><b>Control (Xbox):</b> palanca para caminar, A atacar o hablar, X poción, Y equipo, B runa, LT cambiar runa, LB pociones especiales, RT tienda, RB Raziel, Start ajustes.</li>
       <li><b>Atacar:</b> toca o haz clic en un monstruo. Tu personaje lo sigue y ataca solo.</li>
       <li><b>Xanera:</b> dentro de sus muros nadie te ataca. La sacerdotisa te cura, el herrero vende equipo y la alquimista vende pociones.</li>
       <li><b>Misiones:</b> el Capitán Aldric, junto a la fuente, te encarga cacerías y búsquedas.</li>
@@ -441,7 +489,7 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
     <h2 id="eqTitle">Equipo</h2>
     <div class="stats" id="eqStats"></div>
     <div class="slots" id="eqSlots"></div>
-    <h3>Mochila</h3>
+    <h3 id="eqBagH">Mochila</h3>
     <div class="list" id="eqBag"></div>
     <div class="row" style="margin-top:14px"><button id="eqClose">Cerrar</button></div>
   </div>
@@ -494,9 +542,17 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
 
 <div id="cfg" class="overlay" hidden>
   <div class="card panel" role="dialog" aria-labelledby="cfgTitle">
-    <h2 id="cfgTitle">Ajustes</h2>
+    <h2 id="cfgTitle">⚙️ Ajustes</h2>
     <div class="list" id="cfgList" style="margin-top:12px"></div>
     <div class="row" style="margin-top:14px"><button id="cfgClose">Cerrar</button></div>
+  </div>
+</div>
+
+<div id="shopv" class="overlay" hidden>
+  <div class="card panel wide" role="dialog" aria-labelledby="shopTitle">
+    <h2 id="shopTitle">Tienda de Velmar</h2>
+    <div id="shopBody"></div>
+    <div class="row" style="margin-top:14px"><button id="shopClose">Cerrar</button></div>
   </div>
 </div>
 
@@ -554,6 +610,20 @@ Object.assign(EN, {"Probar modo Manual": "Try Manual mode", "Elegir": "Choose", 
 Object.assign(EN, {"La Maestra Leira te ayudó a levantarte. En el entrenamiento no pierdes nada. Si tu vida baja, toma una poción.": "Master Leira helped you back up. You lose nothing during training. If your health gets low, drink a potion."});
 Object.assign(EN, {"Automático: tocas una vez y tu personaje sigue atacando. Manual: cada toque golpea al monstruo que tengas junto, primero al de enfrente.": "Automatic: tap once and your character keeps attacking. Manual: every tap hits the monster next to you, the one in front first.", "Cada toque golpea al monstruo que tengas junto.": "Every tap hits the monster next to you."});
 Object.assign(EN, {"🛡️ Filtro de groserías en el chat": "🛡️ Chat profanity filter", "Tapa las malas palabras en los mensajes que recibes en línea.": "Hides bad words in the messages you receive online.", "Crea una sala y comparte el código. Tus amigos se unen a tu mundo desde su celular, tablet o computadora. Comparten misiones, y cada quien junta su propio oro y compra su equipo con Bruno.": "Create a room and share the code. Your friends join your world from their phone, tablet or computer. You share quests, and everyone collects their own gold and buys their own gear from Bruno.", "Hay chat con frases rápidas y texto. El filtro de groserías viene activado; cada quien puede quitarlo en Ajustes.": "There's a chat with quick phrases and text. The profanity filter is on by default; each player can turn it off in Settings.", " venció a ": " defeated ", " Encontró una poción.": " Found a potion.", " ¡Encontró ": " Found ", " compró ": " bought ", " y se lo puso.": " and put it on.", "Mi equipo": "My gear", "Tu oro y tu equipo son solo tuyos. Lo que compres se guarda en tu personaje.": "Your gold and gear are yours alone. What you buy is saved to your character.", "Tu oro: ": "Your gold: ", "Pociones: ": "Potions: ", "Tu mochila": "Your backpack", "Ponerme": "Equip", "¡Hola!": "Hi!", "¡Ven aquí!": "Come here!", "¡Ayuda!": "Help!", "Espérame": "Wait for me", "¡Vamos!": "Let's go!", "¡Bien hecho!": "Well done!", "Voy a curarme": "I'm going to heal", "Escribe un mensaje…": "Type a message…", "Enviar": "Send"});
+Object.assign(EN, {"Espada de Galo": "Galo's Sword", "Escudo de Galo": "Galo's Shield", "Casco de Galo": "Galo's Helmet", "Armadura de Galo": "Galo's Armor", "Espada de Xanera": "Sword of Xanera", "Escudo de Xanera": "Shield of Xanera", "Casco de Xanera": "Helmet of Xanera", "Armadura de Xanera": "Armor of Xanera", "Set de Galo": "Galo's Set", "Set de Xanera": "Xanera Set", "Con el set completo, tu arma envenena.": "With the full set, your weapon poisons.", "Con el set completo, +3 de defensa: bloqueas más golpes.": "With the full set, +3 defense: you block more hits.", "Los objetos de la tienda no se venden.": "Shop items can't be sold.", "Poción de salud mayor": "Greater health potion", "Cura el 60% de tu vida.": "Heals 60% of your health.", "Poción de ataque": "Attack potion", "Tu daño x2 durante 3 minutos.": "Double damage for 3 minutes.", "Poción Flecha de muerte": "Death Arrow potion", "Con arco: +2 de alcance y más daño por 3 minutos, pero recibes más daño.": "With a bow: +2 range and more damage for 3 minutes, but you take more damage.", "Ya tienes una poción especial activa. Espera a que termine.": "You already have a special potion active. Wait until it ends.", "La Flecha de muerte solo funciona con un arco.": "Death Arrow only works with a bow.", "¡Poción de ataque! Tu daño es doble durante 3 minutos.": "Attack potion! Double damage for 3 minutes.", "¡Flecha de muerte! Más alcance y daño con tu arco, pero cuídate: recibes más daño.": "Death Arrow! More range and damage with your bow, but be careful: you take more damage.", "Se acabó la poción de ataque.": "Your attack potion wore off.", "Se acabó la Flecha de muerte.": "Death Arrow wore off.", "⚔ Daño x2 · ": "⚔ Damage x2 · ", "🏹 Flecha de muerte · ": "🏹 Death Arrow · ", "No tienes pociones especiales. Las encuentras en la tienda.": "You have no special potions. You can find them in the shop.", "🛍 Ir a la tienda": "🛍 Go to the shop", "Ofertas": "Offers", "Paquete del aventurero": "Adventurer's Pack", "Set de Xanera + 15 pociones de salud mayor + 10 pociones de ataque + Mapa de los calabozos.": "Xanera Set + 15 greater health potions + 10 attack potions + Dungeon Map.", "Mejor valor": "Best value", "4 piezas. Con el set completo, tu arma envenena a los monstruos.": "4 pieces. With the full set, your weapon poisons monsters.", "Equipo": "Equipment", "4 piezas. Con el set completo, +3 de defensa: bloqueas más golpes.": "4 pieces. With the full set, +3 defense: you block more hits.", "Pociones": "Potions", "Poción de salud mayor ×5": "Greater health potion ×5", "Cada una cura el 60% de tu vida.": "Each one heals 60% of your health.", "Poción de salud mayor ×15": "Greater health potion ×15", "Popular": "Popular", "Poción de ataque ×3": "Attack potion ×3", "Poción de ataque ×10": "Attack potion ×10", "Poción Flecha de muerte ×3": "Death Arrow potion ×3", "Solo con arco: +2 de alcance y daño x1.5 por 3 minutos, pero recibes 30% más daño.": "Bow only: +2 range and x1.5 damage for 3 minutes, but you take 30% more damage.", "Magia y mapas": "Magic and maps", "Runa de fuego (10 cargas)": "Fire rune (10 charges)", "Si no la tienes, es tuya. Si ya la tienes, se llena.": "If you don't have it, it's yours. If you do, it gets refilled.", "Llena": "Full", "Mapa de los calabozos": "Dungeon Map", "Muestra completos los calabozos de los esqueletos y de Torvak. Compra única.": "Reveals the whole skeleton and Torvak dungeons. One-time purchase.", "Modo de prueba: no se cobra nada. En la app de Play Store aquí pagará Google.": "Test mode: nothing is charged. In the Play Store app, Google handles payment here.", "Primera compra -50%": "First purchase -50%", " · tienes ": " · you have ", "Ya lo tienes": "Owned", "Todo lo que da poder también se puede ganar jugando. Si compras algo por error, Google te ayuda con el reembolso.": "Everything that gives power can also be earned by playing. If you buy something by mistake, Google helps you get a refund.", "¡Compraste ": "You bought ", " (prueba, sin cobro)": " (test, no charge)", "Tienda de Velmar": "Velmar Shop", "Tienda (B)": "Shop (B)", "Pociones especiales (F)": "Special potions (F)"});
+Object.assign(EN, {"Casco de Raziel": "Raziel's Helmet", "Armadura de Raziel": "Raziel's Armor", "Set de Raziel": "Raziel's Set", "Con el set completo, caminas 20% más rápido.": "With the full set, you walk 20% faster.", "4 piezas. Con el set completo, caminas 20% más rápido.": "4 pieces. With the full set, you walk 20% faster."});
+Object.assign(EN, {"Arco de Raziel": "Raziel's Bow", "Arco, casco y armadura ligeros. Con el set completo, caminas 20% más rápido.": "Light bow, helmet and armor. With the full set, you walk 20% faster."});
+Object.assign(EN, {"Quitar": "Take off", "Usar": "Wear", "Regalo": "Gift", "🎃 ¡Ya tienes tu Paquete de Halloween! Póntelo en la sección Mi Halloween.": "🎃 You have your Halloween Pack! Put it on in the My Halloween section.", "🎃 Regalo de Halloween: compra o recarga cualquier cosa antes del 6 de noviembre y te llevas gratis el Paquete de Halloween (traje de calabaza, sombrero de bruja y chispas).": "🎃 Halloween gift: buy or refill anything before November 6 and get the Halloween Pack for free (pumpkin costume, witch hat and sparks).", "🎃 ¡Regalo de Halloween! Te llevas el traje de calabaza, el sombrero de bruja y las chispas.": "🎃 Halloween gift! You get the pumpkin costume, the witch hat and the sparks.", "Estilo de Navidad": "Christmas style", "Paquete de Navidad": "Christmas Pack", "Traje de Santa + traje de duende + gorro de Santa + estela de nieve.": "Santa costume + elf costume + Santa hat + snow trail.", "Traje de Santa": "Santa costume", "Se ve encima de cualquier armadura. Con barba en cuerpo de hombre.": "Shows over any armor. With a beard on the male body.", "Traje de duende": "Elf costume", "Con su gorrito, orejas puntiagudas y cascabel.": "With its little hat, pointy ears and bell.", "Gorro de Santa": "Santa hat", "Se ve encima de cualquier casco.": "Shows over any helmet.", "Estela de nieve": "Snow trail", "Copitos de nieve donde caminas.": "Little snowflakes where you walk.", "Adornos": "Accessories", "Medallita de Xanera": "Xanera medal", "Una medalla dorada colgada al cuello.": "A golden medal around your neck.", "Mi Halloween": "My Halloween", "Traje de calabaza": "Pumpkin costume", "Regalo de Halloween.": "Halloween gift.", "Sombrero de bruja": "Witch hat", "Chispas de Halloween": "Halloween sparks", "Chispas naranjas y moradas donde caminas.": "Orange and purple sparks where you walk.", "Colores de Raziel": "Raziel colors", "Todos los colores de Raziel": "All Raziel colors", "Dorado, plata, rosa y morado.": "Gold, silver, pink and purple.", "Cambia el color de Raziel. Puedes volver al verde cuando quieras.": "Changes Raziel's color. You can go back to green anytime.", "Verde": "Green", "Raziel dorado": "Golden Raziel", "Raziel plata": "Silver Raziel", "Raziel rosa": "Pink Raziel", "Raziel morado": "Purple Raziel"});
+Object.assign(EN, {"100 gemas": "100 gems", "550 gemas": "550 gems", "1200 gemas": "1200 gems", "Incluye 50 de regalo.": "Includes 50 bonus.", "Incluye 200 de regalo.": "Includes 200 bonus.", "Modo de prueba: no se cobra nada. En la app de Play Store las gemas se pagan con Google.": "Test mode: nothing is charged. In the Play Store app, gems are paid through Google.", "🎃 Gracias por ayudar a probar Velmar: te regalamos el Paquete de Halloween. Póntelo en la sección Mi Halloween.": "🎃 Thanks for helping test Velmar: here's the Halloween Pack as a gift. Put it on in the My Halloween section.", "Tus gemas: ": "Your gems: ", "100 gemas cuestan $0.99 USD": "100 gems cost US$0.99", "Recargar gemas": "Get gems", "¡Recargaste ": "You got ", " gemas!": " gems!", "Te faltan ": "You need ", " gemas. Puedes recargar arriba.": " more gems. You can get more at the top.", "🎃 ¡Gracias por ayudar a probar Velmar! Te regalamos el Paquete de Halloween. Está en la tienda, en Mi Halloween.": "🎃 Thanks for helping test Velmar! Here's the Halloween Pack as a gift. It's in the shop, under My Halloween."});
+Object.assign(EN, {"Armas": "Weapons", "Escudos": "Shields", "Cascos": "Helmets", "Armaduras": "Armor", "Sets": "Sets", "Mochila mágica: vendes y guardas en el baúl desde cualquier lugar.": "Magic backpack: sell and store in your chest from anywhere.", " Abrir mi baúl (": " Open my chest (", "En tu mochila": "In your backpack", "Volver a la mochila": "Back to backpack", "Mejoras": "Upgrades", "Mochila mágica": "Magic backpack", "Vende al herrero y guarda en tu baúl desde cualquier lugar. Compra única.": "Sell to the blacksmith and store in your chest from anywhere. One-time purchase."});
+Object.assign(EN, {" · de la tienda": " · from the shop"});
+Object.assign(EN, {"Arco, casco y armadura ligeros. Con el set completo, caminas 40% más rápido.": "Light bow, helmet and armor. With the full set, you walk 40% faster.", "Con el set completo, caminas 40% más rápido.": "With the full set, you walk 40% faster."});
+Object.assign(EN, {" (activa)": " (active)", " Regresa por ella: ": " Go back for it: ", " a tu runa de fuego. Ahora tienes ": " to your fire rune. Now you have ", " carga": " charge", " cargas": " charges", " cargas · ": " charges · ", " de oro cada una": " gold each", " en la tienda, comprando solo esa pieza.": " in the shop by buying just that piece.", " gemas. Toca \"+ Recargar\".": " more gems. Tap \"+ Get gems\".", " quedó en el suelo! Tienes 1 minuto para hacer espacio y recogerlo.": " is on the ground! You have 1 minute to make room and pick it up.", " quedó en el suelo: ": " is on the ground: ", " se fue a tu baúl porque tu mochila está llena.": " went to your chest because your backpack is full.", " se terminó: la nueva poción toma su lugar.": " ended: the new potion takes its place.", " tiene la mochila llena.": "'s backpack is full.", " y tu mochila": " and your backpack", " ¡": " ", "! Está junto a tu mochila donde caíste.": "! It is next to your backpack where you fell.", "\"Pociones, hierbas y un poco de magia. Si tu runa se quedó sin fuerza, le pongo cargas por un poco de oro.\"": "\"Potions, herbs and a bit of magic. If your rune ran out of power, I can add charges for a little gold.\"", "+ Recargar": "+ Get gems", "Cada carga te cura toda la vida. Solo en esta tienda.": "Each charge heals all your health. Only in this shop.", "Cargas para tu runa de fuego": "Charges for your fire rune", "Comprar el set completo  ": "Buy the full set  ", "Con arco: +2 de alcance y daño x1.5 por 3 minutos, pero recibes 30% más daño.": "With a bow: +2 range and x1.5 damage for 3 minutes, but you take 30% more damage.", "El arco se usa con las dos manos: tu escudo se fue al baúl porque tu mochila está llena.": "The bow needs both hands: your shield went to your chest because your backpack is full.", "En el set": "In the set", "Esa poción ya está activa.": "That potion is already active.", "La poción de ataque solo funciona con armas cuerpo a cuerpo. Ponte una espada, hacha o garrote.": "The attack potion only works with melee weapons. Equip a sword, axe or club.", "Lanza bolas de fuego. Si no la tienes, es tuya.": "Throws fireballs. If you don't have it, it's yours.", "Llevas puesta la runa de curación.": "You are carrying the healing rune.", "Llevas puesta la runa de fuego.": "You are carrying the fire rune.", "Mochila del explorador": "Explorer's backpack", "Mochila llena. Vende objetos o guárdalos en tu baúl.": "Backpack full. Sell items or store them in your chest.", "Navidad": "Christmas", "Nerea le puso ": "Nerea added ", "Pociones especiales (3 minutos)": "Special potions (3 minutes)", "Puedes recuperar ": "You can get back ", "Regalo por ayudar a probar Velmar.": "Gift for helping test Velmar.", "Runa de curación": "Healing rune", "Runa de curación · 10 cargas": "Healing rune · 10 charges", "Runa de fuego": "Fire rune", "Runa de fuego · 10 cargas": "Fire rune · 10 charges", "Runas (las cargas se suman)": "Runes (charges add up)", "Se acabó el tiempo: se perdió el objeto que quedó en el suelo.": "Time is up: the item on the ground was lost.", "Se acabó el tiempo: se perdió lo que tiraste al morir.": "Time is up: what you dropped when you fell was lost.", "Set de Xanera + Mochila del explorador + 10 cargas de curación + 10 pociones de ataque + Mapa de los calabozos.": "Xanera Set + Explorer's backpack + 10 healing charges + 10 attack potions + Dungeon Map.", "Sets: toca uno para ver sus piezas": "Sets: tap one to see its pieces", "Solo con arco: +2 de alcance y daño x1.5, pero recibes 30% más daño.": "Bow only: +2 range and x1.5 damage, but you take 30% more damage.", "Solo tienes la runa de curación. La de fuego se gana con el tesoro de Galo o en la tienda.": "You only have the healing rune. The fire rune comes from Galo's treasure or the shop.", "Solo tienes la runa de fuego. La de curación está en la tienda.": "You only have the fire rune. The healing rune is in the shop.", "Te falta alguna pieza: puedes comprar solo la que perdiste.": "You're missing a piece: you can buy just the one you lost.", "Tienes ": "You have ", "Todavía no tienes la runa de fuego. Dicen que Galo sabe de un tesoro escondido bajo la Cueva de los Huesos.": "You don't have the fire rune yet. They say Galo knows about a treasure hidden under the Cave of Bones.", "Tu daño x2 durante 3 minutos. Solo con armas cuerpo a cuerpo.": "Double damage for 3 minutes. Melee weapons only.", "Tu daño x2. Solo con armas cuerpo a cuerpo.": "Double damage. Melee weapons only.", "Tu mochila pasa de 10 a 20 objetos. Compra única.": "Your backpack goes from 10 to 20 items. One-time purchase.", "Tu mochila quedó donde caíste. Tienes 5 minutos para regresar por ella. Sigue la flecha.": "Your backpack is where you fell. You have 5 minutes to go back for it. Follow the arrow.", "Tu runa de curación no tiene cargas. Las encuentras en la tienda.": "Your healing rune has no charges. You can find them in the shop.", "Ver (lo tienes)": "View (owned)", "Ver piezas": "See pieces", "¡Recogiste el objeto!": "You picked up the item!", "¡Recuperaste ": "You got back ", "¡Recuperaste tus cosas!": "You got your things back!", "¡Se te cayó ": "You dropped ", "← Volver a la tienda": "← Back to the shop", "⏸ Daño x2 en pausa: usa un arma cuerpo a cuerpo · ": "⏸ Damage x2 paused: use a melee weapon · ", "⏸ Flecha de muerte en pausa: usa un arco · ": "⏸ Death Arrow paused: use a bow · ", "⚔ Equipo": "⚔ Gear", "⚠ ": "⚠ ", "⚠ ¡Perdiste ": "⚠ You lost ", "⚠ ¡Perdiste tu mochila!": "⚠ You lost your backpack!", "✓ La tienes": "✓ Owned", "✨ Estilo": "✨ Style", "⭐ Ofertas": "⭐ Offers", "🌐 En línea": "🌐 Online", "🎃 Gracias por ayudar a probar Velmar: te regalamos el Paquete de Halloween (abajo, en Mi Halloween).": "🎃 Thanks for helping test Velmar: here is the Halloween Pack as a gift (below, in My Halloween).", "🎃 ¡Gracias por ayudar a probar Velmar! Te regalamos el Paquete de Halloween. Está en la tienda, en Estilo.": "🎃 Thanks for helping test Velmar! Here is the Halloween Pack as a gift. It's in the shop, under Style.", "🎒 Mejoras": "🎒 Upgrades", "🎮 Juego": "🎮 Game", "👤 Mi partida": "👤 My game", "💎 Gemas": "💎 Gems", "🔊 Sonido": "🔊 Sound", "🧪 Pociones y runas": "🧪 Potions & runes", "Cambiar runa (C)": "Switch rune (C)", "Runa (3)": "Rune (3)", "⚙️ Ajustes": "⚙️ Settings", "Ajustes": "Settings"});
+Object.assign(EN, {" gemas": " gems", "¡Primera vez: +": "First time: +", "Normalmente ": "Usually ", ". Te regalamos ": ". We give you ", " más en tu primera compra de este paquete.": " extra on your first purchase of this pack.", " (incluye ": " (includes ", " de regalo por ser tu primera vez)": " bonus for your first time)"});
+Object.assign(EN, {" gemas de regalo!": " bonus gems!", ". Solo en tu primera compra de este paquete.": ". Only on your first purchase of this pack.", " de regalo)": " bonus)"});
+Object.assign(EN, {"Bendición de Elara": "Elara's Blessing", "La próxima vez que caigas no pierdes nada de tu mochila ni de lo que traes puesto. Se gasta al caer; puedes juntar varias.": "The next time you fall you lose nothing from your backpack or what you are wearing. It is used up when you fall; you can stack several.", "✨ La Bendición de Elara protegió tu mochila y tu equipo. Te quedan ": "✨ Elara's Blessing protected your backpack and gear. Remaining: ", "✨ Bendición de Elara: ": "✨ Elara's Blessing: ", " (si caes, no pierdes tus objetos).": " (if you fall, you keep your items)."});
+Object.assign(EN, {"Cuidado: tu mochila guarda diez objetos. Si caes fuera de este campo, pierdes parte de tu oro y tus cosas se quedan en una bolsita donde caíste. A veces también se cae algo de lo que traes puesto. Toca Entendido y te enseño cómo se ve.": "Careful: your backpack holds ten items. If you fall outside this field, you lose some of your gold and your things stay in a little bag where you fell. Sometimes something you are wearing falls too. Tap Got it and I will show you what it looks like.", "¡Pum! Te hice caer para enseñarte. Tu espada se quedó en una bolsita donde caíste. Sigue la flecha y recógela antes de que se acabe el tiempo del aviso rojo. Afuera tendrás cinco minutos.": "Boom! I knocked you down to teach you. Your sword stayed in a little bag where you fell. Follow the arrow and pick it up before the red warning runs out. Out there you will have five minutes.", "Entendido": "Got it"});
+Object.assign(EN, {"La Maestra Leira te dio la Espada del Aprendiz": "Master Leira gave you the Apprentice's Sword", " y te la pusiste.": " and you put it on.", ". Está en tu mochila.": ". It is in your backpack.", "¡Pum! La Maestra Leira te hizo caer para enseñarte. Es práctica: aquí no pierdes nada de verdad.": "Boom! Master Leira knocked you down to teach you. It is practice: you really lose nothing here."});
 Object.assign(EN, {"Practica con los muñecos y las ratas.": "Practice on the dummies and the rats.", "¡Te damos la bienvenida al Campo de entrenamiento! Camina con el joystick o con las flechas del teclado hasta la Maestra Leira.": "Welcome to the Training Grounds! Walk with the joystick or the arrow keys over to Master Leira.", "Para hablar con alguien, tócalo o presiona Espacio cuando estés a su lado. Habla con la Maestra Leira.": "To talk to someone, tap them or press Space when you're next to them. Talk to Master Leira.", "Toca una sola vez un muñeco de práctica. Tu personaje camina hacia él y ataca solo. El aro rojo marca a quién atacas. No necesitas tocar más.": "Tap a training dummy just once. Your character walks to it and attacks on their own. The red ring shows who you're attacking. No need to tap again.", "Ahora toca otro muñeco. Así cambias de objetivo.": "Now tap a different dummy. That's how you switch targets.", "Las ratas del corral sí muerden. Entra al corral y vence a una.": "The rats in the pen do bite. Go into the pen and defeat one.", "Si tu vida baja, toca el botón Poción para curarte. Pruébalo ahora.": "If your health gets low, tap the Potion button to heal. Try it now.", "Toca el botón Equipo para ver lo que llevas puesto y lo que guardas en tu mochila.": "Tap the Equipment button to see what you're wearing and what's in your backpack.", "Toca el botón Mapa. El mapa se descubre mientras exploras y el signo de exclamación marca tu misión.": "Tap the Map button. The map reveals itself as you explore, and the exclamation mark shows your quest.", "¡Muy bien! Ya sabes lo necesario. Cruza el portal brillante para llegar al templo de Xanera.": "Well done! You know everything you need. Step through the glowing portal to reach the temple of Xanera.", "Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.": "I'm Leira, master-at-arms. Here you'll learn to fight before heading to Xanera.", "Un portal brillante que lleva al templo de Xanera.": "A glowing portal that leads to the temple of Xanera.", "Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!": "Your training is complete. Good luck in Velmar!", "\"Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.\"": "\"I'm Leira, master-at-arms. Here you'll learn to fight before heading to Xanera.\"", "\"Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!\"": "\"Your training is complete. Good luck in Velmar!\"", "\"Un portal brillante que lleva al templo de Xanera.\"": "\"A glowing portal that leads to the temple of Xanera.\"", "Campo de entrenamiento": "Training Grounds", "Muñeco de práctica": "Training Dummy", "un muñeco de práctica": "a training dummy", "Maestra de armas Leira": "Leira, Master-at-Arms", "Portal a Xanera": "Portal to Xanera", "Ir a Xanera": "Go to Xanera", "¡Entendido!": "Got it!", "Primero termina tu entrenamiento con la Maestra Leira. Si ya sabes jugar, usa «Omitir tutorial».": "First finish your training with Master Leira. If you already know how to play, use \"Skip tutorial\".", "⚔ Modo de ataque": "⚔ Attack mode", "Automático: tocas una vez y tu personaje sigue atacando. Manual: cada toque es un golpe.": "Automatic: tap once and your character keeps attacking. Manual: every tap is one hit.", "Automático": "Automatic", "Manual": "Manual", "Tu personaje ataca solo mientras el aro rojo esté sobre el monstruo. No necesitas tocar otra vez.": "Your character attacks on their own while the red ring is on the monster. No need to tap again.", "Llegas al templo de Xanera.": "You arrive at the temple of Xanera."});
 Object.assign(EN, {"¡": "", "ratas": "rats", "conejos": "rabbits", "lobos": "wolves", "avispas": "wasps", "osos": "bears", "serpientes": "snakes", "esqueletos": "skeletons", "orcos": "orcs", "trols": "trolls", "minotauros": "minotaurs", "bronce": "bronze", "plata": "silver", "oro": "gold"});
 const REV = {}; for (const k in EN) if (!(EN[k] in REV)) REV[EN[k]] = k;
@@ -597,7 +667,7 @@ const isTouch = matchMedia('(pointer: coarse)').matches;
 // ================= Voz de los personajes (lectura en voz alta del navegador) =================
 const Voice = (() => {
   // Voces grabadas para el juego (Kokoro, licencia Apache 2.0). Si una frase no tiene grabación, se usa la voz del aparato.
-  const CLIPS = {"Hay dos formas de atacar. Habla otra vez con la Maestra Leira para probar el modo Manual.": "voice/t13.mp3", "En modo Manual no eliges objetivo. Párate junto a un muñeco y toca la espada cinco veces. Pegas primero al que tienes de frente.": "voice/t14.mp3", "¡Bien! Habla con la Maestra Leira y elige el modo de ataque que más te guste.": "voice/t15.mp3", "En modo Automático tocas una vez y tu personaje sigue atacando solo. En modo Manual, cada toque es un golpe. ¡Prueba el Manual!": "voice/t16.mp3", "¿Cuál te gustó más? Siempre puedes cambiarlo en Ajustes, en Modo de ataque.": "voice/t17.mp3", "¡Te damos la bienvenida al Campo de entrenamiento! Camina con el joystick o con las flechas del teclado hasta la Maestra Leira.": "voice/t01.mp3", "Para hablar con alguien, tócalo o presiona Espacio cuando estés a su lado. Habla con la Maestra Leira.": "voice/t02.mp3", "Toca una sola vez un muñeco de práctica. Tu personaje camina hacia él y ataca solo. El aro rojo marca a quién atacas. No necesitas tocar más.": "voice/t03.mp3", "Ahora toca otro muñeco. Así cambias de objetivo.": "voice/t04.mp3", "Las ratas del corral sí muerden. Entra al corral y vence a una.": "voice/t05.mp3", "Si tu vida baja, toca el botón Poción para curarte. Pruébalo ahora.": "voice/t06.mp3", "Toca el botón Equipo para ver lo que llevas puesto y lo que guardas en tu mochila.": "voice/t07.mp3", "Toca el botón Mapa. El mapa se descubre mientras exploras y el signo de exclamación marca tu misión.": "voice/t08.mp3", "¡Muy bien! Ya sabes lo necesario. Cruza el portal brillante para llegar al templo de Xanera.": "voice/t09.mp3", "Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.": "voice/t10.mp3", "Un portal brillante que lleva al templo de Xanera.": "voice/t11.mp3", "Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!": "voice/t12.mp3", "Una mercader perdió su amuleto de plata huyendo de los lobos, al norte del Bosque Gris. Búscalo: brilla entre la hierba.": "voice/v04.mp3", "Nadie ha vencido al Ogro del Pantano. Su guarida, al sureste del Bosque Gris, está rodeada de zarzas. Galo, el aprendiz del templo, conoce un camino secreto. Habla con él.": "voice/v07.mp3", "¡Bien hecho! Los graneros respiran tranquilos.": "voice/v08.mp3", "Huelen terrible, pero servirán. Toma estas pociones.": "voice/v09.mp3", "El camino del puente vuelve a ser seguro.": "voice/v10.mp3", "¡Lo encontraste! La mercader te manda este casco como agradecimiento.": "voice/v11.mp3", "Los muertos vuelven a descansar. Por ahora.": "voice/v12.mp3", "Elara dice que estos cristales guardan magia antigua. Gracias.": "voice/v13.mp3", "¡Lo hiciste! Desde hoy eres la Guardiana de Xanera.": "voice/v14.mp3", "¡Te damos la bienvenida a Velmar! Para caminar, mueve el joystick o usa las flechas del teclado. Sal del templo por la puerta de abajo.": "voice/v15.mp3", "Él es el Capitán Aldric. Acércate y tócalo para hablar con él.": "voice/v16.mp3", "Acepta la misión del capitán. Después sal de la ciudad por la puerta de abajo, hacia los Campos del Sur.": "voice/v17.mp3", "Toca una rata para atacarla. Tu personaje pelea solo mientras esté cerca. ¡Vence a una!": "voice/v18.mp3", "Si tu vida baja, toca el botón Poción. Ahora toca el botón Equipo para ver lo que llevas puesto.": "voice/v19.mp3", "Guardiana de Xanera, ya no tengo misiones para ti. Este reino te debe mucho.": "voice/v20.mp3", "¡Cuento contigo! Vuelve cuando termines.": "voice/v21.mp3", "Que la luz de Xanera te guarde, viajero. Si regresas herido, te curaré sin cobrarte nada.": "voice/v22.mp3", "El mejor acero de Xanera. ¿Qué necesitas?": "voice/v23.mp3", "¡Misión lista! Vuelve con el Capitán Aldric.": "voice/v24.mp3", "¡Muy bien! Terminaste el tutorial y te ganaste la Espada del Aprendiz.": "voice/v25.mp3", "La voz de los personajes está activada.": "voice/v26.mp3", "Hola. Así sonará mi voz en Velmar.": "voice/v27.mp3", "Galo es el aprendiz del templo. Habla poco, pero conoce todos los caminos secretos de Velmar.": "voice/n01.mp3", "Raziel, el dragoncito de Xanera, tiene mucha hambre. Galo te pide ocho frutas del dragón. Están escondidas en los árboles de Velmar: búscalas brillando entre las hojas.": "voice/n02.mp3", "Sigue buscando frutas del dragón. Brillan entre las hojas de los árboles de Velmar.": "voice/n03.mp3", "Raziel comió todas las frutas y está feliz. Ahora quiere acompañarte en tu aventura. ¿Lo llevas contigo o lo dejas en su casita?": "voice/n04.mp3", "Encontraste una fruta del dragón.": "voice/n05.mp3", "¡Ya tienes las ocho frutas! Vuelve con Galo, en la ciudad.": "voice/n06.mp3", "Galo quiere que el ogro deje de asustar a Xanera.": "voice/n07.mp3", "Galo conoce un paso secreto entre las zarzas que rodean la guarida.": "voice/n08.mp3", "Galo te esperará junto a las zarzas, al sureste del Bosque Gris.": "voice/n09.mp3", "Pasa por el camino secreto entre las zarzas. Galo te espera aquí.": "voice/n10.mp3", "Galo está muy feliz porque venciste al ogro. ¿Qué le respondes?": "voice/n11.mp3", "Galo se ríe contigo. Ahora son grandes amigos.": "voice/n12.mp3", "¿Quieres que Raziel te acompañe, o prefieres que se quede en su casita?": "voice/n13.mp3", "Raziel se queda descansando en su casita. Puedes volver por él cuando quieras.": "voice/n14.mp3", "Esta es la casita de Raziel. Ayuda a Galo y Raziel podrá acompañarte en tu aventura.": "voice/n15.mp3", "¡Raziel creció! Ahora es un dragón joven.": "voice/n16.mp3", "¡Raziel creció! Ahora es un gran dragón.": "voice/n17.mp3", "¡Ganaste una medalla nueva!": "voice/n18.mp3", "¡Lo lograste! Gracias por jugar Velmar.": "voice/n19.mp3", "Que la luz de Xanera te guarde, viajera. Si regresas herida, te curaré sin cobrarte nada.": "voice/g01.mp3", "¡Lo hiciste! Desde hoy eres el Guardián de Xanera.": "voice/g02.mp3", "Guardián de Xanera, ya no tengo misiones para ti. Este reino te debe mucho.": "voice/g03.mp3", "Las ratas de los Campos del Sur se están comiendo el grano de Xanera. Caza 20 ratas.": "voice/v01.mp3", "La alquimista Nerea necesita colas de rata para sus pociones. Tráeme 10.": "voice/v02.mp3", "Los lobos atacan a los viajeros que cruzan el puente del este. Caza 20 lobos en el Bosque Gris.": "voice/v03.mp3", "Algo despierta a los muertos en la Cueva de los Huesos, al norte de Xanera. Destruye 20 esqueletos.": "voice/v05.mp3", "Los esqueletos cargan fragmentos de los cristales de la cueva. Tráeme 5 para que la sacerdotisa los estudie.": "voice/v06.mp3", "Tu runa de fuego no tiene cargas. La alquimista Nerea puede recargarla en Xanera.": "voice/n20.mp3", "Galo encontró un mapa viejo. Dentro de la Cueva de los Huesos hay escaleras que bajan a galerías profundas. En el segundo piso hay un cofre antiguo con un tesoro. ¿Vas a buscarlo?": "voice/n21.mp3", "Busca las escaleras dentro de la Cueva de los Huesos y baja dos pisos. El cofre está en una sala apartada de las galerías.": "voice/n22.mp3", "Galo está feliz: el tesoro era una runa de fuego. Úsala con el botón tres para lanzar bolas de fuego. Cuando se acaben las cargas, la alquimista Nerea la recarga.": "voice/n23.mp3", "Un cofre antiguo, bien cerrado. Quizá Galo sepa algo de él.": "voice/n24.mp3", "¡Encontraste la runa de fuego! Tiene diez cargas. Úsala con el botón tres.": "voice/n25.mp3", "El cofre está vacío. Ya tomaste su tesoro.": "voice/n26.mp3", "Pociones, hierbas y un poco de magia. Si tu runa se quedó sin fuerza, yo la recargo por un poco de oro.": "voice/x01.mp3", "Listo. Tu runa brilla otra vez. Úsala con cuidado.": "voice/x02.mp3", "Este es tu baúl de recuerdos. Aquí puedes guardar los objetos que ya no usas, como una colección.": "voice/n27.mp3", "¡Ganaste un peluche para tu colección!": "voice/n28.mp3", "¡Ganaste un trofeo para tu colección!": "voice/n29.mp3"};
+  const CLIPS = {"Cuidado: tu mochila guarda diez objetos. Si caes fuera de este campo, pierdes parte de tu oro y tus cosas se quedan en una bolsita donde caíste. A veces también se cae algo de lo que traes puesto. Toca Entendido y te enseño cómo se ve.": "voice/t18.mp3", "¡Pum! Te hice caer para enseñarte. Tu espada se quedó en una bolsita donde caíste. Sigue la flecha y recógela antes de que se acabe el tiempo del aviso rojo. Afuera tendrás cinco minutos.": "voice/t19.mp3", "Hay dos formas de atacar. Habla otra vez con la Maestra Leira para probar el modo Manual.": "voice/t13.mp3", "En modo Manual no eliges objetivo. Párate junto a un muñeco y toca la espada cinco veces. Pegas primero al que tienes de frente.": "voice/t14.mp3", "¡Bien! Habla con la Maestra Leira y elige el modo de ataque que más te guste.": "voice/t15.mp3", "En modo Automático tocas una vez y tu personaje sigue atacando solo. En modo Manual, cada toque es un golpe. ¡Prueba el Manual!": "voice/t16.mp3", "¿Cuál te gustó más? Siempre puedes cambiarlo en Ajustes, en Modo de ataque.": "voice/t17.mp3", "¡Te damos la bienvenida al Campo de entrenamiento! Camina con el joystick o con las flechas del teclado hasta la Maestra Leira.": "voice/t01.mp3", "Para hablar con alguien, tócalo o presiona Espacio cuando estés a su lado. Habla con la Maestra Leira.": "voice/t02.mp3", "Toca una sola vez un muñeco de práctica. Tu personaje camina hacia él y ataca solo. El aro rojo marca a quién atacas. No necesitas tocar más.": "voice/t03.mp3", "Ahora toca otro muñeco. Así cambias de objetivo.": "voice/t04.mp3", "Las ratas del corral sí muerden. Entra al corral y vence a una.": "voice/t05.mp3", "Si tu vida baja, toca el botón Poción para curarte. Pruébalo ahora.": "voice/t06.mp3", "Toca el botón Equipo para ver lo que llevas puesto y lo que guardas en tu mochila.": "voice/t07.mp3", "Toca el botón Mapa. El mapa se descubre mientras exploras y el signo de exclamación marca tu misión.": "voice/t08.mp3", "¡Muy bien! Ya sabes lo necesario. Cruza el portal brillante para llegar al templo de Xanera.": "voice/t09.mp3", "Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.": "voice/t10.mp3", "Un portal brillante que lleva al templo de Xanera.": "voice/t11.mp3", "Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!": "voice/t12.mp3", "Una mercader perdió su amuleto de plata huyendo de los lobos, al norte del Bosque Gris. Búscalo: brilla entre la hierba.": "voice/v04.mp3", "Nadie ha vencido al Ogro del Pantano. Su guarida, al sureste del Bosque Gris, está rodeada de zarzas. Galo, el aprendiz del templo, conoce un camino secreto. Habla con él.": "voice/v07.mp3", "¡Bien hecho! Los graneros respiran tranquilos.": "voice/v08.mp3", "Huelen terrible, pero servirán. Toma estas pociones.": "voice/v09.mp3", "El camino del puente vuelve a ser seguro.": "voice/v10.mp3", "¡Lo encontraste! La mercader te manda este casco como agradecimiento.": "voice/v11.mp3", "Los muertos vuelven a descansar. Por ahora.": "voice/v12.mp3", "Elara dice que estos cristales guardan magia antigua. Gracias.": "voice/v13.mp3", "¡Lo hiciste! Desde hoy eres la Guardiana de Xanera.": "voice/v14.mp3", "¡Te damos la bienvenida a Velmar! Para caminar, mueve el joystick o usa las flechas del teclado. Sal del templo por la puerta de abajo.": "voice/v15.mp3", "Él es el Capitán Aldric. Acércate y tócalo para hablar con él.": "voice/v16.mp3", "Acepta la misión del capitán. Después sal de la ciudad por la puerta de abajo, hacia los Campos del Sur.": "voice/v17.mp3", "Toca una rata para atacarla. Tu personaje pelea solo mientras esté cerca. ¡Vence a una!": "voice/v18.mp3", "Si tu vida baja, toca el botón Poción. Ahora toca el botón Equipo para ver lo que llevas puesto.": "voice/v19.mp3", "Guardiana de Xanera, ya no tengo misiones para ti. Este reino te debe mucho.": "voice/v20.mp3", "¡Cuento contigo! Vuelve cuando termines.": "voice/v21.mp3", "Que la luz de Xanera te guarde, viajero. Si regresas herido, te curaré sin cobrarte nada.": "voice/v22.mp3", "El mejor acero de Xanera. ¿Qué necesitas?": "voice/v23.mp3", "¡Misión lista! Vuelve con el Capitán Aldric.": "voice/v24.mp3", "¡Muy bien! Terminaste el tutorial y te ganaste la Espada del Aprendiz.": "voice/v25.mp3", "La voz de los personajes está activada.": "voice/v26.mp3", "Hola. Así sonará mi voz en Velmar.": "voice/v27.mp3", "Galo es el aprendiz del templo. Habla poco, pero conoce todos los caminos secretos de Velmar.": "voice/n01.mp3", "Raziel, el dragoncito de Xanera, tiene mucha hambre. Galo te pide ocho frutas del dragón. Están escondidas en los árboles de Velmar: búscalas brillando entre las hojas.": "voice/n02.mp3", "Sigue buscando frutas del dragón. Brillan entre las hojas de los árboles de Velmar.": "voice/n03.mp3", "Raziel comió todas las frutas y está feliz. Ahora quiere acompañarte en tu aventura. ¿Lo llevas contigo o lo dejas en su casita?": "voice/n04.mp3", "Encontraste una fruta del dragón.": "voice/n05.mp3", "¡Ya tienes las ocho frutas! Vuelve con Galo, en la ciudad.": "voice/n06.mp3", "Galo quiere que el ogro deje de asustar a Xanera.": "voice/n07.mp3", "Galo conoce un paso secreto entre las zarzas que rodean la guarida.": "voice/n08.mp3", "Galo te esperará junto a las zarzas, al sureste del Bosque Gris.": "voice/n09.mp3", "Pasa por el camino secreto entre las zarzas. Galo te espera aquí.": "voice/n10.mp3", "Galo está muy feliz porque venciste al ogro. ¿Qué le respondes?": "voice/n11.mp3", "Galo se ríe contigo. Ahora son grandes amigos.": "voice/n12.mp3", "¿Quieres que Raziel te acompañe, o prefieres que se quede en su casita?": "voice/n13.mp3", "Raziel se queda descansando en su casita. Puedes volver por él cuando quieras.": "voice/n14.mp3", "Esta es la casita de Raziel. Ayuda a Galo y Raziel podrá acompañarte en tu aventura.": "voice/n15.mp3", "¡Raziel creció! Ahora es un dragón joven.": "voice/n16.mp3", "¡Raziel creció! Ahora es un gran dragón.": "voice/n17.mp3", "¡Ganaste una medalla nueva!": "voice/n18.mp3", "¡Lo lograste! Gracias por jugar Velmar.": "voice/n19.mp3", "Que la luz de Xanera te guarde, viajera. Si regresas herida, te curaré sin cobrarte nada.": "voice/g01.mp3", "¡Lo hiciste! Desde hoy eres el Guardián de Xanera.": "voice/g02.mp3", "Guardián de Xanera, ya no tengo misiones para ti. Este reino te debe mucho.": "voice/g03.mp3", "Las ratas de los Campos del Sur se están comiendo el grano de Xanera. Caza 20 ratas.": "voice/v01.mp3", "La alquimista Nerea necesita colas de rata para sus pociones. Tráeme 10.": "voice/v02.mp3", "Los lobos atacan a los viajeros que cruzan el puente del este. Caza 20 lobos en el Bosque Gris.": "voice/v03.mp3", "Algo despierta a los muertos en la Cueva de los Huesos, al norte de Xanera. Destruye 20 esqueletos.": "voice/v05.mp3", "Los esqueletos cargan fragmentos de los cristales de la cueva. Tráeme 5 para que la sacerdotisa los estudie.": "voice/v06.mp3", "Tu runa de fuego no tiene cargas. La alquimista Nerea puede recargarla en Xanera.": "voice/n20.mp3", "Galo encontró un mapa viejo. Dentro de la Cueva de los Huesos hay escaleras que bajan a galerías profundas. En el segundo piso hay un cofre antiguo con un tesoro. ¿Vas a buscarlo?": "voice/n21.mp3", "Busca las escaleras dentro de la Cueva de los Huesos y baja dos pisos. El cofre está en una sala apartada de las galerías.": "voice/n22.mp3", "Galo está feliz: el tesoro era una runa de fuego. Úsala con el botón tres para lanzar bolas de fuego. Cuando se acaben las cargas, la alquimista Nerea la recarga.": "voice/n23.mp3", "Un cofre antiguo, bien cerrado. Quizá Galo sepa algo de él.": "voice/n24.mp3", "¡Encontraste la runa de fuego! Tiene diez cargas. Úsala con el botón tres.": "voice/n25.mp3", "El cofre está vacío. Ya tomaste su tesoro.": "voice/n26.mp3", "Pociones, hierbas y un poco de magia. Si tu runa se quedó sin fuerza, yo la recargo por un poco de oro.": "voice/x01.mp3", "Listo. Tu runa brilla otra vez. Úsala con cuidado.": "voice/x02.mp3", "Este es tu baúl de recuerdos. Aquí puedes guardar los objetos que ya no usas, como una colección.": "voice/n27.mp3", "¡Ganaste un peluche para tu colección!": "voice/n28.mp3", "¡Ganaste un trofeo para tu colección!": "voice/n29.mp3"};
   const norm = t => t.replace(/["“”]/g, '').replace(/\s+/g, ' ').trim();
   // En inglés: las mismas frases, grabadas en inglés en voice_en/ (mismo nombre de archivo)
   const CLIPS_EN = {};
@@ -984,7 +1054,29 @@ const ITEMS = {
   cota_cuero:     { name: T('Cota de cuero'), slot: 'armadura', def: 2, price: 90, color: '#7A5530' },
   cota_malla:     { name: T('Cota de malla'), slot: 'armadura', def: 4, price: 320, color: '#8A9099' },
   placas:         { name: T('Armadura de placas'), slot: 'armadura', def: 7, price: 900, color: '#C3C9D1' },
+  // Sets de la tienda: no se venden con Bruno ni se pueden vender por oro
+  galo_espada:    { name: T('Espada de Galo'), slot: 'arma', atk: 10, price: 0, color: '#7BD389', rare: true, set: 'galo', shop: true },
+  galo_escudo:    { name: T('Escudo de Galo'), slot: 'escudo', def: 3, price: 0, color: '#4E8F5A', rare: true, set: 'galo', shop: true },
+  galo_casco:     { name: T('Casco de Galo'), slot: 'casco', def: 2, price: 0, color: '#5FA36A', rare: true, set: 'galo', shop: true },
+  galo_armadura:  { name: T('Armadura de Galo'), slot: 'armadura', def: 5, price: 0, color: '#3E7A4C', rare: true, set: 'galo', shop: true },
+  xanera_espada:  { name: T('Espada de Xanera'), slot: 'arma', atk: 6, price: 0, color: '#F2D27A', rare: true, set: 'xanera', shop: true },
+  xanera_escudo:  { name: T('Escudo de Xanera'), slot: 'escudo', def: 4, price: 0, color: '#2F5FA8', rare: true, set: 'xanera', shop: true },
+  xanera_casco:   { name: T('Casco de Xanera'), slot: 'casco', def: 3, price: 0, color: '#E8C46A', rare: true, set: 'xanera', shop: true },
+  xanera_armadura: { name: T('Armadura de Xanera'), slot: 'armadura', def: 7, price: 0, color: '#3A64B0', rare: true, set: 'xanera', shop: true },
+  raziel_arco:    { name: T('Arco de Raziel'), slot: 'arma', atk: 8, range: 3, price: 0, color: '#4FA9D9', bow: true, rare: true, set: 'raziel', shop: true },
+  raziel_casco:   { name: T('Casco de Raziel'), slot: 'casco', def: 2, price: 0, color: '#FFB3D1', rare: true, set: 'raziel', shop: true },
+  raziel_armadura: { name: T('Armadura de Raziel'), slot: 'armadura', def: 5, price: 0, color: '#3E8FB8', rare: true, set: 'raziel', shop: true },
 };
+const SETS = {
+  galo:   { name: T('Set de Galo'), pieces: ['galo_espada', 'galo_escudo', 'galo_casco', 'galo_armadura'], bonus: T('Con el set completo, tu arma envenena.') },
+  raziel: { name: T('Set de Raziel'), pieces: ['raziel_arco', 'raziel_casco', 'raziel_armadura'], bonus: T('Con el set completo, caminas 40% más rápido.') },
+  xanera: { name: T('Set de Xanera'), pieces: ['xanera_espada', 'xanera_escudo', 'xanera_casco', 'xanera_armadura'], bonus: T('Con el set completo, +3 de defensa: bloqueas más golpes.') },
+};
+// Bruno cobra el triple (decisión de Viviana)
+for (const k in ITEMS) if (ITEMS[k].price > 0) ITEMS[k].price *= 3;
+// Objetos únicos de jefe: la primera vez caen seguro; después solo 5%
+const UNIQUE = { garrote_ogro: 1, arco_laberinto: 1 };
+const setFull = (id, E = P) => { const eq = eqOf(E); return !!eq && SETS[id].pieces.every(p => eq[ITEMS[p].slot] === p); };
 const LOOT = {
   lobo: [['casco_cuero', 0.04], ['cota_cuero', 0.03]],
   esq_arquero: [['yelmo_hueso', 0.04]],
@@ -1019,10 +1111,11 @@ const MT = {
   torvak:    { name: T('Torvak, Rey del Laberinto'), art: T('Torvak, el Rey del Laberinto'), hp: 1500, dmg: [16, 38], xp: 1600, gold: [200, 400], step: 0.6, atk: 1.8, resp: 600, aggro: 7, size: 1.35, pot: 1, boss: true, blood: '#8E2A22' },
   ogro:      { name: T('Ogro del Pantano'), art: T('el Ogro del Pantano'), hp: 900, dmg: [12, 34], xp: 600, gold: [100, 180], step: 0.65, atk: 1.8, resp: 150, aggro: 6, size: 1.2, pot: 1, boss: true, blood: '#5B7A2E' },
 };
-const POTION_PRICE = 50;
+const POTION_PRICE = 100;
 const TEMPLE = { x: 22, y: 25 };
 const xpNeed = l => 30 * l * l;
 const maxHp = l => 100 + (l - 1) * 15;
+const potHeal = l => 60 + l * 2;
 const rint = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const cheb = (ax, ay, bx, by) => Math.max(Math.abs(ax - bx), Math.abs(ay - by));
 
@@ -1035,23 +1128,29 @@ function newPlayer() {
     equip: { arma: 'espada_corta', escudo: null, casco: null, armadura: 'tunica' }, bag: [], q: { i: 0, active: false, prog: 0 },
     tut: { step: 0, done: false, rewarded: false, talked: false, kills: 0, eq: false },
     pet: false, teo: { path: false, thanked: false, answer: '' }, fruit: { state: 'none', got: [] },
-    stats: { kills: {} }, ach: {}, bond: 0, stageSeen: 0, trea: { state: 'none' }, runes: { fire: 0, got: false }, vault: [], marks: {}, runeCD: 0, deepest: 0,
+    stats: { kills: {} }, ach: {}, bond: 0, stageSeen: 0, trea: { state: 'none' }, runes: { fire: 0, got: false, heal: 0, hgot: false, sel: 'fire' }, shop: shopDefault(), uniq: {}, drops: [], vault: [], marks: {}, runeCD: 0, deepest: 0,
     path: [], follow: false, atkCD: 0, potCD: 0, lastHurt: -99, regenT: 0, flash: 0, swing: 0 };
 }
 const owned = id => Object.values(P.equip).includes(id) || P.bag.includes(id) || (P.vault || []).includes(id);
 const eqOf = E => (E && E.equip) || P.equip;
 const atkMax = (E = P) => Math.floor(5 + E.lvl * 1.5 + statOf(eqOf(E).arma));
-function defTotal(E = P) { const eq = eqOf(E); let d = 0; for (const s of SLOTS) if (s.id !== 'arma') d += statOf(eq[s.id]); return d; }
+function defTotal(E = P) { const eq = eqOf(E); let d = 0; for (const s of SLOTS) if (s.id !== 'arma') d += statOf(eq[s.id]); if (setFull('xanera', E)) d += 3; return d; }
 // El arco se usa con las dos manos: no se puede llevar escudo al mismo tiempo.
 const bowOn = (E = P) => { const a = eqOf(E).arma; return !!(ITEMS[a] && ITEMS[a].bow); };
 function shieldOffForBow() {
-  if (bowOn() && P.equip.escudo) { P.bag.push(P.equip.escudo); P.equip.escudo = null; if (typeof log === 'function') log(T('El arco se usa con las dos manos: guardaste tu escudo en la mochila.'), '#9FD0FF'); }
+  if (bowOn() && P.equip.escudo) { const sh = P.equip.escudo; P.equip.escudo = null; if (P.bag.length >= bagCap()) { P.vault.push(sh); log(T('El arco se usa con las dos manos: tu escudo se fue al baúl porque tu mochila está llena.'), '#9FD0FF'); return; } P.bag.push(sh); if (typeof log === 'function') log(T('El arco se usa con las dos manos: guardaste tu escudo en la mochila.'), '#9FD0FF'); }
 }
-function giveItem(id) {
+// Si es mejor te lo pones; si no, a la mochila. Si la mochila está llena, se queda en el suelo 1 minuto.
+function giveItem(id, gx, gy) {
   const it = ITEMS[id], cur = P.equip[it.slot];
-  if (it.slot === 'escudo' && bowOn()) { P.bag.push(id); return 'bag'; }
-  if (statOf(id) > statOf(cur)) { if (cur) P.bag.push(cur); P.equip[it.slot] = id; shieldOffForBow(); return 'equip'; }
-  P.bag.push(id); return 'bag';
+  const x = gx === undefined ? P.x : gx, y = gy === undefined ? P.y : gy;
+  if (!(it.slot === 'escudo' && bowOn()) && statOf(id) > statOf(cur)) {
+    P.equip[it.slot] = id; shieldOffForBow();
+    if (cur && !bagAdd(cur)) dropGround([cur], P.x, P.y, 60, 'item');
+    return 'equip';
+  }
+  if (bagAdd(id)) return 'bag';
+  dropGround([id], x, y, 60, 'item'); return 'ground';
 }
 function equipItem(id) {
   const i = P.bag.indexOf(id); if (i < 0) return false;
@@ -1063,6 +1162,7 @@ function equipItem(id) {
 }
 function unequip(slot) {
   if (slot === 'arma' || slot === 'armadura' || !P.equip[slot]) return;
+  if (!bagRoom()) { bagFullMsg(); return; }
   P.bag.push(P.equip[slot]); P.equip[slot] = null; Sound.play('equip');
 }
 
@@ -1244,17 +1344,17 @@ function petUpdate(dt) {
 }
 function drawPet(cx, cy, s) { const st = petStage(); drawPetAt(cx, cy, s * PET_STAGES[st].size, st); }
 function drawPetAt(cx, cy, s, stage) {
-  const t = reduceMotion ? 0 : now, hover = Math.sin(t * 4) * s * 0.06, f = pet.face;
+  const pal = RAZ_PAL[(P && P.shop && P.shop.cos && P.shop.cos.raz) || 'verde'], t = reduceMotion ? 0 : now, hover = Math.sin(t * 4) * s * 0.06, f = pet.face;
   ctx.fillStyle = 'rgba(0,0,0,0.22)'; ctx.beginPath(); ctx.ellipse(cx, cy + s * 0.32, s * 0.16, s * 0.05, 0, 0, 7); ctx.fill();
   cy -= s * 0.28 + hover;
   const flap = reduceMotion ? 0.5 : (Math.sin(t * 14) + 1) / 2;
-  ctx.fillStyle = '#7FD6B8';
+  ctx.fillStyle = pal.wing;
   for (const side of [-1, 1]) { ctx.beginPath(); ctx.moveTo(cx - f * s * 0.02, cy - s * 0.04); ctx.quadraticCurveTo(cx + side * s * 0.3, cy - s * (0.3 + flap * 0.12), cx + side * s * 0.28, cy + s * 0.02); ctx.closePath(); ctx.fill(); }
-  ctx.strokeStyle = '#3FA88A'; ctx.lineWidth = Math.max(2, s * 0.06); ctx.lineCap = 'round';
+  ctx.strokeStyle = pal.body; ctx.lineWidth = Math.max(2, s * 0.06); ctx.lineCap = 'round';
   ctx.beginPath(); ctx.moveTo(cx - f * s * 0.12, cy + s * 0.08); ctx.quadraticCurveTo(cx - f * s * 0.28, cy + s * 0.14, cx - f * s * 0.3, cy + s * 0.02); ctx.stroke();
-  ctx.fillStyle = '#3FA88A'; ctx.beginPath(); ctx.ellipse(cx, cy + s * 0.04, s * 0.15, s * 0.13, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = pal.body; ctx.beginPath(); ctx.ellipse(cx, cy + s * 0.04, s * 0.15, s * 0.13, 0, 0, 7); ctx.fill();
   ctx.fillStyle = '#F2E2B0'; ctx.beginPath(); ctx.ellipse(cx + f * s * 0.03, cy + s * 0.08, s * 0.08, s * 0.08, 0, 0, 7); ctx.fill();
-  ctx.fillStyle = '#46B596'; ctx.beginPath(); ctx.arc(cx + f * s * 0.08, cy - s * 0.12, s * 0.12, 0, 7); ctx.fill();
+  ctx.fillStyle = pal.head; ctx.beginPath(); ctx.arc(cx + f * s * 0.08, cy - s * 0.12, s * 0.12, 0, 7); ctx.fill();
   ctx.fillStyle = '#F2E2B0'; ctx.beginPath(); ctx.moveTo(cx + f * s * 0.02, cy - s * 0.2); ctx.lineTo(cx - f * s * 0.02, cy - s * 0.3); ctx.lineTo(cx + f * s * 0.07, cy - s * 0.22); ctx.fill();
   ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(cx + f * s * 0.12, cy - s * 0.14, s * 0.05, 0, 7); ctx.fill();
   ctx.fillStyle = '#1B1712'; ctx.beginPath(); ctx.arc(cx + f * s * 0.13, cy - s * 0.14, s * 0.03, 0, 7); ctx.fill();
@@ -1262,7 +1362,7 @@ function drawPetAt(cx, cy, s, stage) {
   ctx.fillStyle = '#F29BB8'; ctx.beginPath(); ctx.arc(cx + f * s * 0.15, cy - s * 0.07, s * 0.022, 0, 7); ctx.fill();
   if (stage >= 1) { ctx.fillStyle = '#F2E2B0'; ctx.beginPath(); ctx.moveTo(cx + f * s * 0.1, cy - s * 0.21); ctx.lineTo(cx + f * s * 0.13, cy - s * 0.33); ctx.lineTo(cx + f * s * 0.16, cy - s * 0.2); ctx.fill(); }
   if (stage >= 2) {
-    ctx.fillStyle = '#2E8B70'; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(cx - f * s * (0.02 + k * 0.06), cy - s * 0.02); ctx.lineTo(cx - f * s * (0.05 + k * 0.06), cy - s * 0.1); ctx.lineTo(cx - f * s * (0.08 + k * 0.06), cy - s * 0.0); ctx.fill(); }
+    ctx.fillStyle = pal.spike; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(cx - f * s * (0.02 + k * 0.06), cy - s * 0.02); ctx.lineTo(cx - f * s * (0.05 + k * 0.06), cy - s * 0.1); ctx.lineTo(cx - f * s * (0.08 + k * 0.06), cy - s * 0.0); ctx.fill(); }
     if (!reduceMotion && Math.sin(now * 1.3) > 0.85) { ctx.fillStyle = '#FF8A3D'; ctx.beginPath(); ctx.arc(cx + f * s * 0.24, cy - s * 0.1, s * 0.035, 0, 7); ctx.arc(cx + f * s * 0.29, cy - s * 0.12, s * 0.025, 0, 7); ctx.fill(); }
   }
 }
@@ -1437,19 +1537,32 @@ function renderChest(body) {
   } else if (st === 'found' || st === 'done') { $('dlgQuote').textContent = T('El cofre está vacío.'); teoChain = [st === 'found' && P.runes.fire === 10 ? NARR.chestOpen : NARR.chestEmpty]; note(teoChain[0]); }
   else { $('dlgQuote').textContent = T('Un cofre antiguo, bien cerrado.'); teoChain = [NARR.chestLocked]; note(NARR.chestLocked); }
 }
-const RUNE_PRICE = 120;
+const RUNE_PRICE = 50; // por carga
 function renderAlchemy(body) {
-  $('dlgQuote').textContent = T('"Pociones, hierbas y un poco de magia. Si tu runa se quedó sin fuerza, yo la recargo por un poco de oro."');
+  $('dlgQuote').textContent = T('"Pociones, hierbas y un poco de magia. Si tu runa se quedó sin fuerza, le pongo cargas por un poco de oro."');
   // Nerea vende las pociones de vida
-  body.appendChild(row(undefined, T('Poción de vida'), T('Cura ') + (60 + P.lvl * 5) + T(' de vida · tienes ') + P.potions, POTION_PRICE + T(' oro'), P.gold >= POTION_PRICE, () => {
+  body.appendChild(row(undefined, T('Poción de vida'), T('Cura ') + potHeal(P.lvl) + T(' de vida · tienes ') + P.potions, POTION_PRICE + T(' oro'), P.gold >= POTION_PRICE, () => {
     P.gold -= POTION_PRICE; P.potions++; hudCache = ''; Sound.play('coin');
   }));
-  if (!P.runes.got) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Todavía no tienes ninguna runa. Dicen que Galo sabe de un tesoro escondido bajo la Cueva de los Huesos.'); body.appendChild(p); return; }
-  const full = P.runes.fire >= 10;
-  body.appendChild(row(undefined, T('Recargar runa de fuego'), full ? T('Tu runa está llena (10 de 10 cargas).') : T('Le quedan ') + P.runes.fire + T(' de 10 cargas.'), RUNE_PRICE + T(' oro'), !full && P.gold >= RUNE_PRICE, () => {
-    P.gold -= RUNE_PRICE; P.runes.fire = 10; hudCache = ''; Sound.play('potion'); burst(P.x, P.y, '#FF8A3D', 14, 1.5, 2);
-    log(T('Nerea recargó tu runa de fuego: 10 cargas.'), '#FFB347'); Voice.say(T('Listo. Tu runa brilla otra vez. Úsala con cuidado.'), 'nerea');
-  }));
+  if (!P.runes.got) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Todavía no tienes la runa de fuego. Dicen que Galo sabe de un tesoro escondido bajo la Cueva de los Huesos.'); body.appendChild(p); return; }
+  // Cargas de fuego sueltas: 50 de oro cada una, todas las que alcancen
+  const el = document.createElement('div'); el.className = 'item';
+  const tx = document.createElement('div'); tx.textContent = T('Cargas para tu runa de fuego');
+  const sm = document.createElement('small'); sm.textContent = T('Tienes ') + P.runes.fire + T(' cargas · ') + RUNE_PRICE + T(' de oro cada una'); tx.appendChild(sm); el.appendChild(tx);
+  const acts = document.createElement('div'); acts.className = 'acts';
+  for (const n of [1, 5, 10]) {
+    const b = document.createElement('button'); b.textContent = '+' + n; b.disabled = P.gold < RUNE_PRICE * n;
+    b.title = (RUNE_PRICE * n) + T(' oro');
+    b.addEventListener('click', () => {
+      if (P.gold < RUNE_PRICE * n) return;
+      P.gold -= RUNE_PRICE * n; P.runes.fire += n; hudCache = ''; Sound.play('potion'); burst(P.x, P.y, '#FF8A3D', 14, 1.5, 2);
+      log(T('Nerea le puso ') + n + (n === 1 ? T(' carga') : T(' cargas')) + T(' a tu runa de fuego. Ahora tienes ') + P.runes.fire + '.', '#FFB347');
+      if (n >= 5) Voice.say(T('Listo. Tu runa brilla otra vez. Úsala con cuidado.'), 'nerea');
+      save(); renderDialog();
+    });
+    acts.appendChild(b);
+  }
+  el.appendChild(acts); body.appendChild(el);
 }
 function renderPetDialog(body) {
   if (P.fruit.state !== 'done') {
@@ -1855,18 +1968,22 @@ const TUT = [
   { text: T("Hay dos formas de atacar. Habla otra vez con la Maestra Leira para probar el modo Manual."), goal: () => TRAIN.leira, done: () => P.tut.manualOn },
   { text: T("En modo Manual no eliges objetivo. Párate junto a un muñeco y toca la espada cinco veces. Pegas primero al que tienes de frente."), goal: () => nearestDummy(false), done: () => (P.tut.mhits || 0) >= 5 },
   { text: T("¡Bien! Habla con la Maestra Leira y elige el modo de ataque que más te guste."), goal: () => TRAIN.leira, done: () => P.tut.chose },
-  { text: T("Las ratas del corral sí muerden. Entra al corral y vence a una."), goal: nearestRat, done: () => P.tut.kills >= 1 },
+  { text: T("Las ratas del corral sí muerden. Entra al corral y vence a una."), goal: nearestRat, enter: () => tutGiveSword(), done: () => P.tut.kills >= 1 },
   { text: T("Si tu vida baja, toca el botón Poción para curarte. Pruébalo ahora."), goal: null, btn: 'bPot', done: () => P.tut.pot },
   { text: T("Toca el botón Equipo para ver lo que llevas puesto y lo que guardas en tu mochila."), goal: null, btn: 'bEq', done: () => P.tut.eq },
+  { text: T("Cuidado: tu mochila guarda diez objetos. Si caes fuera de este campo, pierdes parte de tu oro y tus cosas se quedan en una bolsita donde caíste. A veces también se cae algo de lo que traes puesto. Toca Entendido y te enseño cómo se ve."), goal: null, ok: 'deathInfo', done: () => P.tut.deathInfo },
+  { text: T("¡Pum! Te hice caer para enseñarte. Tu espada se quedó en una bolsita donde caíste. Sigue la flecha y recógela antes de que se acabe el tiempo del aviso rojo. Afuera tendrás cinco minutos."), goal: () => tutDropSpot(), enter: () => tutFaint(), done: () => P.tut.fainted && !tutDrop() },
   { text: T("Toca el botón Mapa. El mapa se descubre mientras exploras y el signo de exclamación marca tu misión."), goal: null, btn: 'bMap', done: () => P.tut.map },
   { text: T("¡Muy bien! Ya sabes lo necesario. Cruza el portal brillante para llegar al templo de Xanera."), goal: () => TRAIN.portal, done: () => P.tut.portal },
 ];
 const tutActive = () => !!(P && P.tut && !P.tut.done && playing);
 function tutUpdate() {
   if (!tutActive()) return;
+  // Los primeros pasos explican el modo Automático: si el jugador tenía Manual guardado, se cambia (y se devuelve si omite el tutorial)
+  if (P.tut.step <= 4 && !P.tut.manualOn && SET.attack === 'manual') { if (!P.tut.prevAttack) P.tut.prevAttack = 'manual'; SET.attack = 'auto'; saveSet(); }
   if (TUT[P.tut.step].done()) {
     P.tut.step++;
-    if (P.tut.step >= TUT.length) finishTutorial(); else { Sound.play('ui'); showTut(true); }
+    if (P.tut.step >= TUT.length) finishTutorial(); else { const nx = TUT[P.tut.step]; if (nx.enter) nx.enter(); Sound.play('ui'); showTut(true); }
     save();
   }
 }
@@ -1882,8 +1999,34 @@ function showTut(speak) {
   $('tutStep').textContent = T('Tutorial · paso ') + (P.tut.step + 1) + T(' de ') + TUT.length;
   $('tutText').textContent = st.text;
   if (st.btn) $(st.btn).classList.add('hint');
+  $('tutOk').hidden = !st.ok;
   if (speak) Voice.say(st.text, 'leira');
   requestAnimationFrame(fitCY);
+}
+// Leira entrega la Espada del Aprendiz antes de las ratas
+function tutGiveSword() {
+  if (owned('espada_aprendiz')) return;
+  const r = giveItem('espada_aprendiz');
+  log(T('La Maestra Leira te dio la Espada del Aprendiz') + (r === 'equip' ? T(' y te la pusiste.') : T('. Está en tu mochila.')), '#E4B54A');
+  const [rx, ry] = rpos(P); burst(rx, ry, '#FFD86B', 16, 2, 2); Sound.play('loot');
+}
+// Práctica de caer: Leira te tumba, la espada queda en una bolsita y tienes que ir por ella
+const tutDrop = () => (P.drops || []).find(d => d.tut);
+function tutDropSpot() { const d = tutDrop(); return d && FLOOR === d.fl ? { x: d.x, y: d.y } : null; }
+function tutFaint() {
+  if (FLOOR !== 4 || tutDrop()) return;
+  P.tut.fainted = true;
+  const sword = P.equip.arma && P.equip.arma !== 'espada_corta' ? P.equip.arma : null;
+  // la bolsita se queda lejos de donde te levantas, para que tengas que caminar
+  let x = P.x, y = P.y;
+  if (cheb(x, y, TRAIN.spawn.x, TRAIN.spawn.y) < 4) { x = TRAIN.spawn.x + 6; y = TRAIN.spawn.y; while (!walkable(x, y) && x > TRAIN.spawn.x + 3) x--; }
+  const [rx, ry] = rpos(P); burst(rx, ry, '#E8F0FF', 18, 1.6, 2); Sound.play('death');
+  $('death').classList.add('show'); setTimeout(() => $('death').classList.remove('show'), 1400);
+  if (sword) { P.equip.arma = 'espada_corta'; dropGround([sword], x, y, 300, 'bag', { eq: sword, tut: true }); }
+  else dropGround(['escudo_madera'], x, y, 300, 'bag', { tut: true });
+  P.x = P.fx = TRAIN.spawn.x; P.y = P.fy = TRAIN.spawn.y; P.mt = 1; P.path = []; P.follow = false; target = null; P.hp = maxHp(P.lvl);
+  log(T('¡Pum! La Maestra Leira te hizo caer para enseñarte. Es práctica: aquí no pierdes nada de verdad.'), '#FF9A8A');
+  save();
 }
 function finishTutorial() {
   P.tut.done = true; showTut(false);
@@ -1899,7 +2042,8 @@ function finishTutorial() {
   save();
 }
 function skipTutorial() {
-  if (P.tut.manualOn && !P.tut.chose) { SET.attack = 'auto'; saveSet(); }
+  const td = tutDrop(); if (td) { P.drops.splice(P.drops.indexOf(td), 1); for (const id of td.items) { if (id === td.eq && P.equip.arma === 'espada_corta') P.equip.arma = id; else if (!bagAdd(id, true)) P.vault.push(id); } }
+  if (!P.tut.chose && (P.tut.manualOn || P.tut.prevAttack)) { SET.attack = P.tut.prevAttack || 'auto'; saveSet(); }
   P.tut.done = true; showTut(false); Voice.stop();
   if (FLOOR === 4) goToXanera();
   log(T('Omitiste el tutorial. Puedes repetirlo cuando quieras desde Ajustes.'), '#C9C3B3'); save();
@@ -2291,7 +2435,30 @@ function drawShots(ox, oy, S) {
     }
   }
 }
-const weaponRange = (E = P) => (ITEMS[eqOf(E).arma] || {}).range || 1;
+const weaponRange = (E = P) => ((ITEMS[eqOf(E).arma] || {}).range || 1) + (E === P && buffOn('flecha') && bowOn(P) ? 2 : 0);
+const RUNE_SVG = {
+  fire: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l14 10v20L24 44 10 34V14z" fill="#3A1A10" stroke="#FF8A3D" stroke-width="2" stroke-linejoin="round"/><path d="M24 13c4 5 7 8 7 13a7 7 0 0 1-14 0c0-3 2-5 3-7 1 3 2 4 4 4-1-4-1-7 0-10z" fill="#FFB347" stroke="#FF6A2A" stroke-width="1.5"/></svg>',
+  heal: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4l14 10v20L24 44 10 34V14z" fill="#10301E" stroke="#5FE08A" stroke-width="2" stroke-linejoin="round"/><path d="M20 15h8v6h6v8h-6v6h-8v-6h-6v-8h6z" fill="#8FF0AE" stroke="#2E9E5A" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+};
+// Un solo botón de runa: usa la que llevas puesta (fuego o curación)
+const runeSel = () => P.runes.sel === 'heal' && P.runes.hgot ? 'heal' : 'fire';
+function castRune() { if (runeSel() === 'heal') castHeal(); else castFire(); }
+function switchRune() {
+  if (net.guest) return;
+  if (!(P.runes.got && P.runes.hgot)) { log(P.runes.hgot ? T('Solo tienes la runa de curación. La de fuego se gana con el tesoro de Galo o en la tienda.') : T('Solo tienes la runa de fuego. La de curación está en la tienda.'), '#D9C4FF'); return; }
+  P.runes.sel = runeSel() === 'heal' ? 'fire' : 'heal'; hudCache = ''; Sound.play('ui');
+  log(P.runes.sel === 'heal' ? T('Llevas puesta la runa de curación.') : T('Llevas puesta la runa de fuego.'), P.runes.sel === 'heal' ? '#8FF0AE' : '#FFB347');
+  save();
+}
+function castHeal() {
+  if (net.guest) { log(T('En línea, la runa la usa quien creó la sala.'), '#C9C3B3'); return; }
+  if (P.ghost || P.runeCD > 0) return;
+  if (P.runes.heal <= 0) { log(T('Tu runa de curación no tiene cargas. Las encuentras en la tienda.'), '#8FF0AE'); return; }
+  const mh = maxHp(P.lvl); if (P.hp >= mh) { log(T('Ya tienes la vida completa.'), '#C9C3B3'); return; }
+  const before = P.hp; P.hp = mh; P.runes.heal--; P.runeCD = 1.2; P.poisonUntil = 0; P.burnUntil = 0; hudCache = '';
+  const [rx, ry] = rpos(P); float(rx, ry, '+' + Math.round(mh - before), '#8FF0AE'); burst(rx, ry, '#8FF0AE', 22, 1.6, 2.2); rings.push({ x: rx, y: ry, t: 0 }); Sound.play('potion');
+  save();
+}
 function castFire() {
   if (net.guest) { log(T('En línea, la runa la usa quien creó la sala.'), '#C9C3B3'); return; }
   if (P.ghost) return;
@@ -2375,7 +2542,7 @@ function burst(x, y, color, n, speed, up) {
 let target = null;
 function playerAttack(m, E = P) {
   const max = atkMax(E), min = Math.floor(max / 4);
-  const dmg = Math.random() < 0.1 + (m.d.evade || 0) ? 0 : coopDmg(rint(min, max));
+  const dmg = Math.random() < 0.1 + (m.d.evade || 0) ? 0 : Math.round(coopDmg(rint(min, max)) * (E === P ? buffMul() : 1));
   m.provoked = true; m.leash = false; m.lastHit = now; m.lastBy = E;
   if (E === P && m.type === 'muneco' && tutActive()) { P.tut.hits = (P.tut.hits || 0) + 1; if (SET.attack === 'manual' && P.tut.manualOn) P.tut.mhits = (P.tut.mhits || 0) + 1; }
   const [rx, ry] = rpos(m);
@@ -2385,6 +2552,7 @@ function playerAttack(m, E = P) {
     const c = dmg * 2; m.hp -= c; m.flash = 0.25; float(rx, ry - 0.2, T('¡') + c + '!', '#FFE14A'); burst(rx, ry, '#FFE14A', 12, 2.6, 1.2); Sound.play('hit');
     if (m.hp <= 0) killMonster(m); return;
   }
+  if (E === P && setFull('galo') && !m.d.still) { if (!(m.poisonUntil > now)) m.poisonT = 0; m.poisonUntil = now + 5; m.poisonDmg = 2 + Math.floor(P.lvl / 4); m.poisonBy = P; }
   m.hp -= dmg; m.flash = 0.15; float(rx, ry, String(dmg), '#FFB347');
   burst(rx, ry, m.d.blood, 8, 2.2, 1);
   Sound.play('hit');
@@ -2404,14 +2572,15 @@ function killMonster(m) {
   let msg = (k ? nameOf(k) + T(' venció a ') : T('Venciste a ')) + d.art + '. +' + d.xp + ' XP' + (g ? ', ' + g + T(' de oro') : '') + '.';
   if (g) setTimeout(() => Sound.play('coin'), 180);
   petSay('bien', 0.6);
-  if (Math.random() < d.pot) { if (k) { k.potions = (k.potions | 0) + 1; msg += T(' Encontró una poción.'); } else { P.potions++; msg += T(' Encontraste una poción.'); } }
-  for (const [id, ch] of (LOOT[m.type] || [])) {
+  if (Math.random() < (d.boss ? d.pot : d.pot / 2)) { if (k) { k.potions = (k.potions | 0) + 1; msg += T(' Encontró una poción.'); } else { P.potions++; msg += T(' Encontraste una poción.'); } }
+  for (const [id, ch0] of (LOOT[m.type] || [])) {
+    const ch = UNIQUE[id] ? (k ? (ownsA(k, id) ? 0.05 : 1) : (P.uniq[id] ? 0.05 : 1)) : ch0;
     if (Math.random() >= ch) continue;
-    if (k) { if (ownsA(k, id)) continue; allyGive(k, id); msg += T(' ¡Encontró ') + ITEMS[id].name + '!'; }
+    if (k) { if (!allyGive(k, id)) { msg += ' ' + nameOf(k) + T(' tiene la mochila llena.'); continue; } msg += T(' ¡Encontró ') + ITEMS[id].name + '!'; }
     else {
-    if (owned(id)) continue;
-    const r = giveItem(id);
-    msg += r === 'equip' ? T(' ¡Encontraste ') + ITEMS[id].name + T(' y te lo pusiste!') : T(' Encontraste ') + ITEMS[id].name + T(' (está en tu mochila).');
+    if (UNIQUE[id]) P.uniq[id] = true;
+    const r = giveItem(id, m.x, m.y);
+    msg += r === 'equip' ? T(' ¡Encontraste ') + ITEMS[id].name + T(' y te lo pusiste!') : r === 'bag' ? T(' Encontraste ') + ITEMS[id].name + T(' (está en tu mochila).') : T(' ¡') + ITEMS[id].name + T(' quedó en el suelo! Tienes 1 minuto para hacer espacio y recogerlo.');
     }
     burst(m.x, m.y, '#FFE08A', 14, 2, 2);
     setTimeout(() => Sound.play('loot'), 300);
@@ -2439,7 +2608,7 @@ function gainXp(n) {
 function monsterAttack(m, E = P) {
   if (E.ghost || E.hp <= 0) return;
   const raw = rint(m.d.dmg[0], m.d.dmg[1]);
-  const dmg = Math.max(0, raw - rint(0, defTotal(E)));
+  const dmg = Math.round(Math.max(0, raw - rint(0, defTotal(E))) * (E === P && buffOn('flecha') ? 1.3 : 1));
   const [rx, ry] = rpos(E), me = E === P;
   E.lastHurt = now;
   if (dmg === 0) { float(rx, ry, 'bloqueo', '#9CC3E6'); Sound.play('block'); return; }
@@ -2461,13 +2630,29 @@ function playerDie(m) {
     Sound.play('death'); $('death').classList.add('show'); setTimeout(() => $('death').classList.remove('show'), 1600);
     save(); return;
   }
-  const lost = Math.floor(P.gold * 0.2);
+  const lost = Math.floor(P.gold * 0.3);
   P.gold -= lost; P.xp = 0; P.hp = maxHp(P.lvl);
+  if (P.shop) { P.shop.buff = null; P.shop.buffLeft = 0; }
+  // Se tira la mochila y puede caer una pieza de lo que traes puesto (20%; objetos raros de jefe 10%)
+  // Bendición de Elara (tienda): se gasta una y no pierdes nada de la mochila ni de lo que traes puesto
+  const blessed = P.shop && P.shop.bless > 0; if (blessed) P.shop.bless--;
+  const items = blessed ? [] : P.bag.slice(); if (!blessed) { P.bag = []; P.marks = {}; }
+  const cand = blessed ? [] : SLOTS.map(sl => P.equip[sl.id]).filter(id => id && id !== 'espada_corta' && id !== 'tunica');
+  let eqLost = null;
+  if (cand.length) {
+    const id = cand[Math.floor(Math.random() * cand.length)], it = ITEMS[id];
+    if (Math.random() < (it.rare && !it.shop ? 0.1 : 0.2)) { eqLost = id; items.push(id); P.equip[it.slot] = it.slot === 'arma' ? 'espada_corta' : it.slot === 'armadura' ? 'tunica' : null; }
+  }
+  P.drops = P.drops || [];
+  if (items.length) dropGround(items, P.x, P.y, 300, 'bag', { eq: eqLost });
   if (FLOOR !== 0) setFloor(0);
   P.x = P.fx = TEMPLE.x; P.y = P.fy = TEMPLE.y; P.mt = 1; P.path = []; P.follow = false;
   target = null; lastZone = '';
   for (const mm of monsters) mm.provoked = false;
   log(T('Caíste ante ') + m.d.art + T('. Perdiste ') + lost + T(' de oro y la experiencia de este nivel.'), '#FF7B70');
+  if (blessed) log(T('✨ La Bendición de Elara protegió tu mochila y tu equipo. Te quedan ') + P.shop.bless + '.', '#FFE7A8');
+  if (eqLost) log(T('¡Se te cayó ') + ITEMS[eqLost].name + T('! Está junto a tu mochila donde caíste.'), '#FF5A4E');
+  if (items.length) log(T('Tu mochila quedó donde caíste. Tienes 5 minutos para regresar por ella. Sigue la flecha.'), '#FF5A4E');
   Sound.play('death');
   $('death').classList.add('show');
   setTimeout(() => $('death').classList.remove('show'), 1600);
@@ -2480,7 +2665,7 @@ function drinkPotion() {
   if (P.potions <= 0) { log(T('No te quedan pociones. La alquimista Nerea las vende.'), '#C9C3B3'); return; }
   if (P.hp >= maxHp(P.lvl)) { log(T('Ya tienes la vida completa.'), '#C9C3B3'); return; }
   P.potions--; P.potCD = 1;
-  const heal = 60 + P.lvl * 5, before = P.hp;
+  const heal = potHeal(P.lvl), before = P.hp;
   P.hp = Math.min(maxHp(P.lvl), P.hp + heal);
   const [rx, ry] = rpos(P); float(rx, ry, '+' + Math.round(P.hp - before), '#7DE07B');
   burst(rx, ry, '#7DE07B', 12, 1.2, 2);
@@ -2575,7 +2760,7 @@ function iconEl(id) {
 // ================= NPC, tienda y equipo =================
 let pendingTalk = null, dlgNpc = null;
 const _qHidden = 0;
-const uiOpen = () => !$('mapv').hidden || !$('inst').hidden || !$('donate').hidden || !$('online').hidden || !$('coop').hidden || !$('create').hidden || !$('dlg').hidden || !$('eq').hidden || !$('cfg').hidden || !$('album').hidden || !$('credits').hidden;
+const uiOpen = () => !$('shopv').hidden || !$('mapv').hidden || !$('inst').hidden || !$('donate').hidden || !$('online').hidden || !$('coop').hidden || !$('create').hidden || !$('dlg').hidden || !$('eq').hidden || !$('cfg').hidden || !$('album').hidden || !$('credits').hidden;
 function nearNpc() { if (net.guest) { const me = net.me; return me ? NPCS.find(n => npcHere(n) && (n.kind === 'shop' || n.kind === 'alchemy') && cheb(me.x, me.y, n.x, n.y) <= 1) || null : null; } return NPCS.find(n => npcHere(n) && cheb(P.x, P.y, n.x, n.y) <= 1) || null; }
 function talkTo(n) {
   if (cheb(P.x, P.y, n.x, n.y) <= 1) { openDialog(n); return; }
@@ -2634,11 +2819,12 @@ function renderDialog() {
     return;
   }
   $('dlgQuote').textContent = T('"El mejor acero de Xanera. ¿Qué necesitas? Tienes ') + P.gold + T(' de oro."');
-  const forSale = Object.keys(ITEMS).filter(id => ITEMS[id].price > 0 && !owned(id))
+  const forSale = Object.keys(ITEMS).filter(id => ITEMS[id].price > 0)
     .sort((a, b) => SLOTS.findIndex(s => s.id === ITEMS[a].slot) - SLOTS.findIndex(s => s.id === ITEMS[b].slot) || ITEMS[a].price - ITEMS[b].price);
+  if (!bagRoom()) { const p = document.createElement('p'); p.className = 'empty'; p.style.color = '#FF9A70'; p.textContent = T('Mochila llena. Vende objetos o guárdalos en tu baúl.'); body.appendChild(p); }
   for (const id of forSale) {
     const it = ITEMS[id];
-    body.appendChild(row(id, it.name, statText(id) + ' · ' + SLOTS.find(s => s.id === it.slot).label.toLowerCase(), it.price + T(' oro'), P.gold >= it.price, () => {
+    body.appendChild(row(id, it.name, statText(id) + ' · ' + SLOTS.find(s => s.id === it.slot).label.toLowerCase(), it.price + T(' oro'), P.gold >= it.price && bagRoom(), () => {
       P.gold -= it.price; const r = giveItem(id); Sound.play('coin');
       log(r === 'equip' ? T('Compraste ') + it.name + T(' y te lo pusiste.') : T('Compraste ') + it.name + T('. Está en tu mochila.'), '#E4B54A');
     }));
@@ -2648,7 +2834,7 @@ function renderDialog() {
     const h = document.createElement('h3'); h.textContent = T('Vender de tu mochila'); body.appendChild(h);
     const ms = marked('sell');
     if (ms.length) { const total = ms.reduce((a, i) => a + sellValue(i), 0); body.appendChild(row(undefined, T('Vender lo marcado'), ms.map(i => ITEMS[i].name).join(', '), '+' + total + T(' oro'), true, () => ms.forEach(sellItem))); }
-    for (const id of P.bag) if (P.marks[id] !== 'sell') body.appendChild(row(id, ITEMS[id].name, statText(id), '+' + sellValue(id) + T(' oro'), true, () => sellItem(id)));
+    for (const id of P.bag) if (P.marks[id] !== 'sell' && !ITEMS[id].shop) body.appendChild(row(id, ITEMS[id].name, statText(id), '+' + sellValue(id) + T(' oro'), true, () => sellItem(id)));
   }
 }
 let questSpeakNext = false;
@@ -2689,8 +2875,16 @@ function rewardText(q) {
 }
 function openCfg() { keyStack.length = 0; padDir = null; renderCfg(); $('cfg').hidden = false; $('cfgClose').focus(); Sound.play('ui'); }
 function closeCfg() { $('cfg').hidden = true; }
+let cfgTab = 'juego';
 function renderCfg() {
-  const list = $('cfgList'); list.innerHTML = '';
+  const root = $('cfgList'); root.innerHTML = '';
+  const TABS = [['juego', T('🎮 Juego')], ['sonido', T('🔊 Sonido')], ['linea', T('🌐 En línea')], ['partida', T('👤 Mi partida')]];
+  const bar = document.createElement('div'); bar.className = 'tabs'; bar.setAttribute('role', 'tablist');
+  for (const [id, label] of TABS) { const b = document.createElement('button'); b.textContent = label; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', String(cfgTab === id)); b.addEventListener('click', () => { cfgTab = id; Sound.play('ui'); renderCfg(); const f = $('cfgList').querySelector('.tabs [aria-selected="true"]'); if (f) f.focus(); }); bar.appendChild(b); }
+  root.appendChild(bar);
+  const G = {}; for (const [id] of TABS) { G[id] = document.createElement('div'); G[id].className = 'list'; }
+  let list = G.juego;
+  list = G.juego;
   { const el = document.createElement('div'); el.className = 'opt';
     const tx = document.createElement('div'); tx.textContent = '🌐 Idioma / Language';
     const sm = document.createElement('small'); sm.textContent = LANG === 'en' ? 'The game will reload in Spanish. Your progress is saved.' : 'El juego se recarga en inglés. Tu avance se guarda.'; tx.appendChild(sm);
@@ -2703,12 +2897,14 @@ function renderCfg() {
     const b = document.createElement('button'); b.textContent = SET.attack === 'manual' ? T('Manual') : T('Automático');
     b.addEventListener('click', () => { SET.attack = SET.attack === 'manual' ? 'auto' : 'manual'; saveSet(); if (SET.attack === 'manual') { target = null; P.follow = false; } Sound.play('ui'); renderCfg(); });
     el.append(tx, b); list.appendChild(el); }
+  list = G.partida;
   if (donateOK()) { const el = document.createElement('div'); el.className = 'opt';
     const tx = document.createElement('div'); tx.textContent = T('💛 Apoyar a Velmar');
     const sm = document.createElement('small'); sm.textContent = T('Velmar es gratis. Si te gusta, puedes apoyar al juego con una donación en itch.io.'); tx.appendChild(sm);
     const a = document.createElement('a'); a.href = DONATE_URL; a.target = '_blank'; a.rel = 'noopener'; a.textContent = T('Apoyar'); a.className = 'btnlike';
     a.style.cssText = 'display:inline-block;padding:8px 14px;border-radius:10px;background:#E4B54A;color:#2A1A08;font-weight:800;text-decoration:none;white-space:nowrap';
     el.append(tx, a); list.appendChild(el); }
+  list = G.linea;
   if (playing) {
     const el = document.createElement('div'); el.className = 'opt';
     const tx = document.createElement('div'); tx.textContent = T('🌐 Jugar en línea');
@@ -2720,7 +2916,7 @@ function renderCfg() {
     el.append(tx, b); list.appendChild(el);
   }
   const opt = (key, title, note, disabled) => {
-    const el = document.createElement('div'); el.className = 'opt';
+    const el = document.createElement('div'); el.className = 'opt'; const dest = list;
     const tx = document.createElement('div'); tx.textContent = title;
     const sm = document.createElement('small'); sm.textContent = note; tx.appendChild(sm);
     const b = document.createElement('button');
@@ -2731,9 +2927,11 @@ function renderCfg() {
       if (key === 'voice') { if (SET.voice) Voice.say(T('La voz de los personajes está activada.'), 'guia'); else Voice.stop(); }
       renderCfg();
     });
-    el.append(tx, b); list.appendChild(el);
+    el.append(tx, b); dest.appendChild(el);
   };
+  list = G.linea;
   opt('chatFilter', T('🛡️ Filtro de groserías en el chat'), T('Tapa las malas palabras en los mensajes que recibes en línea.'));
+  list = G.sonido;
   opt('music', T('Música'), T('Canciones medievales que cambian en cada zona.'));
   opt('sfx', T('Efectos de sonido'), T('Golpes, monedas, pociones y más.'));
   opt('voice', T('Voz de los personajes'), T('Los personajes y el tutorial dicen en voz alta lo que escriben. Ideal para quien todavía no sabe leer.'));
@@ -2752,6 +2950,7 @@ function renderCfg() {
     b.addEventListener('click', () => Voice.say(T('Que la luz de Xanera te guarde, viajero. Si regresas herido, te curaré sin cobrarte nada.'), 'elara'));
     el.append(tx, b); list.appendChild(el);
   }
+  list = G.partida;
   { const el = document.createElement('div'); el.className = 'opt';
     const tx = document.createElement('div'); tx.textContent = T('Créditos');
     const sm = document.createElement('small'); sm.textContent = T('Quién hizo Velmar: voces, música y más.'); tx.appendChild(sm);
@@ -2781,19 +2980,23 @@ function renderCfg() {
     bl.addEventListener('click', () => { if (loadCode(inp.value)) { closeCfg(); toMenu(); log(T('Partida cargada.'), '#7DE07B'); } else { inp.value = ''; inp.placeholder = T('Ese código no funciona. Revisa que esté completo.'); } });
     r2.appendChild(bl);
     el.append(out, r1, inp, r2); list.appendChild(el); }
+  list = G.juego;
   opt('joystick', T('Joystick en pantalla'), isTouch ? T('Si lo quitas, toca el suelo para caminar.') : T('Solo aparece en celulares y tabletas.'));
+  list = G.juego;
   const el = document.createElement('div'); el.className = 'opt';
   const tx = document.createElement('div'); tx.textContent = 'Tutorial';
   const sm = document.createElement('small'); sm.textContent = P.tut.rewarded ? T('Ya ganaste el premio; puedes repetirlo para practicar.') : T('Termínalo para ganar la Espada del Aprendiz.'); tx.appendChild(sm);
   const b = document.createElement('button'); b.textContent = T('Repetir');
   b.addEventListener('click', () => { closeCfg(); restartTutorial(); });
   el.append(tx, b); list.appendChild(el);
+  list = G.partida;
   const el2 = document.createElement('div'); el2.className = 'opt';
   const tx2 = document.createElement('div'); tx2.textContent = T('Menú principal');
   const sm2 = document.createElement('small'); sm2.textContent = T('Tu avance se guarda. Desde ahí puedes continuar o empezar una partida nueva.'); tx2.appendChild(sm2);
   const b2 = document.createElement('button'); b2.textContent = T('Ir al menú');
   b2.addEventListener('click', () => { closeCfg(); toMenu(); });
   el2.append(tx2, b2); list.appendChild(el2);
+  root.appendChild(G[cfgTab] || G.juego);
 }
 function applyJoy() {
   const show = isTouch && SET.joystick && playing;
@@ -2807,12 +3010,29 @@ function openEquip() {
 function closeEquip() { $('eq').hidden = true; }
 // ---- Vender al herrero y guardar en el baúl de recuerdos ----
 const RARE_VALUE = { espada_aprendiz: 15, yelmo_hueso: 60, garrote_ogro: 150, arco_laberinto: 250, escudo_amistad: 60, espada_corta: 5, tunica: 5 };
-const sellValue = id => ITEMS[id].price > 0 ? Math.max(5, Math.round(ITEMS[id].price * 0.3)) : (RARE_VALUE[id] || 20);
+const sellValue = id => ITEMS[id].price > 0 ? Math.max(5, Math.round(ITEMS[id].price * 0.2)) : (RARE_VALUE[id] || 20);
 const COIN_ICO = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#E4B54A" stroke="#7A5A1A" stroke-width="2"/><path d="M12 7v10M9.5 9.5h4a1.8 1.8 0 0 1 0 3.5h-3a1.8 1.8 0 0 0 0 3.5h4" stroke="#7A5A1A" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>', CHEST_ICO = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 10a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v1H3z" fill="#7E5530" stroke="#3A2414" stroke-width="1.5"/><rect x="3" y="11" width="18" height="9" rx="1.5" fill="#6B4426" stroke="#3A2414" stroke-width="1.5"/><path d="M3 13h18" stroke="#E4B54A" stroke-width="1.5"/><rect x="10.5" y="11.5" width="3" height="4" rx=".8" fill="#E4B54A"/></svg>';
 const nearBruno = () => FLOOR === 0 && cheb(P.x, P.y, 31, 24) <= 1;
 const nearVault = () => FLOOR === 0 && cheb(P.x, P.y, 23, 32) <= 1;
 const marked = k => P.bag.filter(id => P.marks[id] === k);
+// Mochila y baúl ordenados por tipo: Armas, Escudos, Cascos, Armaduras y Sets
+const ITEM_GROUPS = [['arma', T('Armas')], ['escudo', T('Escudos')], ['casco', T('Cascos')], ['armadura', T('Armaduras')], ['set', T('Sets')]];
+function groupItems(list) {
+  const out = [];
+  for (const [g, label] of ITEM_GROUPS) {
+    const ids = list.filter(id => ITEMS[id] && (g === 'set' ? !!ITEMS[id].set : !ITEMS[id].set && ITEMS[id].slot === g));
+    if (g === 'set') ids.sort((a, b) => ITEMS[a].set.localeCompare(ITEMS[b].set));
+    else ids.sort((a, b) => statOf(b) - statOf(a));
+    if (ids.length) out.push([label, ids]);
+  }
+  return out;
+}
+function groupHead(parent, label, n) { const h = document.createElement('div'); h.className = 'shopsec'; h.textContent = label + ' · ' + n; parent.appendChild(h); }
+const magicBag = () => !!(P && P.shop && P.shop.magic && !net.guest);
+const canSellNow = () => nearBruno() || magicBag();
+const canStoreNow = () => nearVault() || magicBag();
 function sellItem(id) {
+  if (ITEMS[id] && ITEMS[id].shop) { log(T('Los objetos de la tienda no se venden.'), '#C9C3B3'); return; }
   const i = P.bag.indexOf(id); if (i < 0) return;
   P.bag.splice(i, 1); delete P.marks[id];
   const v = sellValue(id); P.gold += v; Sound.play('coin');
@@ -2825,6 +3045,7 @@ function storeItem(id) {
 }
 function takeItem(id) {
   const i = P.vault.indexOf(id); if (i < 0) return;
+  if (!bagRoom()) { bagFullMsg(); return; }
   P.vault.splice(i, 1); P.bag.push(id); Sound.play('equip');
   log(T('Sacaste ') + ITEMS[id].name + T(' del baúl. Está en tu mochila.'), '#FFB3D1');
 }
@@ -2840,18 +3061,18 @@ function bagRow(id) {
   el.appendChild(iconEl(id));
   const tx = document.createElement('div'); tx.textContent = it.name;
   const sm = document.createElement('small');
-  sm.textContent = statText(id) + (it.rare ? T(' · raro') : '') + T(' · vale ') + sellValue(id) + T(' de oro') + (mk === 'sell' ? T(' · por vender') : mk === 'keep' ? T(' · por guardar') : '');
+  sm.textContent = statText(id) + (it.shop ? T(' · de la tienda') : (it.rare ? T(' · raro') : '') + T(' · vale ') + sellValue(id) + T(' de oro')) + (mk === 'sell' ? T(' · por vender') : mk === 'keep' ? T(' · por guardar') : '');
   tx.appendChild(sm); el.appendChild(tx);
   const acts = document.createElement('div'); acts.className = 'acts';
   const eqb = document.createElement('button'); eqb.textContent = T('Equipar');
   eqb.addEventListener('click', () => { if (!equipItem(id)) { renderEquip(); return; } delete P.marks[id]; log(T('Te pusiste ') + it.name + '.', better ? '#7DE07B' : ''); save(); renderEquip(); });
   acts.appendChild(eqb);
-  acts.appendChild(icoBtn(COIN_ICO, nearBruno() ? T('Vender') : mk === 'sell' ? T('Marcado') : T('Vender'), mk === 'sell', () => {
-    if (nearBruno()) sellItem(id); else { P.marks[id] = mk === 'sell' ? undefined : 'sell'; if (!P.marks[id]) delete P.marks[id]; else log(T('Marcado para vender. Llévalo con el Herrero Bruno, en Xanera.'), '#E4B54A'); }
+  if (!it.shop) acts.appendChild(icoBtn(COIN_ICO, canSellNow() ? T('Vender') : mk === 'sell' ? T('Marcado') : T('Vender'), mk === 'sell', () => {
+    if (canSellNow()) sellItem(id); else { P.marks[id] = mk === 'sell' ? undefined : 'sell'; if (!P.marks[id]) delete P.marks[id]; else log(T('Marcado para vender. Llévalo con el Herrero Bruno, en Xanera.'), '#E4B54A'); }
     hudCache = ''; save(); renderEquip();
   }));
-  acts.appendChild(icoBtn(CHEST_ICO, nearVault() ? T('Guardar') : mk === 'keep' ? T('Marcado') : T('Guardar'), mk === 'keep', () => {
-    if (nearVault()) storeItem(id); else { P.marks[id] = mk === 'keep' ? undefined : 'keep'; if (!P.marks[id]) delete P.marks[id]; else log(T('Marcado para guardar. Llévalo al baúl de la casita de Raziel.'), '#FFB3D1'); }
+  acts.appendChild(icoBtn(CHEST_ICO, canStoreNow() ? T('Guardar') : mk === 'keep' ? T('Marcado') : T('Guardar'), mk === 'keep', () => {
+    if (canStoreNow()) storeItem(id); else { P.marks[id] = mk === 'keep' ? undefined : 'keep'; if (!P.marks[id]) delete P.marks[id]; else log(T('Marcado para guardar. Llévalo al baúl de la casita de Raziel.'), '#FFB3D1'); }
     hudCache = ''; save(); renderEquip();
   }));
   el.appendChild(acts);
@@ -2863,13 +3084,17 @@ function renderVault(body) {
   teoChain = [T('Este es tu baúl de recuerdos. Aquí puedes guardar los objetos que ya no usas, como una colección.')];
   const ks = marked('keep');
   if (ks.length) body.appendChild(row(undefined, T('Guardar lo marcado'), ks.length + (ks.length === 1 ? T(' objeto') : T(' objetos')) + ': ' + ks.map(i => ITEMS[i].name).join(', '), T('Guardar'), true, () => { ks.forEach(storeItem); dlgNpc = { id: 'baul', kind: 'vault' }; }));
-  for (const id of P.bag) if (P.marks[id] !== 'keep') body.appendChild(row(id, ITEMS[id].name, T('En tu mochila'), T('Guardar'), true, () => { storeItem(id); dlgNpc = { id: 'baul', kind: 'vault' }; }));
+  const vn = dlgNpc || { id: 'baul', kind: 'vault' };
+  const fromBag = P.bag.filter(id => P.marks[id] !== 'keep');
+  if (fromBag.length) { const h0 = document.createElement('h3'); h0.textContent = T('En tu mochila'); body.appendChild(h0); }
+  for (const [label, ids] of groupItems(fromBag)) { groupHead(body, label, ids.length); for (const id of ids) body.appendChild(row(id, ITEMS[id].name, statText(id), T('Guardar'), true, () => { storeItem(id); dlgNpc = vn; })); }
   const h = document.createElement('h3'); h.textContent = T('Tu colección · ') + P.vault.length + (P.vault.length === 1 ? T(' objeto') : T(' objetos')); body.appendChild(h);
   if (!P.vault.length) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Todavía no guardas nada. Desde tu mochila puedes marcar objetos para traerlos aquí.'); body.appendChild(p); }
-  for (const id of P.vault) body.appendChild(row(id, ITEMS[id].name, statText(id) + (ITEMS[id].rare ? T(' · raro') : ''), T('Sacar'), true, () => { takeItem(id); dlgNpc = { id: 'baul', kind: 'vault' }; }));
+  for (const [label, ids] of groupItems(P.vault)) { groupHead(body, label, ids.length); for (const id of ids) body.appendChild(row(id, ITEMS[id].name, statText(id) + (ITEMS[id].rare ? T(' · raro') : ''), T('Sacar'), true, () => { takeItem(id); dlgNpc = vn; })); }
   trophyGrid(body);
   const back = document.createElement('div'); back.className = 'row'; body.appendChild(back);
-  teoBtn(back, T('Volver a la casita'), () => { openDialog(NPCS.find(n => n.id === 'casa')); });
+  if (vn.remote) teoBtn(back, T('Volver a la mochila'), () => { closeDialog(); openEquip(); });
+  else teoBtn(back, T('Volver a la casita'), () => { openDialog(NPCS.find(n => n.id === 'casa')); });
 }
 function renderEquip() {
   const max = atkMax();
@@ -2895,15 +3120,18 @@ function renderEquip() {
     el.appendChild(tx); slots.appendChild(el);
   }
   const bag = $('eqBag'); bag.innerHTML = '';
+  $('eqBagH').textContent = T('Mochila') + ' · ' + P.bag.length + '/' + bagCap();
+  if (P.shop && P.shop.bless > 0) { const bl = document.createElement('p'); bl.className = 'empty'; bl.style.color = '#FFE7A8'; bl.textContent = T('✨ Bendición de Elara: ') + P.shop.bless + T(' (si caes, no pierdes tus objetos).'); bag.appendChild(bl); }
+  if (magicBag()) { const vb = document.createElement('button'); vb.className = 'vaultbtn'; vb.innerHTML = CHEST_ICO; const vt = document.createElement('span'); vt.textContent = T(' Abrir mi baúl (') + P.vault.length + ')'; vb.appendChild(vt); vb.addEventListener('click', () => { closeEquip(); openDialog({ id: 'baul', name: T('Baúl de recuerdos'), kind: 'vault', remote: true }); }); bag.appendChild(vb); }
   if (!P.bag.length) {
     const p = document.createElement('p'); p.className = 'empty';
     p.textContent = T('Tu mochila está vacía. Los monstruos a veces sueltan objetos y el herrero vende equipo.');
     bag.appendChild(p); return;
   }
   const hint = document.createElement('p'); hint.className = 'empty';
-  hint.textContent = nearBruno() ? T('Estás con el herrero: puedes vender al instante.') : nearVault() ? T('Estás junto al baúl: puedes guardar al instante.') : T('Marca objetos para vender al Herrero Bruno o para guardar en el baúl de la casita de Raziel.');
+  hint.textContent = magicBag() ? T('Mochila mágica: vendes y guardas en el baúl desde cualquier lugar.') : nearBruno() ? T('Estás con el herrero: puedes vender al instante.') : nearVault() ? T('Estás junto al baúl: puedes guardar al instante.') : T('Marca objetos para vender al Herrero Bruno o para guardar en el baúl de la casita de Raziel.');
   bag.appendChild(hint);
-  for (const id of P.bag) bag.appendChild(bagRow(id));
+  for (const [label, ids] of groupItems(P.bag)) { groupHead(bag, label, ids.length); for (const id of ids) bag.appendChild(bagRow(id)); }
 }
 
 // ================= Guardado =================
@@ -2915,7 +3143,7 @@ function setSlot(n) { curSlot = n; SAVE_KEY = slotKey(n); store.set('velmar-slot
 function loadSlot(n) { try { const s = JSON.parse(store.get(slotKey(n)) || 'null'); return s && typeof s.lvl === 'number' ? s : null; } catch (e) { return null; } }
 function save() {
   if (!P || net.guest || !playing) return; // en el menú no se guarda (evita crear partidas vacías)
-  store.set(SAVE_KEY, JSON.stringify({ v: 2, lvl: P.lvl, xp: P.xp, hp: P.hp, gold: P.gold, potions: P.potions, equip: P.equip, bag: P.bag, q: P.q, tut: P.tut, pet: P.pet, teo: P.teo, fruit: P.fruit, stats: P.stats, ach: P.ach, bond: P.bond, stageSeen: P.stageSeen, look: P.look, tiers: P.tiers, trophies: P.trophies, zones: P.zones, fireCount: P.fireCount | 0, poisonSurvived: !!P.poisonSurvived, vault: P.vault, marks: P.marks, trea: P.trea, runes: P.runes, deepest: P.deepest, runeUsed: !!P.runeUsed, don: P.don || {}, seen: SEEN ? packSeen() : undefined, floor: FLOOR, savedAt: Date.now(), x: P.x, y: P.y }));
+  store.set(SAVE_KEY, JSON.stringify({ v: 2, lvl: P.lvl, xp: P.xp, hp: P.hp, gold: P.gold, potions: P.potions, equip: P.equip, bag: P.bag, q: P.q, tut: P.tut, pet: P.pet, teo: P.teo, fruit: P.fruit, stats: P.stats, ach: P.ach, bond: P.bond, stageSeen: P.stageSeen, look: P.look, tiers: P.tiers, trophies: P.trophies, zones: P.zones, fireCount: P.fireCount | 0, poisonSurvived: !!P.poisonSurvived, vault: P.vault, marks: P.marks, trea: P.trea, runes: P.runes, shop: P.shop, uniq: P.uniq, drops: P.drops, deepest: P.deepest, runeUsed: !!P.runeUsed, don: P.don || {}, seen: SEEN ? packSeen() : undefined, floor: FLOOR, savedAt: Date.now(), x: P.x, y: P.y }));
   cloudPush(false);
   syncComps();
 }
@@ -2940,6 +3168,8 @@ addEventListener('keydown', e => {
   if (!$('cfg').hidden) { if (e.code === 'Escape') closeCfg(); return; }
   if (!$('album').hidden) { if (e.code === 'Escape') closeAlbum(); return; }
   if (!$('credits').hidden) { if (e.code === 'Escape') closeCredits(); return; }
+  if (!$('shopv').hidden) { if (e.code === 'Escape' || e.code === 'KeyB') closeShop(); return; }
+  if (!$('specMenu').hidden) { if (e.code === 'Escape' || e.code === 'KeyF') closeSpec(); else if (/^Digit[1-3]$/.test(e.code)) { e.preventDefault(); const k = specList()[+e.code.slice(5) - 1]; if (k) useSpecial(k); } return; }
   if (KEYMAP[e.code]) { e.preventDefault(); if (!keyStack.includes(e.code)) keyStack.push(e.code); }
   else if (e.code === 'Space') { e.preventDefault(); const n = nearNpc(); if (n) openDialog(n); else attackNearest(); }
   else if (e.code === 'KeyQ' || e.code === 'KeyP') drinkPotion();
@@ -2950,7 +3180,10 @@ addEventListener('keydown', e => {
   else if (e.code === 'KeyR' || e.code === 'Digit4' || e.code === 'Numpad4') petToggle();
   else if (e.code === 'Digit1' || e.code === 'Numpad1') drinkPotion();
   else if (e.code === 'Digit2' || e.code === 'Numpad2') openEquip();
-  else if (e.code === 'Digit3' || e.code === 'Numpad3') castFire();
+  else if (e.code === 'Digit3' || e.code === 'Numpad3') castRune();
+  else if (e.code === 'KeyC') switchRune();
+  else if (e.code === 'KeyB' && shopAvail()) openShop();
+  else if (e.code === 'KeyF' && shopAvail()) toggleSpec();
   else if (e.code === 'Enter' || e.code === 'NumpadEnter') { const n = nearNpc(); if (n) openDialog(n); else attackNearest(); }
   else if (e.code === 'Escape') { target = null; P.follow = false; }
 });
@@ -2981,7 +3214,7 @@ let gpDir = null, gpPrev = [], gpNavT = 0, gpSeen = false;
 try { if ('gamepadInputEmulation' in navigator) navigator.gamepadInputEmulation = 'gamepad'; } catch (_) {}
 addEventListener('gamepadconnected', () => { if (!gpSeen) { gpSeen = true; if (typeof log === 'function' && playing) log(T('Control conectado. A: atacar o hablar · X: poción · Y: equipo · B: runa · RB: Raziel · Start: Ajustes.'), '#9FD0FF'); } });
 function gpOverlay() {
-  const ov = [...document.querySelectorAll('.overlay')].filter(o => o.id !== 'death' && !o.hidden && getComputedStyle(o).display !== 'none');
+  const ov = [...document.querySelectorAll('.overlay, #specMenu')].filter(o => o.id !== 'death' && !o.hidden && getComputedStyle(o).display !== 'none');
   return ov[ov.length - 1] || null;
 }
 function gpFocusables(root) {
@@ -3040,7 +3273,10 @@ function pollPad(dt) {
       if (p1.d(0)) { const n = nearNpc(); if (n) openDialog(n); else attackNearest(); }
       if (p1.d(2)) drinkPotion();
       if (p1.d(3)) openEquip();
-      if (p1.d(1)) castFire();
+      if (p1.d(1)) castRune();
+      if (p1.d(6)) switchRune();
+      if (p1.d(4)) toggleSpec();
+      if (p1.d(7)) openShop();
       if (p1.d(5)) petToggle();
       if (p1.d(9)) openCfg();
       if (p1.d(8)) openMap();
@@ -3076,6 +3312,7 @@ function initSeen(data) {
   }
   SEEN[4].fill(1);
   if (!(data && data[0])) for (let y = 20; y <= 34; y++) for (let x = 18; x <= 36; x++) SEEN[0][y * MW + x] = 1; // la ciudad ya la conoces
+  if (P && P.shop && P.shop.maps.calabozos) for (const f of [1, 2, 3]) if (SEEN[f]) SEEN[f].fill(1);
 }
 function packSeen() {
   const o = {};
@@ -3159,6 +3396,13 @@ function drawMap() {
     g.fillStyle = '#FFD24A'; g.strokeStyle = '#000'; g.lineWidth = 3; g.font = '900 ' + Math.round(r * 2.2) + 'px "Alegreya Sans", sans-serif';
     g.strokeText('!', X(qx + .5), Y(qy + .5)); g.fillText('!', X(qx + .5), Y(qy + .5));
   }
+  // tus cosas tiradas (en rojo)
+  if (P.drops && !net.guest) for (const dd of P.drops) if (dd.fl === FLOOR) {
+    const r = Math.max(6, t * 1.5);
+    g.fillStyle = dd.kind === 'bag' ? '#FF4A3D' : '#FFD24A'; g.strokeStyle = '#000'; g.lineWidth = 2;
+    g.beginPath(); g.arc(X(dd.x + .5), Y(dd.y + .5), r, 0, 7); g.fill(); g.stroke();
+    g.fillStyle = '#fff'; g.font = '900 ' + Math.round(r * 1.4) + 'px "Alegreya Sans", sans-serif'; g.fillText('!', X(dd.x + .5), Y(dd.y + .5));
+  }
   // compañeros y tú
   const dot = (x, y, col, rr) => { g.fillStyle = col; g.strokeStyle = '#000'; g.lineWidth = 2; g.beginPath(); g.arc(X(x + .5), Y(y + .5), rr, 0, 7); g.fill(); g.stroke(); };
   for (const a of allies) dot(a.x, a.y, PCOL[a.slot], Math.max(4, t * 0.9));
@@ -3180,6 +3424,482 @@ $('mapClose').addEventListener('click', closeMap);
 
 // ================= Apoyo con donaciones (tarjetas de festejo) =================
 // Aparecen una sola vez por personaje en momentos de logro, nunca en pelea, con 20 min entre una y otra.
+
+// ================= Cosméticos =================
+// Se ven encima de cualquier armadura o casco y no cambian la fuerza ni la defensa.
+const COS_SLOTS = ['traje', 'cabeza', 'cuello', 'estela'];
+// Versión de prueba cerrada: quienes ayudan a probar reciben el Paquete de Halloween (en la versión pública se apaga).
+const TESTER_GIFT = false;
+const RAZ_PAL = {
+  verde:  { name: T('Verde'), wing: '#7FD6B8', body: '#3FA88A', head: '#46B596', spike: '#2E8B70' },
+  dorado: { name: T('Raziel dorado'), wing: '#FFE08A', body: '#D9A62E', head: '#E8B84A', spike: '#A87A1A' },
+  plata:  { name: T('Raziel plata'), wing: '#E6EBF0', body: '#9AA3AD', head: '#B8C0C8', spike: '#6E7782' },
+  rosa:   { name: T('Raziel rosa'), wing: '#FFC2DA', body: '#E46C9C', head: '#F08BB2', spike: '#B84A78' },
+  morado: { name: T('Raziel morado'), wing: '#C9A8FF', body: '#7A4FC9', head: '#8E66DA', spike: '#5A3399' },
+};
+function coneHat(cx, cy, s, tipX, tipY, color) { ctx.fillStyle = color; ctx.beginPath(); ctx.moveTo(cx - s * 0.15, cy - s * 0.3); ctx.quadraticCurveTo(cx - s * 0.04, cy - s * 0.5, tipX, tipY); ctx.lineTo(cx + s * 0.15, cy - s * 0.3); ctx.closePath(); ctx.fill(); }
+const COS = {
+  santa: { slot: 'traje', body: '#C8302B', belt: '#1B1712',
+    deco: (cx, cy, s, hw) => { ctx.fillStyle = '#F7F3EA'; ctx.fillRect(cx - s * hw, cy + s * 0.16, s * hw * 2, s * 0.05); ctx.fillRect(cx - s * 0.025, cy - s * 0.12, s * 0.05, s * 0.3); },
+    face: (cx, cy, s, lk) => { if (lk.gender === 'a') return; ctx.fillStyle = '#F7F3EA'; ctx.beginPath(); ctx.ellipse(cx, cy - s * 0.15, s * 0.13, s * 0.08, 0, 0, Math.PI); ctx.fill(); ctx.beginPath(); ctx.ellipse(cx, cy - s * 0.16, s * 0.12, s * 0.035, 0, 0, 7); ctx.fill(); } },
+  duende: { slot: 'traje', body: '#2E9E4A', belt: '#3A2A18', hat: true,
+    deco: (cx, cy, s, hw, shw) => { ctx.fillStyle = '#C8302B'; for (let k = 0; k < 4; k++) { const x0 = cx - s * shw + k * s * shw / 2; ctx.beginPath(); ctx.moveTo(x0, cy - s * 0.12); ctx.lineTo(x0 + s * shw / 2, cy - s * 0.12); ctx.lineTo(x0 + s * shw / 4, cy - s * 0.04); ctx.fill(); } ctx.fillStyle = '#F2C14E'; ctx.beginPath(); ctx.arc(cx, cy + s * 0.11, s * 0.02, 0, 7); ctx.arc(cx, cy - s * 0.02, s * 0.02, 0, 7); ctx.fill(); },
+    ears: (cx, cy, s, lk) => { ctx.fillStyle = SKINS[lk.skin]; for (const d of [-1, 1]) { ctx.beginPath(); ctx.moveTo(cx + d * s * 0.1, cy - s * 0.29); ctx.lineTo(cx + d * s * 0.27, cy - s * 0.36); ctx.lineTo(cx + d * s * 0.12, cy - s * 0.19); ctx.fill(); } },
+    hatDraw: (cx, cy, s, side) => { coneHat(cx, cy, s, cx - side * s * 0.08, cy - s * 0.66, '#2E9E4A'); ctx.fillStyle = '#C8302B'; ctx.fillRect(cx - s * 0.17, cy - s * 0.34, s * 0.34, s * 0.06); ctx.fillStyle = '#FFD34A'; ctx.beginPath(); ctx.arc(cx - side * s * 0.08, cy - s * 0.66, s * 0.04, 0, 7); ctx.fill(); } },
+  calabaza: { slot: 'traje', body: '#E8781E', noBelt: true,
+    deco: (cx, cy, s, hw, shw) => { ctx.strokeStyle = '#B85A10'; ctx.lineWidth = Math.max(1, s * 0.02); for (const d of [-0.09, 0.09]) { ctx.beginPath(); ctx.moveTo(cx + d * s, cy - s * 0.1); ctx.quadraticCurveTo(cx + d * s * 1.6, cy + s * 0.05, cx + d * s * 1.2, cy + s * 0.19); ctx.stroke(); }
+      ctx.fillStyle = '#5A2A08'; for (const d of [-1, 1]) { ctx.beginPath(); ctx.moveTo(cx + d * s * 0.04, cy - s * 0.01); ctx.lineTo(cx + d * s * 0.1, cy - s * 0.01); ctx.lineTo(cx + d * s * 0.07, cy - s * 0.06); ctx.fill(); }
+      ctx.beginPath(); ctx.moveTo(cx - s * 0.08, cy + s * 0.05); ctx.quadraticCurveTo(cx, cy + s * 0.14, cx + s * 0.08, cy + s * 0.05); ctx.quadraticCurveTo(cx, cy + s * 0.09, cx - s * 0.08, cy + s * 0.05); ctx.fill();
+      ctx.fillStyle = '#4E8F2E'; for (let k = -1; k <= 1; k++) { ctx.beginPath(); ctx.ellipse(cx + k * s * 0.08, cy - s * 0.12, s * 0.05, s * 0.025, k * 0.5, 0, 7); ctx.fill(); } } },
+  gorro_santa: { slot: 'cabeza', draw: (cx, cy, s, side) => { coneHat(cx, cy, s, cx + side * s * 0.24, cy - s * 0.44, '#C8302B'); ctx.fillStyle = '#F7F3EA'; ctx.fillRect(cx - s * 0.17, cy - s * 0.34, s * 0.34, s * 0.07); ctx.beginPath(); ctx.arc(cx + side * s * 0.24, cy - s * 0.44, s * 0.055, 0, 7); ctx.fill(); } },
+  bruja: { slot: 'cabeza', draw: (cx, cy, s, side) => { ctx.fillStyle = '#4A2A6E'; ctx.beginPath(); ctx.ellipse(cx, cy - s * 0.31, s * 0.27, s * 0.06, 0, 0, 7); ctx.fill(); ctx.fillStyle = '#5B3488'; ctx.beginPath(); ctx.moveTo(cx - s * 0.13, cy - s * 0.32); ctx.lineTo(cx - side * s * 0.07, cy - s * 0.7); ctx.lineTo(cx + s * 0.13, cy - s * 0.32); ctx.closePath(); ctx.fill(); ctx.fillStyle = '#F28C28'; ctx.fillRect(cx - s * 0.125, cy - s * 0.38, s * 0.25, s * 0.045); } },
+  medallita: { slot: 'cuello', draw: (cx, cy, s) => { ctx.strokeStyle = '#2F5FA8'; ctx.lineWidth = Math.max(1.5, s * 0.03); ctx.beginPath(); ctx.moveTo(cx - s * 0.07, cy - s * 0.12); ctx.lineTo(cx, cy - s * 0.07); ctx.lineTo(cx + s * 0.07, cy - s * 0.12); ctx.stroke(); ctx.fillStyle = '#F2C14E'; ctx.strokeStyle = '#8A6A1A'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy - s * 0.045, s * 0.042, 0, 7); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#FFF6D0'; ctx.beginPath(); ctx.arc(cx - s * 0.012, cy - s * 0.057, s * 0.012, 0, 7); ctx.fill(); } },
+  nieve: { slot: 'estela', colors: ['#FFFFFF', '#DDEEFF'] },
+  chispas: { slot: 'estela', colors: ['#FF9A2E', '#B46CFF'] },
+  raz_dorado: { slot: 'raz' }, raz_plata: { slot: 'raz' }, raz_rosa: { slot: 'raz' }, raz_morado: { slot: 'raz' },
+};
+function cosClean(c) {
+  if (!c || typeof c !== 'object') return null;
+  const o = { wear: {}, raz: null };
+  for (const sl of COS_SLOTS) { const w = c.wear && c.wear[sl]; if (typeof w === 'string' && COS[w] && COS[w].slot === sl) o.wear[sl] = w; }
+  if (typeof c.raz === 'string' && RAZ_PAL[c.raz]) o.raz = c.raz;
+  return o;
+}
+const cosHas = id => !!(P && P.shop && P.shop.cos.own[id]);
+const cosOn = id => !!(P && P.shop && P.shop.cos.wear[COS[id].slot] === id);
+const cosWear = () => (P && P.shop && P.shop.cos.wear) || {};
+function cosGive(ids, wear = true) { for (const id of ids) { P.shop.cos.own[id] = true; const sl = COS[id].slot; if (wear && sl !== 'raz') P.shop.cos.wear[sl] = id; } }
+function cosToggle(id) { const sl = COS[id].slot, w = P.shop.cos.wear; w[sl] = w[sl] === id ? null : id; }
+let cosLastSteps = -1;
+function cosTrail() {
+  const e = cosWear().estela; if (!e || !P) { cosLastSteps = P ? P.steps : -1; return; }
+  if (P.steps === cosLastSteps) return; cosLastSteps = P.steps;
+  if (reduceMotion) return;
+  const [rx, ry] = rpos(P), c = COS[e].colors;
+  burst(rx, ry + 0.3, c[P.steps % c.length], 4, 0.6, 0.4);
+}
+function cosPreview(over) {
+  const sh = P.shop.cos, keep = sh.wear, kd = P.dir, ks = P.swing;
+  sh.wear = Object.assign({}, over); P.dir = [1, 0]; P.swing = 0;
+  try { drawPlayer(22, 30, 34); } finally { sh.wear = keep; P.dir = kd; P.swing = ks; }
+}
+function razPreview(c) {
+  const sh = P.shop.cos, keep = sh.raz; sh.raz = c;
+  try { drawPetAt(22, 34, 40, 1); } finally { sh.raz = keep; }
+}
+
+// ================= Tienda (versión Play Store) =================
+// STORE prende la tienda. STORE_DEMO: modo de prueba, no cobra nada (en Play Store se cambia por el cobro de Google).
+const STORE = false, STORE_DEMO = true; // navegador (GitHub e itch.io): sin tienda, con donaciones
+function shopDefault() { return { gems: 0, inv: { ataque: 0, flecha: 0 }, maps: { calabozos: false }, first: false, tester: false, magic: false, big: false, sets: {}, gfirst: {}, bless: 0, buff: null, buffLeft: 0, cos: { own: {}, wear: {}, raz: null } }; }
+function shopFix(o) {
+  const d = shopDefault(); if (!o || typeof o !== 'object') return d;
+  for (const k in d.inv) d.inv[k] = Math.max(0, Math.min(999, (o.inv && o.inv[k]) | 0));
+  d.maps.calabozos = !!(o.maps && o.maps.calabozos); d.first = !!o.first; d.tester = !!o.tester; d.magic = !!o.magic; d.big = !!o.big; d.bless = Math.max(0, Math.min(99, o.bless | 0)); d.gems = Math.max(0, Math.min(999999, o.gems | 0)); d.gfirst = {}; for (const k in (o.gfirst || {})) d.gfirst[k] = true;
+  for (const k in (o.sets || {})) if (SETS[k]) d.sets[k] = true;
+  if (o.cos && typeof o.cos === 'object') {
+    for (const k in (o.cos.own || {})) if (COS[k]) d.cos.own[k] = true;
+    for (const sl of COS_SLOTS) { const w = o.cos.wear && o.cos.wear[sl]; if (w && d.cos.own[w] && COS[w].slot === sl) d.cos.wear[sl] = w; }
+    if (o.cos.raz && RAZ_PAL[o.cos.raz] && d.cos.own['raz_' + o.cos.raz]) d.cos.raz = o.cos.raz;
+  }
+  if ((o.buff === 'ataque' || o.buff === 'flecha') && o.buffLeft > 0) { d.buff = o.buff; d.buffLeft = Math.min(180, +o.buffLeft || 0); }
+  return d;
+}
+const BUFF_SECS = 180;
+const buffHas = k => !!(P && P.shop && P.shop.buff === k && P.shop.buffLeft > 0);
+// La poción de ataque solo sirve con armas cuerpo a cuerpo y la Flecha de muerte solo con arco; con la otra arma quedan en pausa.
+const buffOn = k => buffHas(k) && (k === 'flecha' ? bowOn(P) : !bowOn(P));
+const buffMul = () => buffOn('ataque') ? 2 : buffOn('flecha') ? 1.5 : 1;
+const shopAvail = () => STORE && playing && !net.guest && !tutActive(); // en el tutorial no aparece, para no distraer
+const SPEC = {
+  ataque: { name: T('Poción de ataque'), note: T('Tu daño x2 durante 3 minutos. Solo con armas cuerpo a cuerpo.'), color: '#FFB347' },
+  flecha: { name: T('Poción Flecha de muerte'), note: T('Con arco: +2 de alcance y daño x1.5 por 3 minutos, pero recibes 30% más daño.'), color: '#B46CFF' },
+};
+const specList = () => Object.keys(SPEC).filter(k => P.shop.inv[k] > 0);
+function useSpecial(k) {
+  const sh = P.shop;
+  if (P.ghost || !(sh.inv[k] > 0)) return;
+  if (k === 'ataque' && bowOn(P)) { log(T('La poción de ataque solo funciona con armas cuerpo a cuerpo. Ponte una espada, hacha o garrote.'), '#C9C3B3'); return; }
+  if (k === 'flecha' && !bowOn(P)) { log(T('La Flecha de muerte solo funciona con un arco.'), '#C9C3B3'); return; }
+  if (buffHas(k)) { log(T('Esa poción ya está activa.'), '#C9C3B3'); return; }
+  const old = sh.buff && sh.buffLeft > 0 ? sh.buff : null;
+  sh.inv[k]--; sh.buff = k; sh.buffLeft = BUFF_SECS;
+  const [rx, ry] = rpos(P); burst(rx, ry, SPEC[k].color, 20, 1.8, 2); Sound.play('level');
+  if (old) log(SPEC[old].name + T(' se terminó: la nueva poción toma su lugar.'), '#C9C3B3');
+  log(k === 'ataque' ? T('¡Poción de ataque! Tu daño es doble durante 3 minutos.') : T('¡Flecha de muerte! Más alcance y daño con tu arco, pero cuídate: recibes más daño.'), SPEC[k].color);
+  hudCache = ''; shopUiKey = ''; closeSpec(); save();
+}
+let shopUiKey = '';
+function shopTick(dt) {
+  const sh = P && P.shop; if (!sh) return;
+  P.dur = setFull('raziel') ? 0.3 / 1.4 : 0.3; // Set de Raziel: caminas 40% más rápido
+  if (TESTER_GIFT && !sh.tester && playing && !net.guest && !tutActive()) { sh.tester = true; cosGive(['calabaza', 'bruja', 'chispas'], false); log(T('🎃 ¡Gracias por ayudar a probar Velmar! Te regalamos el Paquete de Halloween. Está en la tienda, en Estilo.'), '#FF9A2E'); Sound.play('level'); save(); }
+  cosTrail();
+  dropsTick();
+  if (sh.buff && sh.buffLeft > 0) { sh.buffLeft -= dt; if (sh.buffLeft <= 0) { sh.buffLeft = 0; log(sh.buff === 'ataque' ? T('Se acabó la poción de ataque.') : T('Se acabó la Flecha de muerte.'), '#C9C3B3'); sh.buff = null; } }
+  const av = shopAvail(), n = av ? specList().reduce((a, k) => a + sh.inv[k], 0) : 0;
+  const left = sh.buff ? Math.ceil(sh.buffLeft) : 0, paused = sh.buff && !buffOn(sh.buff);
+  const ui = uiOpen(), key = [av, n, sh.buff, left, paused, ui].join('|');
+  if (key === shopUiKey) return; shopUiKey = key;
+  $('bShop').hidden = !av; $('bSpec').hidden = !av || (!n && !sh.buff);
+  $('hSpec').textContent = n; $('hSpec').hidden = !n;
+  const chip = $('buffChip');
+  if (av && sh.buff && !ui) {
+    chip.hidden = false; chip.style.borderColor = SPEC[sh.buff].color; chip.classList.toggle('paused', !!paused);
+    const tm = Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0');
+    chip.textContent = paused ? (sh.buff === 'ataque' ? T('⏸ Daño x2 en pausa: usa un arma cuerpo a cuerpo · ') : T('⏸ Flecha de muerte en pausa: usa un arco · ')) + tm
+      : (sh.buff === 'ataque' ? T('⚔ Daño x2 · ') : T('🏹 Flecha de muerte · ')) + tm;
+  } else chip.hidden = true;
+  if (!$('specMenu').hidden) renderSpec();
+}
+function renderSpec() {
+  const box = $('specMenu'); box.innerHTML = '';
+  const list = specList();
+  if (!list.length) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('No tienes pociones especiales. Las encuentras en la tienda.'); box.appendChild(p); }
+  list.forEach((k, i) => {
+    const b = document.createElement('button');
+    const ic = document.createElement('i'); ic.textContent = i + 1; ic.style.cssText = 'font-style:normal;font-size:11px;opacity:.7';
+    const sp = document.createElement('span'); sp.textContent = SPEC[k].name + (buffHas(k) ? T(' (activa)') : ''); sp.style.color = SPEC[k].color;
+    const em = document.createElement('em'); em.textContent = '×' + P.shop.inv[k];
+    b.append(ic, sp, em); b.addEventListener('click', () => useSpecial(k)); box.appendChild(b);
+  });
+  const sb = document.createElement('button'); sb.textContent = T('🛍 Ir a la tienda'); sb.addEventListener('click', () => { closeSpec(); openShop(); }); box.appendChild(sb);
+}
+function toggleSpec() { if (!shopAvail()) return; if ($('specMenu').hidden) { renderSpec(); $('specMenu').hidden = false; Sound.play('ui'); const f = $('specMenu').querySelector('button'); if (f) f.focus(); } else closeSpec(); }
+function closeSpec() { $('specMenu').hidden = true; }
+
+// ---- Catálogo: pestañas para que la tienda no sea tan larga ----
+const SHOP_TABS = [['ofertas', T('⭐ Ofertas')], ['equipo', T('⚔ Equipo')], ['pociones', T('🧪 Pociones y runas')], ['mejoras', T('🎒 Mejoras')], ['estilo', T('✨ Estilo')], ['gemas', T('💎 Gemas')]];
+let shopTab = 'ofertas', shopSet = null;
+const SHOP = [
+  { tab: 'ofertas', id: 'pack_aventurero', icon: '🎁', name: T('Paquete del aventurero'), note: T('Set de Xanera + Mochila del explorador + 10 cargas de curación + 10 pociones de ataque + Mapa de los calabozos.'), tag: T('Mejor valor'),
+    give: () => { giveSet('xanera'); P.shop.big = true; P.runes.hgot = true; P.runes.heal += 10; P.shop.inv.ataque += 10; giveMap(); }, done: () => setOwned('xanera') && P.shop.maps.calabozos && P.shop.big },
+  { tab: 'ofertas', id: 'set_galo', set: 'galo', name: T('Set de Galo'), note: T('4 piezas. Con el set completo, tu arma envenena a los monstruos.') },
+  { tab: 'ofertas', id: 'pack_navidad', icon: '🎄', name: T('Paquete de Navidad'), note: T('Traje de Santa + traje de duende + gorro de Santa + estela de nieve.'), tag: T('Mejor valor'),
+    give: () => cosGive(['santa', 'duende', 'gorro_santa', 'nieve']), done: () => ['santa', 'duende', 'gorro_santa', 'nieve'].every(cosHas) },
+  { tab: 'equipo', sec: T('Sets: toca uno para ver sus piezas') },
+  { tab: 'equipo', id: 'set_galo', set: 'galo', name: T('Set de Galo'), note: T('4 piezas. Con el set completo, tu arma envenena a los monstruos.') },
+  { tab: 'equipo', id: 'set_xanera', set: 'xanera', name: T('Set de Xanera'), note: T('4 piezas. Con el set completo, +3 de defensa: bloqueas más golpes.') },
+  { tab: 'equipo', id: 'set_raziel', set: 'raziel', name: T('Set de Raziel'), note: T('Arco, casco y armadura ligeros. Con el set completo, caminas 40% más rápido.') },
+  { tab: 'pociones', sec: T('Runas (las cargas se suman)') },
+  { tab: 'pociones', id: 'runa_fuego', rune: 'fire', name: T('Runa de fuego · 10 cargas'), note: T('Lanza bolas de fuego. Si no la tienes, es tuya.'), give: () => { P.runes.got = true; P.runes.fire += 10; } },
+  { tab: 'pociones', id: 'runa_cura', rune: 'heal', name: T('Runa de curación · 10 cargas'), note: T('Cada carga te cura toda la vida. Solo en esta tienda.'), give: () => { P.runes.hgot = true; P.runes.heal += 10; if (!P.runes.got) P.runes.sel = 'heal'; } },
+  { tab: 'pociones', sec: T('Pociones especiales (3 minutos)') },
+  { tab: 'pociones', id: 'ataque3', spec: 'ataque', name: T('Poción de ataque ×3'), note: T('Tu daño x2. Solo con armas cuerpo a cuerpo.'), give: () => { P.shop.inv.ataque += 3; } },
+  { tab: 'pociones', id: 'ataque10', spec: 'ataque', name: T('Poción de ataque ×10'), note: T('Tu daño x2. Solo con armas cuerpo a cuerpo.'), give: () => { P.shop.inv.ataque += 10; } },
+  { tab: 'pociones', id: 'flecha3', spec: 'flecha', name: T('Poción Flecha de muerte ×3'), note: T('Solo con arco: +2 de alcance y daño x1.5, pero recibes 30% más daño.'), give: () => { P.shop.inv.flecha += 3; } },
+  { tab: 'mejoras', id: 'bendicion', icon: '✨', name: T('Bendición de Elara'), note: T('La próxima vez que caigas no pierdes nada de tu mochila ni de lo que traes puesto. Se gasta al caer; puedes juntar varias.'), give: () => { P.shop.bless += 1; } },
+  { tab: 'mejoras', id: 'mochila_explorador', icon: '🎒', name: T('Mochila del explorador'), note: T('Tu mochila pasa de 10 a 20 objetos. Compra única.'), give: () => { P.shop.big = true; }, done: () => !!P.shop.big },
+  { tab: 'mejoras', id: 'mochila_magica', icon: '✨', name: T('Mochila mágica'), note: T('Vende al herrero y guarda en tu baúl desde cualquier lugar. Compra única.'), give: () => { P.shop.magic = true; }, done: () => !!P.shop.magic },
+  { tab: 'mejoras', id: 'mapa_calabozos', map: true, name: T('Mapa de los calabozos'), note: T('Muestra completos los calabozos de los esqueletos y de Torvak. Compra única.'), give: () => giveMap(), done: () => P.shop.maps.calabozos },
+  { tab: 'estilo', sec: T('Navidad') },
+  { tab: 'estilo', id: 'santa', wear: 'santa', name: T('Traje de Santa'), note: T('Se ve encima de cualquier armadura. Con barba en cuerpo de hombre.'), prev: () => cosPreview({ traje: 'santa' }), give: () => cosGive(['santa']), done: () => cosHas('santa') },
+  { tab: 'estilo', id: 'duende', wear: 'duende', name: T('Traje de duende'), note: T('Con su gorrito, orejas puntiagudas y cascabel.'), prev: () => cosPreview({ traje: 'duende' }), give: () => cosGive(['duende']), done: () => cosHas('duende') },
+  { tab: 'estilo', id: 'gorro_santa', wear: 'gorro_santa', name: T('Gorro de Santa'), note: T('Se ve encima de cualquier casco.'), prev: () => cosPreview({ cabeza: 'gorro_santa' }), give: () => cosGive(['gorro_santa']), done: () => cosHas('gorro_santa') },
+  { tab: 'estilo', id: 'nieve', wear: 'nieve', icon: '❄️', name: T('Estela de nieve'), note: T('Copitos de nieve donde caminas.'), give: () => cosGive(['nieve']), done: () => cosHas('nieve') },
+  { tab: 'estilo', sec: T('Adornos') },
+  { tab: 'estilo', id: 'medallita', wear: 'medallita', name: T('Medallita de Xanera'), note: T('Una medalla dorada colgada al cuello.'), prev: () => cosPreview({ cuello: 'medallita' }), give: () => cosGive(['medallita']), done: () => cosHas('medallita') },
+  { tab: 'estilo', sec: T('Mi Halloween'), show: () => cosHas('calabaza') },
+  { tab: 'estilo', id: 'calabaza', wear: 'calabaza', gift: true, show: () => cosHas('calabaza'), name: T('Traje de calabaza'), note: T('Regalo por ayudar a probar Velmar.'), prev: () => cosPreview({ traje: 'calabaza' }), done: () => cosHas('calabaza') },
+  { tab: 'estilo', id: 'bruja', wear: 'bruja', gift: true, show: () => cosHas('bruja'), name: T('Sombrero de bruja'), note: T('Regalo por ayudar a probar Velmar.'), prev: () => cosPreview({ cabeza: 'bruja' }), done: () => cosHas('bruja') },
+  { tab: 'estilo', id: 'chispas', wear: 'chispas', gift: true, show: () => cosHas('chispas'), icon: '✨', name: T('Chispas de Halloween'), note: T('Chispas naranjas y moradas donde caminas.'), done: () => cosHas('chispas') },
+  { tab: 'estilo', sec: T('Colores de Raziel') },
+  { tab: 'estilo', id: 'raz_todos', icon: '🐉', name: T('Todos los colores de Raziel'), note: T('Dorado, plata, rosa y morado.'), give: () => cosGive(['raz_dorado', 'raz_plata', 'raz_rosa', 'raz_morado']), done: () => ['dorado', 'plata', 'rosa', 'morado'].every(c => cosHas('raz_' + c)) },
+  ...['dorado', 'plata', 'rosa', 'morado'].map(c => ({ tab: 'estilo', id: 'raz_' + c, raz: c, name: RAZ_PAL[c].name, note: T('Cambia el color de Raziel. Puedes volver al verde cuando quieras.'),
+    prev: () => razPreview(c), give: () => { cosGive(['raz_' + c]); P.shop.cos.raz = c; }, done: () => cosHas('raz_' + c) })),
+];
+// Precio en gemas de cada producto: [gemas, antes, primera compra]
+const GEM_PRICE = { bendicion: [100], mochila_explorador: [150], mochila_magica: [200], pack_aventurero: [750, 1100], set_galo: [750], set_xanera: [500], set_raziel: [750], ataque3: [100], ataque10: [250, 330],
+  flecha3: [100], runa_fuego: [50], runa_cura: [100], mapa_calabozos: [100], pack_navidad: [600, 900], santa: [300], duende: [300], gorro_santa: [100], nieve: [200], medallita: [50],
+  raz_todos: [300, 400], raz_dorado: [100], raz_plata: [100], raz_rosa: [100], raz_morado: [100] };
+// Pieza suelta de un set (para recuperar una que se perdió)
+const PIECE_GEMS = { galo: 280, xanera: 190, raziel: 375 };
+const setOwned = id => SETS[id].pieces.every(p => owned(p));
+const setBought = id => !!P.shop.sets[id] || SETS[id].pieces.some(p => owned(p));
+// Guarda un objeto en la mochila; si está llena, al baúl
+function stashToBagOrVault(id) { if (!bagAdd(id, true)) { P.vault.push(id); log(ITEMS[id].name + T(' se fue a tu baúl porque tu mochila está llena.'), '#FFB3D1'); } }
+function giveSet(id) {
+  P.shop.sets[id] = true;
+  for (const p of SETS[id].pieces) {
+    if (owned(p)) continue;
+    const slot = ITEMS[p].slot, cur = P.equip[slot];
+    if (cur && cur !== 'espada_corta' && cur !== 'tunica') stashToBagOrVault(cur);
+    P.equip[slot] = p;
+  }
+  shieldOffForBow(); // el arco va con las dos manos: el escudo se guarda
+}
+function givePiece(p) {
+  const slot = ITEMS[p].slot, cur = P.equip[slot];
+  if (!cur || cur === 'espada_corta' || cur === 'tunica' || (slot === 'escudo' && !bowOn())) { if (cur && cur !== 'espada_corta' && cur !== 'tunica') stashToBagOrVault(cur); P.equip[slot] = p; shieldOffForBow(); }
+  else stashToBagOrVault(p);
+}
+function giveMap() { P.shop.maps.calabozos = true; if (SEEN) for (const f of [1, 2, 3]) if (SEEN[f]) SEEN[f].fill(1); }
+const money = v => (LANG === 'en' ? 'US$' : '$') + v.toFixed(2) + (LANG === 'en' ? '' : ' USD');
+function shopIcon(it) {
+  if (it.prev) return sceneCanvas(44, 44, it.prev);
+  if (it.set) return sceneCanvas(44, 44, () => setPreview(it.set, 22, 31, 34));
+  const d = document.createElement('div'); d.className = 'bundle';
+  d.textContent = it.icon || (it.spec ? (it.spec === 'ataque' ? '⚔️' : '🏹') : it.rune ? (it.rune === 'fire' ? '🔥' : '💚') : it.map ? '🗺️' : '⭐');
+  return d;
+}
+// Dibuja al personaje con las piezas de un set puestas (sin cosméticos), para ver cómo se ve antes de comprar
+function setPreview(id, cx, cy, s) {
+  const keepEq = P.equip, keepShop = P.shop, kd = P.dir, ks = P.swing;
+  const eq = Object.assign({ arma: 'espada_corta', escudo: null, casco: null, armadura: 'tunica' });
+  for (const p of SETS[id].pieces) eq[ITEMS[p].slot] = p;
+  P.equip = eq; P.shop = Object.assign({}, keepShop, { cos: { own: {}, wear: {}, raz: null } }); P.dir = [1, 0]; P.swing = 0;
+  try { drawPlayer(cx, cy, s); } finally { P.equip = keepEq; P.shop = keepShop; P.dir = kd; P.swing = ks; }
+}
+const GEM_PACKS = [
+  { id: 'g100', gems: 100, price: 0.99, name: T('100 gemas') },
+  // base + regalo. La primera vez el regalo es mayor: 500 + 250 = 750 (justo un set) y 1000 + 800 = 1800
+  { id: 'g550', gems: 550, base: 500, gift: 50, firstGift: 250, price: 4.99, note: T('Incluye 50 de regalo.'), tag: T('Popular') },
+  { id: 'g1200', gems: 1200, base: 1000, gift: 200, firstGift: 800, price: 9.99, note: T('Incluye 200 de regalo.'), tag: T('Mejor valor') },
+];
+const gemTxt = n => '💎 ' + n;
+// Promoción: la primera vez que compras cada paquete grande te damos gemas extra
+const gemFirstBonus = g => g.firstGift && !(P.shop.gfirst && P.shop.gfirst[g.id]) ? g.firstGift - g.gift : 0;
+function priceBtn(b, cost, was) {
+  if (was) { const o = document.createElement('span'); o.className = 'old'; o.textContent = was; b.appendChild(o); }
+  b.appendChild(document.createTextNode(gemTxt(cost)));
+  if (P.shop.gems < cost) b.classList.add('short');
+}
+function renderShop() {
+  const box = $('shopBody'); box.innerHTML = '';
+  // Barra fija: gemas y pestañas
+  const bal = document.createElement('div'); bal.className = 'gembal';
+  const bb = document.createElement('b'); bb.textContent = gemTxt(P.shop.gems);
+  const bs = document.createElement('small'); bs.textContent = T('100 gemas cuestan $0.99 USD');
+  const plus = document.createElement('button'); plus.className = 'gemplus'; plus.textContent = T('+ Recargar'); plus.addEventListener('click', () => { shopTab = 'gemas'; shopSet = null; Sound.play('ui'); renderShop(); });
+  bal.append(bb, bs, plus); box.appendChild(bal);
+  if (shopSet) { renderSetDetail(box, shopSet); return; }
+  const tabs = document.createElement('div'); tabs.className = 'tabs'; tabs.setAttribute('role', 'tablist');
+  for (const [id, label] of SHOP_TABS) {
+    const t = document.createElement('button'); t.textContent = label; t.setAttribute('role', 'tab'); t.setAttribute('aria-selected', String(shopTab === id));
+    t.addEventListener('click', () => { shopTab = id; Sound.play('ui'); renderShop(); const f = $('shopBody').querySelector('.tabs [aria-selected="true"]'); if (f) f.focus(); });
+    tabs.appendChild(t);
+  }
+  box.appendChild(tabs);
+  if (shopTab === 'gemas') {
+    if (STORE_DEMO) { const d = document.createElement('p'); d.className = 'shopdemo'; d.textContent = T('Modo de prueba: no se cobra nada. En la app de Play Store las gemas se pagan con Google.'); box.appendChild(d); }
+    for (const g of GEM_PACKS) {
+      const el = document.createElement('div'); el.className = 'item';
+      const ic = document.createElement('div'); ic.className = 'bundle'; ic.textContent = '💎'; el.appendChild(ic);
+      const fb = gemFirstBonus(g);
+      const tx = document.createElement('div'); tx.textContent = g.base ? g.base + ' + ' + (fb ? g.firstGift : g.gift) + T(' gemas') : g.name;
+      if (fb || g.tag) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = fb ? T('¡Primera vez: +') + g.firstGift + T(' gemas de regalo!') : g.tag; tx.appendChild(t); }
+      if (fb) { const sm = document.createElement('small'); sm.textContent = T('Normalmente ') + g.base + ' + ' + g.gift + T('. Solo en tu primera compra de este paquete.'); tx.appendChild(sm); }
+      else if (g.note) { const sm = document.createElement('small'); sm.textContent = g.note; tx.appendChild(sm); }
+      el.appendChild(tx);
+      const b = document.createElement('button'); b.textContent = money(g.price); b.addEventListener('click', () => buyGems(g));
+      el.appendChild(b); box.appendChild(el);
+    }
+  }
+  if (shopTab === 'estilo' && cosHas('calabaza')) { const d = document.createElement('p'); d.className = 'shopdemo halloween'; d.textContent = T('🎃 Gracias por ayudar a probar Velmar: te regalamos el Paquete de Halloween (abajo, en Mi Halloween).'); box.appendChild(d); }
+  for (const it of SHOP) {
+    if (it.tab !== shopTab || (it.show && !it.show())) continue;
+    if (it.sec) { const h = document.createElement('div'); h.className = 'shopsec'; h.textContent = it.sec; box.appendChild(h); continue; }
+    const gp = GEM_PRICE[it.id] || [];
+    const el = document.createElement('div'); el.className = 'item';
+    el.appendChild(shopIcon(it));
+    const tx = document.createElement('div'); tx.textContent = it.name;
+    const promo = gp[2] && !P.shop.first && !(it.set && setBought(it.set));
+    const tagTxt = promo ? T('Primera compra -50%') : it.tag;
+    if (tagTxt) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = tagTxt; tx.appendChild(t); }
+    const sm = document.createElement('small'); sm.textContent = it.note;
+    if (it.spec) sm.textContent += T(' · tienes ') + P.shop.inv[it.spec];
+    if (it.id === 'bendicion') sm.textContent += T(' · tienes ') + P.shop.bless;
+    if (it.rune) sm.textContent += T(' · tienes ') + (it.rune === 'fire' ? P.runes.fire : P.runes.heal);
+    tx.appendChild(sm); el.appendChild(tx);
+    const b = document.createElement('button');
+    if (it.set) {
+      // Los sets se abren para ver sus piezas antes de comprar
+      b.textContent = setOwned(it.set) ? T('Ver (lo tienes)') : T('Ver piezas');
+      const open = () => { shopSet = it.set; Sound.play('ui'); renderShop(); const f = $('shopBody').querySelector('.setdetail button'); if (f) f.focus(); };
+      b.addEventListener('click', open); el.classList.add('clickable'); tx.addEventListener('click', open);
+      el.appendChild(b); box.appendChild(el); continue;
+    }
+    const done = it.done && it.done();
+    if (done && (it.wear || it.raz)) {
+      const on = it.wear ? cosOn(it.wear) : P.shop.cos.raz === it.raz;
+      b.textContent = on ? T('Quitar') : T('Usar');
+      b.addEventListener('click', () => { if (it.wear) cosToggle(it.wear); else P.shop.cos.raz = on ? null : it.raz; Sound.play('ui'); save(); renderShop(); });
+      el.appendChild(b); box.appendChild(el); continue;
+    }
+    if (it.gift) { b.textContent = T('Regalo'); b.disabled = true; el.appendChild(b); box.appendChild(el); continue; }
+    const cost = promo ? gp[2] : gp[0], was = promo ? gp[0] : gp[1];
+    if (done) { b.textContent = T('Ya lo tienes'); b.disabled = true; }
+    else priceBtn(b, cost, was);
+    b.addEventListener('click', () => buyShop(it, cost));
+    el.appendChild(b); box.appendChild(el);
+  }
+  if (shopTab !== 'gemas') {
+    const ft = document.createElement('p'); ft.className = 'empty'; ft.style.marginTop = '10px';
+    ft.textContent = T('Todo lo que da poder también se puede ganar jugando. Si compras algo por error, Google te ayuda con el reembolso.');
+    box.appendChild(ft);
+  }
+}
+// Vista de un set: cómo se ve puesto, cada pieza con lo que da, y el bono del set completo
+function renderSetDetail(box, id) {
+  const S = SETS[id], it = SHOP.find(x => x.set === id && x.tab === 'equipo'), gp = GEM_PRICE['set_' + id] || [];
+  const wrap = document.createElement('div'); wrap.className = 'setdetail';
+  const back = document.createElement('button'); back.className = 'backbtn'; back.textContent = T('← Volver a la tienda'); back.addEventListener('click', () => { shopSet = null; Sound.play('ui'); renderShop(); });
+  wrap.appendChild(back);
+  const top = document.createElement('div'); top.className = 'settop';
+  top.appendChild(sceneCanvas(110, 120, () => setPreview(id, 55, 86, 96)));
+  const info = document.createElement('div');
+  const h = document.createElement('h3'); h.textContent = S.name; info.appendChild(h);
+  const bonus = document.createElement('p'); bonus.className = 'setbonus'; bonus.textContent = '★ ' + S.bonus; info.appendChild(bonus);
+  top.appendChild(info); wrap.appendChild(top);
+  const bought = setBought(id), promo = gp[2] && !P.shop.first && !bought;
+  for (const p of S.pieces) {
+    const el = document.createElement('div'); el.className = 'item';
+    el.appendChild(iconEl(p));
+    const tx = document.createElement('div'); tx.textContent = ITEMS[p].name;
+    const sm = document.createElement('small'); sm.textContent = statText(p) + ' · ' + SLOTS.find(x => x.id === ITEMS[p].slot).label.toLowerCase(); tx.appendChild(sm);
+    el.appendChild(tx);
+    const b = document.createElement('button');
+    if (owned(p)) { b.textContent = T('✓ La tienes'); b.disabled = true; }
+    else if (bought) { priceBtn(b, PIECE_GEMS[id], 0); b.addEventListener('click', () => buyPiece(p, PIECE_GEMS[id])); }
+    else { b.textContent = T('En el set'); b.disabled = true; }
+    el.appendChild(b); wrap.appendChild(el);
+  }
+  if (!bought) {
+    const cost = promo ? gp[2] : gp[0], was = promo ? gp[0] : gp[1];
+    const b = document.createElement('button'); b.className = 'buyset';
+    const lb = document.createElement('span'); lb.textContent = T('Comprar el set completo  '); b.appendChild(lb);
+    priceBtn(b, cost, was);
+    if (promo) { const t = document.createElement('span'); t.className = 'tag'; t.textContent = T('Primera compra -50%'); b.appendChild(t); }
+    b.addEventListener('click', () => buyShop(Object.assign({}, it, { give: () => giveSet(id), done: () => setOwned(id) }), cost));
+    wrap.appendChild(b);
+  } else if (!setOwned(id)) {
+    const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Te falta alguna pieza: puedes comprar solo la que perdiste.'); wrap.appendChild(p);
+  }
+  box.appendChild(wrap);
+}
+function buyGems(g) {
+  if (!shopAvail()) return;
+  // Aquí, en la versión de Play Store, se abre el cobro de Google. En modo de prueba se entrega directo.
+  const fb = gemFirstBonus(g); if (fb) P.shop.gfirst[g.id] = true;
+  P.shop.gems = Math.min(999999, P.shop.gems + g.gems + fb);
+  Sound.play('coin'); burst(P.x, P.y, '#8FD3FF', 18, 1.6, 2);
+  log(T('¡Recargaste ') + (g.gems + fb) + T(' gemas!') + (g.base ? T(' (incluye ') + (g.gift + fb) + T(' de regalo)') : '') + (STORE_DEMO ? T(' (prueba, sin cobro)') : ''), '#8FD3FF');
+  save(); renderShop();
+}
+function needGems(cost) {
+  if (P.shop.gems >= cost) return false;
+  log(T('Te faltan ') + (cost - P.shop.gems) + T(' gemas. Toca "+ Recargar".'), '#C9C3B3'); Sound.play('ui');
+  return true;
+}
+function buyShop(it, cost) {
+  if (!shopAvail() || (it.done && it.done()) || !cost) return;
+  if (needGems(cost)) return;
+  P.shop.gems -= cost; it.give(); P.shop.first = true;
+  Sound.play('coin'); burst(P.x, P.y, '#FFE14A', 18, 1.6, 2);
+  log(T('¡Compraste ') + it.name + '!', '#FFE14A');
+  if (it.set && setFull(it.set)) log(SETS[it.set].bonus, '#9FD0FF');
+  hudCache = ''; shopUiKey = ''; save(); renderShop();
+}
+function buyPiece(p, cost) {
+  if (!shopAvail() || owned(p) || needGems(cost)) return;
+  P.shop.gems -= cost; givePiece(p);
+  Sound.play('coin'); log(T('¡Recuperaste ') + ITEMS[p].name + '!', '#FFE14A');
+  const s = ITEMS[p].set; if (s && setFull(s)) log(SETS[s].bonus, '#9FD0FF');
+  hudCache = ''; save(); renderShop();
+}
+function openShop() { if (!shopAvail()) return; closeDialog(); closeSpec(); shopSet = null; renderShop(); $('shopv').hidden = false; const f = $('shopBody').querySelector('.tabs [aria-selected="true"]'); (f || $('shopClose')).focus(); Sound.play('ui'); }
+function closeShop() { $('shopv').hidden = true; }
+
+// ================= Mochila con límite y cosas tiradas en el suelo =================
+const bagCap = () => P && P.shop && P.shop.big ? 20 : 10;
+const bagRoom = () => P.bag.length < bagCap();
+let bagMsgT = 0;
+function bagFullMsg() { const t = performance.now(); if (t - bagMsgT < 2500) return; bagMsgT = t; log(T('Mochila llena. Vende objetos o guárdalos en tu baúl.'), '#FF9A70'); Sound.play('miss'); }
+// Mete un objeto en la mochila; avisa cuando se llena. Devuelve false si no cupo.
+function bagAdd(id, quiet) {
+  if (P.bag.length >= bagCap()) { if (!quiet) bagFullMsg(); return false; }
+  P.bag.push(id); if (P.bag.length >= bagCap()) bagFullMsg();
+  return true;
+}
+// Objetos en el suelo: la mochila tirada al morir (5 min) o lo que no cupo (1 min). El tiempo es real.
+function dropGround(items, x, y, secs, kind, extra) {
+  if (!items.length) return null;
+  const d = Object.assign({ items: items.slice(), x, y, fl: FLOOR, until: Date.now() + secs * 1000, kind }, extra || {});
+  P.drops.push(d); return d;
+}
+function dropsFix(arr) {
+  const t = Date.now();
+  return (Array.isArray(arr) ? arr : []).filter(d => d && d.until > t && Array.isArray(d.items) && d.items.length)
+    .map(d => ({ items: d.items.filter(id => ITEMS[id]), x: d.x | 0, y: d.y | 0, fl: Math.max(0, Math.min(4, d.fl | 0)), until: +d.until, kind: d.kind === 'bag' ? 'bag' : 'item', eq: d.eq && ITEMS[d.eq] ? d.eq : null, tut: !!d.tut }))
+    .filter(d => d.items.length).slice(-6);
+}
+let dropsKey = '';
+function dropsTick() {
+  if (!P || !P.drops || net.guest) { if ($('lostChip') && !$('lostChip').hidden) $('lostChip').hidden = true; return; }
+  const t = Date.now();
+  if (P.drops.length) {
+    for (const d of P.drops.slice()) {
+      if (d.tut && d.until <= t + 1000) d.until = t + 60000;
+      if (d.until <= t) {
+        P.drops.splice(P.drops.indexOf(d), 1);
+        const shopLost = d.items.filter(id => ITEMS[id].shop);
+        log(d.kind === 'bag' ? T('Se acabó el tiempo: se perdió lo que tiraste al morir.') : T('Se acabó el tiempo: se perdió el objeto que quedó en el suelo.'), '#FF7B70');
+        if (shopLost.length) log(T('Puedes recuperar ') + shopLost.map(id => ITEMS[id].name).join(', ') + T(' en la tienda, comprando solo esa pieza.'), '#FFB3D1');
+        save(); continue;
+      }
+      if (d.fl !== FLOOR || d.x !== P.x || d.y !== P.y || P.ghost) continue;
+      // Recoger: lo que traías puesto vuelve a tu cuerpo si tienes lo de inicio; lo demás a la mochila
+      const left = [];
+      for (const id of d.items) {
+        const it = ITEMS[id], cur = P.equip[it.slot];
+        if (id === d.eq && (!cur || cur === 'espada_corta' || cur === 'tunica') && !(it.slot === 'escudo' && bowOn())) { P.equip[it.slot] = id; shieldOffForBow(); continue; }
+        if (!bagAdd(id, true)) left.push(id);
+      }
+      const got = d.items.length - left.length;
+      d.items = left;
+      if (!left.length) P.drops.splice(P.drops.indexOf(d), 1);
+      if (got) { Sound.play('loot'); burst(P.x, P.y, '#FFE08A', 14, 2, 2); log(d.kind === 'bag' ? T('¡Recuperaste tus cosas!') : T('¡Recogiste el objeto!'), '#7DE07B'); hudCache = ''; }
+      if (left.length) bagFullMsg();
+      save();
+    }
+  }
+  // Aviso en letras rojas con cuenta regresiva
+  const chip = $('lostChip');
+  const d = P.drops.filter(x => x.kind === 'bag').sort((a, b) => a.until - b.until)[0] || P.drops.slice().sort((a, b) => a.until - b.until)[0];
+  let txt = '';
+  if (d && playing && !net.guest && !uiOpen()) {
+    const s = Math.max(0, Math.ceil((d.until - t) / 1000)), tm = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    if (d.kind === 'bag') txt = (d.eq ? T('⚠ ¡Perdiste ') + ITEMS[d.eq].name + (d.items.length > 1 ? T(' y tu mochila') : '') + '!' : T('⚠ ¡Perdiste tu mochila!')) + T(' Regresa por ella: ') + tm;
+    else txt = T('⚠ ') + ITEMS[d.items[0]].name + T(' quedó en el suelo: ') + tm;
+  }
+  if (txt !== dropsKey) { dropsKey = txt; chip.hidden = !txt; chip.textContent = txt; }
+  // En el tutorial, el aviso va debajo del cuadro de Leira para no taparlo
+  if (txt) { const tb = tutActive() && !$('tut').hidden ? $('tut').getBoundingClientRect() : null; const top = tb ? Math.round(tb.bottom + 8) + 'px' : ''; if (chip.style.top !== top) chip.style.top = top; }
+}
+// A dónde llevar la flecha: al lugar, o a la escalera que lleva a ese piso
+function lostSpot() {
+  if (!P || !P.drops || !P.drops.length || FLOOR === 4) return null;
+  const d = P.drops.filter(x => x.kind === 'bag')[0] || P.drops[0];
+  if (d.fl === FLOOR) return [d.x, d.y];
+  const st = STAIRS[FLOOR]; if (!st) return null;
+  if (d.fl > FLOOR && st.down) return [st.down.x, st.down.y];
+  if (d.fl < FLOOR && st.up) return [st.up.x, st.up.y];
+  return null;
+}
+function drawDrop(d, ox, oy, S) {
+  const cx = ox + (d.x + 0.5) * S, cy = oy + (d.y + 0.62) * S, tw = reduceMotion ? 0.5 : (Math.sin(now * 4) + 1) / 2;
+  ctx.fillStyle = d.kind === 'bag' ? 'rgba(255,70,50,' + (0.2 + tw * 0.25) + ')' : 'rgba(255,220,110,' + (0.2 + tw * 0.25) + ')';
+  ctx.beginPath(); ctx.ellipse(cx, cy + S * 0.08, S * 0.38, S * 0.14, 0, 0, 7); ctx.fill();
+  if (d.kind === 'bag') {
+    ctx.fillStyle = '#8A5A2B'; ctx.strokeStyle = '#3A2414'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.ellipse(cx, cy - S * 0.02, S * 0.2, S * 0.17, 0, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#6B4426'; ctx.fillRect(cx - S * 0.07, cy - S * 0.24, S * 0.14, S * 0.08);
+    ctx.fillStyle = '#E4B54A'; ctx.fillRect(cx - S * 0.09, cy - S * 0.17, S * 0.18, S * 0.03);
+  } else {
+    ctx.save(); ctx.translate(cx - S * 0.22, cy - S * 0.36); drawIcon(ctx, d.items[0], S * 0.44); ctx.restore();
+  }
+}
+
 const DONATE_URL = 'https://xaner1327.itch.io/velmar/donate';
 const donateOK = () => !/crazygames|poki/i.test(location.hostname + ' ' + (document.referrer || ''));
 let donPend = null;
@@ -3288,7 +4008,7 @@ function cleanComp(cp) {
   const bag = Array.isArray(cp.bag) ? cp.bag.filter(id => typeof id === 'string' && ITEMS[id]).slice(0, 60) : [];
   return { equip, bag, gold: Math.max(0, Math.min(9999999, cp.gold | 0)), potions: Math.max(0, Math.min(999, cp.potions | 0)),
     main: !!cp.main, id: 'net-' + String(cp.id || Math.random()).slice(0, 20), name, lvl: Math.max(1, Math.min(99, cp.lvl | 0)), xp: Math.max(0, cp.xp | 0),
-    look: { name, gender: L.gender === 'o' ? 'o' : 'a', skin: n(L.skin, SKINS.length), hair: n(L.hair, HAIRS.length), style: n(L.style, 3), cloth: n(L.cloth, CLOTHS.length), skinV: 2 } };
+    look: { name, gender: L.gender === 'o' ? 'o' : 'a', skin: n(L.skin, SKINS.length), hair: n(L.hair, HAIRS.length), style: n(L.style, 3), cloth: n(L.cloth, CLOTHS.length), skinV: 2 }, cos: cosClean(cp.cos) };
 }
 function hostMsg(c, d) {
   if (!d || typeof d !== 'object') return;
@@ -3321,14 +4041,14 @@ function hostMsg(c, d) {
   }
   else if (d.t === 'go') { const gx = d.x | 0, gy = d.y | 0; if (!a.ghost) { a.target = null; a.follow = false; a.path = findPath(a.x, a.y, (x, y) => x === gx && y === gy, 60, a) || []; } }
 }
-const SNAP_SKIP = new Set(['seen', 'stats', 'ach', 'vault', 'trophies', 'tiers', 'zones', 'path', 'tut', 'marks']);
+const SNAP_SKIP = new Set(['seen', 'stats', 'ach', 'vault', 'trophies', 'tiers', 'zones', 'path', 'tut', 'marks', 'drops', 'uniq']);
 function buildSnap() {
   const pp = {}; for (const k in P) if (!SNAP_SKIP.has(k) && typeof P[k] !== 'function') pp[k] = P[k];
   pp.swing = P.swing > 0 ? 0.2 : 0; pp.marks = {};
   const fx = netFx.splice(0);
   for (const sh of shots) if (!sh._sent) { sh._sent = true; const [tx, ty] = rpos(sh.m); fx.push(['p', sh.kind, +sh.x0.toFixed(2), +sh.y0.toFixed(2), +tx.toFixed(2), +ty.toFixed(2), sh.dur]); }
   return { t: 's', fl: FLOOR, P: pp,
-    al: allies.map(a => ({ slot: a.slot, look: a.look, equip: a.equip || null, lvl: a.lvl, xp: a.xp, hp: Math.ceil(a.hp), x: a.x, y: a.y, dir: a.dir, swing: a.swing > 0 ? 0.2 : 0, ghost: !!a.ghost, reviveT: a.reviveT || 0 })),
+    al: allies.map(a => ({ slot: a.slot, look: a.look, equip: a.equip || null, lvl: a.lvl, xp: a.xp, hp: Math.ceil(a.hp), x: a.x, y: a.y, dir: a.dir, swing: a.swing > 0 ? 0.2 : 0, ghost: !!a.ghost, reviveT: a.reviveT || 0, cos: a.cos || null })),
     ms: monsters.map(m => [m.x, m.y, Math.ceil(m.hp), m.dead ? 1 : 0, m.flash > 0 ? 1 : 0]),
     pet: [+pet.x.toFixed(2), +pet.y.toFixed(2), pet.face], fx };
 }
@@ -3394,7 +4114,7 @@ function openJoinOnline() {
 async function joinRoom(code) {
   if (code.length !== 4) { onStatus(T('El código tiene 4 letras o números.')); return; }
   let comp = null;
-  if (String(net.pick).startsWith('__save')) { const sn = parseInt(net.pick.slice(6), 10) || 1, sv = loadSlot(sn); if (sv) { const lk = Object.assign({}, DEFAULT_LOOK, fixLook(sv.look) || {}); comp = { id: 'main' + sn, slot: sn, main: true, name: lk.name || T('Aventurera'), look: lk, lvl: sv.lvl || 1, xp: sv.xp | 0, equip: sv.equip || null, gold: sv.gold | 0, potions: sv.potions | 0, bag: sv.bag || [] }; } }
+  if (String(net.pick).startsWith('__save')) { const sn = parseInt(net.pick.slice(6), 10) || 1, sv = loadSlot(sn); if (sv) { const lk = Object.assign({}, DEFAULT_LOOK, fixLook(sv.look) || {}); comp = { id: 'main' + sn, slot: sn, main: true, name: lk.name || T('Aventurera'), look: lk, lvl: sv.lvl || 1, xp: sv.xp | 0, equip: sv.equip || null, gold: sv.gold | 0, potions: sv.potions | 0, bag: sv.bag || [], cos: sv.shop && sv.shop.cos ? { wear: sv.shop.cos.wear, raz: sv.shop.cos.raz } : null }; } }
   else comp = loadComps().find(c => c.id === net.pick);
   if (!comp) { onStatus(T('Elige o crea tu personaje.')); return; }
   onStatus(T('Conectando…'));
@@ -3406,7 +4126,7 @@ async function joinRoom(code) {
   peer.on('error', e => { clearTimeout(to); fail(e && e.type === 'peer-unavailable' ? T('No encontré esa sala. Revisa el código.') : OFFLINE_MSG); });
   peer.on('open', () => {
     const c = peer.connect('velmar-' + code.toLowerCase(), { reliable: true });
-    c.on('open', () => c.send({ t: 'hi', v: NET_V, comp: { id: comp.id, main: !!comp.main, name: comp.name, look: comp.look, lvl: comp.lvl, xp: comp.xp, equip: comp.equip || null, gold: comp.gold | 0, potions: comp.potions | 0, bag: comp.bag || [] } }));
+    c.on('open', () => c.send({ t: 'hi', v: NET_V, comp: { id: comp.id, main: !!comp.main, name: comp.name, look: comp.look, lvl: comp.lvl, xp: comp.xp, equip: comp.equip || null, gold: comp.gold | 0, potions: comp.potions | 0, bag: comp.bag || [], cos: comp.cos || null } }));
     c.on('data', d => {
       if (!d || typeof d !== 'object') return;
       if (d.t === 'err') { clearTimeout(to); fail(d.m); return; }
@@ -3474,7 +4194,7 @@ function applySnap(sn) {
     let a = allies.find(x => x.slot === r.slot);
     if (!a) { a = { slot: r.slot, x: r.x, y: r.y, fx: r.x, fy: r.y, mt: 1, dur: 0.3, steps: 0 }; }
     netMove(a, r.x, r.y);
-    Object.assign(a, { equip: r.equip || null, look: r.look, lvl: r.lvl, xp: r.xp, hp: r.hp, dir: r.dir, swing: r.swing, ghost: r.ghost, reviveT: r.reviveT });
+    Object.assign(a, { equip: r.equip || null, look: r.look, lvl: r.lvl, xp: r.xp, hp: r.hp, dir: r.dir, swing: r.swing, ghost: r.ghost, reviveT: r.reviveT, cos: cosClean(r.cos) });
     keep.push(a);
   }
   allies = keep;
@@ -3542,13 +4262,13 @@ const aBow = a => !!(ITEMS[a.equip.arma] && ITEMS[a.equip.arma].bow);
 function allyBowShield(a) { if (aBow(a) && a.equip.escudo) { a.bag.push(a.equip.escudo); a.equip.escudo = null; } }
 function allyGive(a, id) {
   const it = ITEMS[id], cur = a.equip[it.slot];
-  if (it.slot === 'escudo' && aBow(a)) { a.bag.push(id); return 'bag'; }
-  if (statOf(id) > statOf(cur)) { if (cur) a.bag.push(cur); a.equip[it.slot] = id; allyBowShield(a); return 'equip'; }
+  if (!(it.slot === 'escudo' && aBow(a)) && statOf(id) > statOf(cur)) { if (cur) a.bag.push(cur); a.equip[it.slot] = id; allyBowShield(a); return 'equip'; }
+  if ((a.bag || []).length >= 10) return null;
   a.bag.push(id); return 'bag';
 }
 const nearNpcA = (a, id) => { const n = NPCS.find(x => x.id === id); return !!n && FLOOR === (n.fl || 0) && cheb(a.x, a.y, n.x, n.y) <= 2; };
 function allyBuy(a, id) {
-  const it = ITEMS[id]; if (!it || !(it.price > 0) || ownsA(a, id) || (a.gold | 0) < it.price || !nearNpcA(a, 'bruno')) return;
+  const it = ITEMS[id]; if (!it || !(it.price > 0) || (a.bag || []).length >= 10 || (a.gold | 0) < it.price || !nearNpcA(a, 'bruno')) return;
   a.gold -= it.price; const r = allyGive(a, id); Sound.play('coin');
   log(nameOf(a) + T(' compró ') + it.name + (r === 'equip' ? T(' y se lo puso.') : '.'), PCOL[a.slot]);
 }
@@ -3592,7 +4312,7 @@ function renderGuestShop(body) {
     return;
   }
   $('dlgQuote').textContent = T('"El mejor acero de Xanera. ¿Qué necesitas? Tienes ') + G.gold + T(' de oro."');
-  const forSale = Object.keys(ITEMS).filter(id => ITEMS[id].price > 0 && !has(id))
+  const forSale = Object.keys(ITEMS).filter(id => ITEMS[id].price > 0)
     .sort((a, b) => SLOTS.findIndex(x => x.id === ITEMS[a].slot) - SLOTS.findIndex(x => x.id === ITEMS[b].slot) || ITEMS[a].price - ITEMS[b].price);
   for (const id of forSale) {
     const it = ITEMS[id];
@@ -3747,7 +4467,7 @@ function makeAlly(comp, pad, slot) {
   return { comp, pad, slot, look: Object.assign({}, DEFAULT_LOOK, comp.look, { name: comp.name || comp.look.name }), lvl: comp.lvl || 1, xp: comp.xp || 0,
     hp: maxHp(comp.lvl || 1), x: P.x, y: P.y, fx: P.x, fy: P.y, mt: 1, dur: P.dur, steps: 0, dir: [1, 0], fl: FLOOR,
     atkCD: 0, potCD: 0, swing: 0, flash: 0, target: null, follow: false, path: [], lastHurt: -99, regenT: 0,
-    poisonUntil: 0, burnUntil: 0, ghost: false, reviveT: 0, inDir: null, leaveT: 0 };
+    poisonUntil: 0, burnUntil: 0, ghost: false, reviveT: 0, inDir: null, leaveT: 0, cos: comp.cos || null };
 }
 function openJoin(padIdx) {
   if (allies.length >= 3 || !playing) return;
@@ -3803,7 +4523,7 @@ function allyPotion(a) {
   if ((pool.potions | 0) <= 0) { if (!a.remote) log(T('No quedan pociones. La alquimista Nerea las vende.'), '#C9C3B3'); return; }
   if (a.hp >= maxHp(a.lvl)) return;
   pool.potions--; a.potCD = 1;
-  const heal = 60 + a.lvl * 5, before = a.hp; a.hp = Math.min(maxHp(a.lvl), a.hp + heal);
+  const heal = potHeal(a.lvl), before = a.hp; a.hp = Math.min(maxHp(a.lvl), a.hp + heal);
   const [rx, ry] = rpos(a); float(rx, ry, '+' + Math.round(a.hp - before), '#7DE07B'); burst(rx, ry, '#7DE07B', 12, 1.2, 2);
   Sound.play('potion'); hudCache = '';
 }
@@ -3894,8 +4614,9 @@ function drawCoopPlayer(E, cx, cy, s) {
   if (E.ghost) { ctx.globalAlpha = 0.45; cy -= s * 0.08 + (reduceMotion ? 0 : Math.sin(now * 3) * s * 0.04); }
   if (E === P) drawPlayer(cx, cy, s);
   else {
-    const keep = { look: P.look, dir: P.dir, swing: P.swing, mt: P.mt, steps: P.steps, equip: P.equip };
+    const keep = { look: P.look, dir: P.dir, swing: P.swing, mt: P.mt, steps: P.steps, equip: P.equip, shop: P.shop };
     P.look = E.look; P.dir = E.dir; P.swing = E.swing; P.mt = E.mt; P.steps = E.steps; if (E.equip) P.equip = E.equip;
+    P.shop = Object.assign({}, keep.shop || {}, { cos: { own: {}, wear: (E.cos && E.cos.wear) || {}, raz: null } }); // cada quien con sus cosméticos
     try { drawPlayer(cx, cy, s); } finally { Object.assign(P, keep); }
   }
   ctx.globalAlpha = 1;
@@ -3918,8 +4639,13 @@ function updateCoopHud() {
 $('coopNew').addEventListener('click', () => { $('coop').hidden = true; openCreate('ally'); });
 $('coopCancel').addEventListener('click', closeJoin);
 $('bAtk').addEventListener('click', () => { if (!playing) return; const n = nearNpc(); if (n) openDialog(n); else attackNearest(); });
-$('bRune').addEventListener('click', () => playing && castFire());
+$('bRune').addEventListener('click', () => playing && castRune());
+$('bRuneSw').addEventListener('click', () => playing && switchRune());
 $('bPet').addEventListener('click', () => playing && petToggle());
+const bPotEl = $('bPot');
+$('bShop').addEventListener('click', () => playing && openShop());
+$('bSpec').addEventListener('click', () => playing && toggleSpec());
+$('shopClose').addEventListener('click', closeShop);
 $('bPot').addEventListener('click', () => playing && drinkPotion());
 $('bEq').addEventListener('click', () => playing && openEquip());
 $('dlgClose').addEventListener('click', closeDialog);
@@ -3932,6 +4658,7 @@ $('bCredits').addEventListener('click', () => openCredits(false));
 $('dlgSay').addEventListener('click', () => dlgNpc && (dlgNpc.kind === 'teo' || dlgNpc.kind === 'pet' || dlgNpc.kind === 'chest' ? Voice.chain(teoChain) : Voice.say(dlgNpc.kind === 'shop' ? T('El mejor acero de Xanera. ¿Qué necesitas?') : $('dlgQuote').textContent, dlgNpc.id)));
 $('tutSay').addEventListener('click', () => tutActive() && Voice.say(TUT[P.tut.step].text, 'leira'));
 $('tutSkip').addEventListener('click', skipTutorial);
+$('tutOk').addEventListener('click', () => { const st = tutActive() && TUT[P.tut.step]; if (st && st.ok) { P.tut[st.ok] = true; Sound.play('ui'); } });
 if (!Voice.ok) { $('dlgSay').hidden = true; $('tutSay').hidden = true; }
 
 let destMark = null;
@@ -3962,7 +4689,7 @@ cv.addEventListener('pointerdown', e => {
 let now = 0, playing = false, saveT = 0, lastZone = '', zoneT = 0;
 function update(dt) {
   now += dt;
-  P.atkCD -= dt; P.potCD -= dt; if (P.flash > 0) P.flash -= dt;
+  P.atkCD -= dt; P.potCD -= dt; shopTick(dt); if (bPotEl) bPotEl.classList.toggle('cd', P.potCD > 0); if (P.flash > 0) P.flash -= dt;
   if (P.poisonUntil > now) {
     P.poisonT = (P.poisonT || 0) + dt;
     if (P.poisonT >= 1) {
@@ -4018,6 +4745,14 @@ function update(dt) {
 
   const pSafe = isSafe(P.x, P.y);
   for (const m of monsters) {
+    if (!m.dead && m.poisonUntil > now) {
+      m.poisonT = (m.poisonT || 0) + dt;
+      if (m.poisonT >= 1) {
+        m.poisonT -= 1; m.hp -= m.poisonDmg; m.lastHit = now; m.provoked = true;
+        const [qx, qy] = rpos(m); float(qx, qy, String(m.poisonDmg), '#8FD45A'); burst(qx, qy, '#8FD45A', 4, 1, 1);
+        if (m.hp <= 0) { m.lastBy = m.poisonBy || P; killMonster(m); continue; }
+      }
+    }
     if (m.dead) {
       if (now >= m.respawnAt) {
         if ((!m.d.still && players().some(e => cheb(e.x, e.y, m.hx, m.hy) <= 5)) || occupied(m.hx, m.hy, m)) m.respawnAt = now + 3;
@@ -4089,7 +4824,9 @@ function updateFx(dt) {
   parts = parts.filter(p => p.life < p.max);
   if (destMark) destMark.t += dt;
 }
-function canEnter(m, x, y) { const c = at(x, y); return walkable(x, y) && c !== 'S' && c !== 'U' && !isSafe(x, y) && !occupied(x, y, m); }
+// Las ratas del Campo de entrenamiento no salen de su corral (adentro: x 42-48, y 41-44)
+const inPen = (x, y) => x >= 42 && x <= 48 && y >= 41 && y <= 44;
+function canEnter(m, x, y) { const c = at(x, y); if (FLOOR === 4 && m && m.type === 'rata' && !inPen(x, y)) return false; return walkable(x, y) && c !== 'S' && c !== 'U' && !isSafe(x, y) && !occupied(x, y, m); }
 function stepAway(m) {
   const opts = DIRS.map(([dx, dy]) => [m.x + dx, m.y + dy]).filter(([x, y]) => canEnter(m, x, y) && cheb(x, y, m.hx, m.hy) <= 9)
     .map(q => [q, Math.abs(q[0] - P.x) + Math.abs(q[1] - P.y) + Math.random() * 0.5]).sort((a, b) => b[1] - a[1]);
@@ -4299,19 +5036,25 @@ function drawPlayer(cx, cy, s) {
   cy -= Math.abs(w) * s * 0.04;
   const eq = P.equip, armor = ITEMS[eq.armadura], side = P.dir[0] < 0 ? -1 : 1;
   const lk = P.look || DEFAULT_LOOK;
-  hairBack(cx, cy, s, lk, !!eq.casco);
+  const cw = cosWear(), tr = cw.traje ? COS[cw.traje] : null, hat = cw.cabeza ? COS[cw.cabeza] : tr && tr.hat ? tr : null;
+  hairBack(cx, cy, s, lk, !!eq.casco && !hat);
   ctx.fillStyle = '#2A2118';
   ctx.fillRect(cx - s * 0.14, cy + s * 0.12, s * 0.1, s * (0.18 + w * 0.05));
   ctx.fillRect(cx + s * 0.04, cy + s * 0.12, s * 0.1, s * (0.18 - w * 0.05));
-  ctx.fillStyle = eq.armadura === 'tunica' ? CLOTHS[lk.cloth] : armor.color;
+  ctx.fillStyle = tr ? tr.body : eq.armadura === 'tunica' ? CLOTHS[lk.cloth] : armor.color;
   const hw = lk.gender === 'a' ? 0.28 : 0.22, shw = lk.gender === 'a' ? 0.16 : 0.19;
   ctx.beginPath(); ctx.moveTo(cx - s * hw, cy + s * 0.2); ctx.lineTo(cx - s * shw, cy - s * 0.12); ctx.lineTo(cx + s * shw, cy - s * 0.12); ctx.lineTo(cx + s * hw, cy + s * 0.2); ctx.closePath(); ctx.fill();
   ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.fillRect(cx + s * 0.06, cy - s * 0.12, s * 0.14, s * 0.3);
-  if (eq.armadura === 'cota_malla' || eq.armadura === 'placas') { ctx.fillStyle = 'rgba(255,255,255,0.25)'; ctx.fillRect(cx - s * 0.16, cy - s * 0.08, s * 0.32, s * 0.03); }
-  ctx.fillStyle = '#8A5A2B'; ctx.fillRect(cx - s * 0.2, cy + s * 0.02, s * 0.4, s * 0.05);
+  if (!tr && (eq.armadura === 'cota_malla' || eq.armadura === 'placas')) { ctx.fillStyle = 'rgba(255,255,255,0.25)'; ctx.fillRect(cx - s * 0.16, cy - s * 0.08, s * 0.32, s * 0.03); }
+  if (tr && tr.deco) tr.deco(cx, cy, s, hw, shw);
+  if (!(tr && tr.noBelt)) { ctx.fillStyle = tr ? tr.belt : '#8A5A2B'; ctx.fillRect(cx - s * 0.2, cy + s * 0.02, s * 0.4, s * 0.05); if (tr) { ctx.fillStyle = '#F2C14E'; ctx.fillRect(cx - s * 0.04, cy + s * 0.015, s * 0.08, s * 0.06); ctx.fillStyle = tr.belt; ctx.fillRect(cx - s * 0.02, cy + s * 0.03, s * 0.04, s * 0.03); } }
+  if (cw.cuello) COS[cw.cuello].draw(cx, cy, s, side);
+  if (tr && tr.ears) tr.ears(cx, cy, s, lk);
   ctx.fillStyle = SKINS[lk.skin]; ctx.beginPath(); ctx.arc(cx, cy - s * 0.24, s * 0.14, 0, 7); ctx.fill();
   faceDetails(cx, cy, s, lk, side);
-  if (eq.casco) {
+  if (tr && tr.face) tr.face(cx, cy, s, lk);
+  if (hat) { hairTop(cx, cy, s, lk); (hat.hatDraw || hat.draw)(cx, cy, s, side); }
+  else if (eq.casco) {
     const hc = ITEMS[eq.casco].color;
     ctx.fillStyle = hc; ctx.beginPath(); ctx.arc(cx, cy - s * 0.27, s * 0.16, Math.PI, 0); ctx.fill();
     ctx.fillRect(cx - s * 0.16, cy - s * 0.29, s * 0.32, s * 0.05);
@@ -4544,6 +5287,7 @@ function render() {
     } }
   // 2) Objetos y personajes por profundidad
   const list = [];
+  if (P.drops && !net.guest) for (const d of P.drops) if (d.fl === FLOOR && d.x >= x0 - 1 && d.x <= x1 + 1 && d.y >= y0 - 1 && d.y <= y1 + 1) list.push({ y: d.y - 0.02, f: () => drawDrop(d, ox, oy, S) });
   for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
     const c = at(x, y);
     if (c === 'T') { const fi = FRUITS.findIndex(([fx, fy]) => fx === x && fy === y); if (fi >= 0 && fruitLeft(fi)) list.push({ y: y + 0.02, f: () => drawFruit(ox + x * S, oy + y * S, S, fi) }); const sp = treeSprite(Math.floor(hash(x, y, 7) * 3), x >= 47); list.push({ y, f: () => ctx.drawImage(sp, ox + x * S, oy + y * S - 0.8 * S, S, 1.8 * S) }); }
@@ -4663,6 +5407,7 @@ function render() {
     ctx.globalAlpha = 1;
   }
   drawTutArrow(ox, oy, S);
+  { const ls = !tutActive() && !uiOpen() && !net.guest ? lostSpot() : null; if (ls) drawGuide(ox, oy, S, { x: ls[0], y: ls[1] }); }
   if (FLOOR === 0 && !tutActive() && !uiOpen() && cheb(P.x, P.y, 27, 27) <= 30) {
     const goal = marked('sell').length && !nearBruno() ? { x: 31, y: 24 } : marked('keep').length && !nearVault() ? { x: 23, y: 32 } : null;
     if (goal) drawGuide(ox, oy, S, goal);
@@ -4681,7 +5426,7 @@ function render() {
 let hudCache = '';
 function updateHud() {
   const mh = maxHp(P.lvl), need = xpNeed(P.lvl);
-  const key = [P.lvl, Math.ceil(P.hp), mh, P.xp, P.gold, P.potions, !!nearNpc(), P.q.i, P.q.active, P.q.prog, tutActive(), P.fruit.state, P.fruit.got.length, P.pet, P.runes.fire, P.runes.got, P.trea.state, P.poisonUntil > now, Object.keys(P.marks).length, P.bag.length].join('|');
+  const key = [P.lvl, Math.ceil(P.hp), mh, P.xp, P.gold, P.potions, !!nearNpc(), P.q.i, P.q.active, P.q.prog, tutActive(), P.fruit.state, P.fruit.got.length, P.pet, P.runes.fire, P.runes.got, P.runes.heal, P.runes.hgot, P.runes.sel, P.trea.state, P.poisonUntil > now, Object.keys(P.marks).length, P.bag.length].join('|');
   if (key === hudCache) return; hudCache = key;
   $('hLvl').textContent = T('Nv ') + P.lvl;
   $('hHp').textContent = Math.max(0, Math.ceil(P.hp)) + '/' + mh;
@@ -4699,8 +5444,11 @@ function updateHud() {
     $('bAtk').setAttribute('aria-label', near ? T('Hablar (E)') : T('Atacar (Espacio)'));
   }
   $('bPet').classList.toggle('locked', P.fruit.state !== 'done');
-  $('bRune').classList.toggle('locked', !P.runes.got);
-  $('hRune').hidden = !P.runes.got; $('hRune').textContent = P.runes.fire;
+  const rs = runeSel(), rown = P.runes.got || P.runes.hgot;
+  $('bRune').classList.toggle('locked', !rown);
+  $('hRune').hidden = !rown; $('hRune').textContent = rs === 'heal' ? P.runes.heal : P.runes.fire;
+  if ($('runeIco').dataset.k !== rs) { $('runeIco').dataset.k = rs; $('runeIco').innerHTML = RUNE_SVG[rs]; const lb = (rs === 'heal' ? T('Runa de curación') : T('Runa de fuego')) + ' (3)'; $('bRune').setAttribute('aria-label', lb); $('bRune').title = lb; }
+  $('bRuneSw').hidden = !(P.runes.got && P.runes.hgot) || net.guest;
   $('bPet').classList.toggle('on', !!P.pet);
   const q = curQuest(), qe = $('quest'), fr = P.fruit.state === 'active';
   qe.hidden = (!q && !fr && !(P.trea.state === 'active' || P.trea.state === 'found') && !Object.keys(P.marks).length) || tutActive();
@@ -4750,7 +5498,7 @@ function start(fromSave) {
     P.fruit = Object.assign({ state: 'none', got: [] }, s.fruit || {});
     P.tiers = s.tiers || {}; P.trophies = (s.trophies || []).filter(t => MT[t]); P.zones = s.zones || {}; P.fireCount = s.fireCount | 0; P.poisonSurvived = !!s.poisonSurvived;
     P.vault = (s.vault || []).filter(id => ITEMS[id]); P.marks = {}; for (const k in (s.marks || {})) if (P.bag.includes(k)) P.marks[k] = s.marks[k];
-    P.trea = Object.assign({ state: 'none' }, s.trea || {}); P.runes = Object.assign({ fire: 0, got: false }, s.runes || {}); P.deepest = s.deepest | 0; P.runeUsed = !!s.runeUsed; P.don = s.don || {};
+    P.trea = Object.assign({ state: 'none' }, s.trea || {}); P.runes = Object.assign({ fire: 0, got: false, heal: 0, hgot: false, sel: 'fire' }, s.runes || {}); if (P.runes.sel !== 'heal') P.runes.sel = 'fire'; P.deepest = s.deepest | 0; P.runeUsed = !!s.runeUsed; P.don = s.don || {}; P.shop = shopFix(s.shop); P.uniq = Object.assign({}, s.uniq || {}); for (const u in UNIQUE) if (owned(u)) P.uniq[u] = true; P.drops = dropsFix(s.drops);
     P.stats = s.stats && s.stats.kills ? s.stats : { kills: {} }; P.ach = s.ach || {}; P.bond = s.bond | 0; P.stageSeen = s.stageSeen | 0;
     P.pet = !!s.pet && P.fruit.state === 'done'; P.teo = Object.assign({ path: false, thanked: false, answer: '' }, s.teo || {});
     P.hp = Math.min(maxHp(P.lvl), Math.max(1, s.hp));
