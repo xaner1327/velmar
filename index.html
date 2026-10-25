@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<meta name="description" content="Velmar: medieval fantasy RPG for all ages, in English and Spanish. Juego de aventuras de fantasía medieval para todas las edades. Created by Xaner.">
+<meta name="description" content="Velmar: a medieval fantasy RPG adventure in English and Spanish. Una aventura de rol y fantasía medieval. Created by Xaner.">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#15130F">
 <link rel="icon" href="icon-192.png">
@@ -145,6 +145,7 @@ body.touch .act.big i.key { display: none; }
 .act.sw svg { width: 70%; height: 70%; }
 #runeIco { display: contents; }
 .act.s7 svg, .act.s8 svg { width: 66%; height: 66%; }
+.act.sw.ssw { left: -36px; top: 98px; }
 #bShop { border-color: #E4B54A; }
 #buffChip { position: fixed; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 92px); z-index: 6; padding: 4px 12px; border-radius: 14px;
   background: rgba(20,15,10,0.88); border: 2px solid #E4B54A; color: #FFE7A8; font-weight: 800; font-size: 14px; pointer-events: none; font-variant-numeric: tabular-nums; }
@@ -190,6 +191,28 @@ body.touch .act.big i.key { display: none; }
 #chatbar .cin { display: flex; gap: 6px; }
 #chatbar .cin input { flex: 1; min-width: 0; font-size: 16px; padding: 7px 9px; border-radius: 8px; border: 2px solid #6B5326; background: #120D08; color: #F1E6CC; }
 #chatbar .cin button { padding: 6px 12px; }
+#chatMod { max-height: 150px; overflow-y: auto; margin-bottom: 6px; padding: 6px; border: 1px solid #6B5326; border-radius: 8px; background: rgba(0,0,0,0.35); font-size: 13px; }
+#chatMod .modh { color: var(--muted); margin-bottom: 4px; }
+#chatMod .modempty { color: var(--muted); }
+#chatMod .modrow { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; padding: 3px 0; }
+#chatMod .modrow b { flex: 1 1 90px; min-width: 0; overflow-wrap: anywhere; }
+#chatMod .modrow button { padding: 3px 8px; font-size: 12px; }
+.item.missing { opacity: 0.5; }
+.item canvas.tier-set, .slot canvas.tier-set { border-color: #7DE07B; box-shadow: 0 0 0 1px rgba(125,224,123,0.35); }
+.item canvas.tier-rare, .slot canvas.tier-rare { border-color: #F2C14E; box-shadow: 0 0 0 1px rgba(242,193,78,0.35); }
+.settag { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 6px; background: #1E4A22; border: 1px solid #7DE07B; color: #BDF5BC; font-size: 11px; font-weight: 800; vertical-align: middle; }
+.creature .llbtn { margin-top: 6px; padding: 4px 10px; font-size: 12px; }
+.creature.wearing { border-color: #FFB3D1; }
+.stylerow { border-color: #6B5326; }
+.stylerow canvas { width: 64px !important; height: 64px !important; }
+.stylerow .setcount { color: var(--gold); font-weight: 800; }
+.stylepiece { margin-left: 22px; display: grid; }
+.scrollrow { border-color: #6B4FA8; }
+.row.icons .closebtn { flex: 0 0 auto; min-width: 140px; min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; }
+.closebtn .x { color: #FF4A3D; font-weight: 900; font-size: 18px; text-shadow: 0 1px 0 #000; }
+.setrow { border-color: #6B5326; }
+.setrow .setcount { color: var(--gold); font-weight: 800; }
+.item.setpiece { margin-left: 22px; }
 #bPet svg { width: 78%; height: 78%; }
 .act.locked { opacity: .45; border-color: rgba(150,150,150,0.8); box-shadow: 0 0 0 2px rgba(0,0,0,0.45); }
 .act.on { border-color: #FFB3D1; box-shadow: 0 0 0 2px rgba(0,0,0,0.45), 0 0 14px rgba(255,140,190,0.6); }
@@ -416,16 +439,18 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
   <button id="bChat" class="act s6" hidden aria-label="Chat (T)" title="Chat (T)"><b id="chatN" hidden>0</b><i class="key">T</i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h32a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-9 8v-8H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="#F1E6CC" stroke="#12324A" stroke-width="2.5" stroke-linejoin="round"/><circle cx="15" cy="21" r="2.6" fill="#4FA9D9"/><circle cx="24" cy="21" r="2.6" fill="#4FA9D9"/><circle cx="33" cy="21" r="2.6" fill="#4FA9D9"/></svg></button>
   <button id="bPet" class="act s4 locked" aria-label="Llamar a Raziel (R)" title="Raziel (R)"><svg viewBox="0 0 48 48" aria-hidden="true"><g stroke="#12324A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M14 27L4 18l2 13 4-2 1 5 5-4z" fill="#7FD6B8"/><path d="M34 27l10-9-2 13-4-2-1 5-5-4z" fill="#7FD6B8"/><path d="M33 39c5 1 8-2 7-5" fill="none"/><path d="M15 43c-2-9 2-17 9-17s11 8 9 17z" fill="#46B596"/><path d="M19 43c0-6 2-10 5-10s5 4 5 10z" fill="#F2E2B0"/><path d="M16 12c-1-4 0-7 2-9 0 3 1 5 3 6zM32 12c1-4 0-7-2-9 0 3-1 5-3 6z" fill="#F2E2B0"/><ellipse cx="24" cy="18" rx="11.5" ry="9.5" fill="#46B596"/><path d="M24 8.5l-2 4 2 1.5 2-1.5z" fill="#FFD24A"/></g><ellipse cx="19.5" cy="18" rx="2.3" ry="2.8" fill="#12324A"/><ellipse cx="28.5" cy="18" rx="2.3" ry="2.8" fill="#12324A"/><circle cx="20.3" cy="17" r=".9" fill="#fff"/><circle cx="29.3" cy="17" r=".9" fill="#fff"/><circle cx="16" cy="22" r="1.8" fill="#F29BB8"/><circle cx="32" cy="22" r="1.8" fill="#F29BB8"/><path d="M21.5 23c1.5 1.6 3.5 1.6 5 0" fill="none" stroke="#12324A" stroke-width="1.6" stroke-linecap="round"/><path d="M22 37v3M26 37v3" stroke="#12324A" stroke-width="1.3" stroke-linecap="round" opacity=".5"/></svg><i>4</i></button>
   <button id="bShop" class="act s7" hidden aria-label="Tienda (B)" title="Tienda (B)"><i class="key">B</i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18h28l-3 22H13z" fill="#E4B54A" stroke="#3A2C1A" stroke-width="2.5" stroke-linejoin="round"/><path d="M17 18v-4a7 7 0 0 1 14 0v4" fill="none" stroke="#F1E6CC" stroke-width="3" stroke-linecap="round"/><path d="M24 25l2 4 4 .5-3 3 .8 4-3.8-2-3.8 2 .8-4-3-3 4-.5z" fill="#FFF3DA"/></svg></button>
-  <button id="bSpec" class="act s8" hidden aria-label="Pociones especiales (F)" title="Pociones especiales (F)"><b id="hSpec">0</b><i class="key">F</i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 6h10v4h-2v6c6 2 10 7 10 13a13 13 0 0 1-26 0c0-6 4-11 10-13v-6h-2z" fill="#3A2C1A" stroke="#F1E6CC" stroke-width="2" stroke-linejoin="round"/><path d="M13 30a11 11 0 0 0 22 0z" fill="#B46CFF"/><path d="M24 23l1.6 3.4 3.6.4-2.7 2.4.8 3.6-3.3-1.9-3.3 1.9.8-3.6-2.7-2.4 3.6-.4z" fill="#FFE14A"/></svg></button>
+  <button id="bSpec" class="act s8" hidden aria-label="Tomar poción especial (F)" title="Tomar poción especial (F)"><b id="hSpec">0</b><i class="key">F</i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 6h10v4h-2v6c6 2 10 7 10 13a13 13 0 0 1-26 0c0-6 4-11 10-13v-6h-2z" fill="#3A2C1A" stroke="#F1E6CC" stroke-width="2" stroke-linejoin="round"/><path id="specLiq" d="M13 30a11 11 0 0 0 22 0z" fill="#B46CFF"/><path d="M24 23l1.6 3.4 3.6.4-2.7 2.4.8 3.6-3.3-1.9-3.3 1.9.8-3.6-2.7-2.4 3.6-.4z" fill="#FFE14A"/></svg></button>
+  <button id="bSpecSw" class="act sw ssw" hidden aria-label="Cambiar poción especial (G)" title="Cambiar poción especial (G)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h12l-3-3M19 15H7l3 3" fill="none" stroke="#F1E6CC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </div>
 
 <div id="buffChip" hidden></div>
 <div id="lostChip" hidden aria-live="polite"></div>
 <div id="specMenu" hidden role="dialog" aria-label="Pociones especiales"></div>
 <div id="chatbar" hidden>
+  <div id="chatMod" hidden></div>
   <div id="chatHist" aria-live="polite"></div>
   <div id="chatQuick"></div>
-  <div class="cin"><input id="chatIn" maxlength="80" autocomplete="off" enterkeyhint="send"><button id="chatSend">Enviar</button><button id="chatX" aria-label="Cerrar">✕</button></div>
+  <div class="cin"><input id="chatIn" maxlength="80" autocomplete="off" enterkeyhint="send"><button id="chatSend">Enviar</button><button id="chatModB" aria-label="Silenciar o reportar jugadores" title="Silenciar o reportar">🛡</button><button id="chatX" aria-label="Cerrar">✕</button></div>
 </div>
 
 <div id="menu" class="overlay">
@@ -481,7 +506,7 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
     <h2 id="dlgName"></h2>
     <p class="quote" id="dlgQuote"></p>
     <div class="list" id="dlgBody"></div>
-    <div class="row icons" style="margin-top:14px"><button id="dlgSay" class="ico" aria-label="Escuchar" title="Escuchar"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h32a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-9 8v-8H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="#FFF3DA" stroke="#2D7FB8" stroke-width="2.5" stroke-linejoin="round"/><circle cx="16" cy="21" r="2.6" fill="#2D7FB8"/><circle cx="24" cy="21" r="2.6" fill="#2D7FB8"/><circle cx="32" cy="21" r="2.6" fill="#2D7FB8"/></svg></button><button id="dlgClose" class="ico" aria-label="Adiós" title="Adiós"><svg viewBox="0 0 48 48" aria-hidden="true"><g transform="rotate(-14 24 26)"><path d="M17 40c-4-3-7-8-7-13v-6a2.5 2.5 0 0 1 5 0v4V11a2.5 2.5 0 0 1 5 0v11V8a2.5 2.5 0 0 1 5 0v14V10a2.5 2.5 0 0 1 5 0v15l2-4a2.6 2.6 0 0 1 4.6 2.4L34 34c-2 4-5 7-10 7z" fill="#F2C9A0" stroke="#7A4E2A" stroke-width="2" stroke-linejoin="round"/></g><path d="M6 10c-2 3-2 7 0 10M41 6c3 2 4 6 3 9" fill="none" stroke="#E4B54A" stroke-width="2.5" stroke-linecap="round"/></svg></button></div>
+    <div class="row icons" style="margin-top:14px"><button id="dlgSay" class="ico" aria-label="Escuchar" title="Escuchar"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h32a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-9 8v-8H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="#FFF3DA" stroke="#2D7FB8" stroke-width="2.5" stroke-linejoin="round"/><circle cx="16" cy="21" r="2.6" fill="#2D7FB8"/><circle cx="24" cy="21" r="2.6" fill="#2D7FB8"/><circle cx="32" cy="21" r="2.6" fill="#2D7FB8"/></svg></button><button id="dlgClose" class="closebtn" aria-label="Cerrar"><span class="x" aria-hidden="true">✕</span> <span class="lbl">Cerrar</span></button></div>
   </div>
 </div>
 
@@ -628,6 +653,10 @@ Object.assign(EN, {"La Maestra Leira te dio la Espada del Aprendiz": "Master Lei
 Object.assign(EN, {"Versión: ": "Version: "});
 Object.assign(EN, {"Practica con los muñecos y las ratas.": "Practice on the dummies and the rats.", "¡Te damos la bienvenida al Campo de entrenamiento! Camina con el joystick o con las flechas del teclado hasta la Maestra Leira.": "Welcome to the Training Grounds! Walk with the joystick or the arrow keys over to Master Leira.", "Para hablar con alguien, tócalo o presiona Espacio cuando estés a su lado. Habla con la Maestra Leira.": "To talk to someone, tap them or press Space when you're next to them. Talk to Master Leira.", "Toca una sola vez un muñeco de práctica. Tu personaje camina hacia él y ataca solo. El aro rojo marca a quién atacas. No necesitas tocar más.": "Tap a training dummy just once. Your character walks to it and attacks on their own. The red ring shows who you're attacking. No need to tap again.", "Ahora toca otro muñeco. Así cambias de objetivo.": "Now tap a different dummy. That's how you switch targets.", "Las ratas del corral sí muerden. Entra al corral y vence a una.": "The rats in the pen do bite. Go into the pen and defeat one.", "Si tu vida baja, toca el botón Poción para curarte. Pruébalo ahora.": "If your health gets low, tap the Potion button to heal. Try it now.", "Toca el botón Equipo para ver lo que llevas puesto y lo que guardas en tu mochila.": "Tap the Equipment button to see what you're wearing and what's in your backpack.", "Toca el botón Mapa. El mapa se descubre mientras exploras y el signo de exclamación marca tu misión.": "Tap the Map button. The map reveals itself as you explore, and the exclamation mark shows your quest.", "¡Muy bien! Ya sabes lo necesario. Cruza el portal brillante para llegar al templo de Xanera.": "Well done! You know everything you need. Step through the glowing portal to reach the temple of Xanera.", "Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.": "I'm Leira, master-at-arms. Here you'll learn to fight before heading to Xanera.", "Un portal brillante que lleva al templo de Xanera.": "A glowing portal that leads to the temple of Xanera.", "Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!": "Your training is complete. Good luck in Velmar!", "\"Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.\"": "\"I'm Leira, master-at-arms. Here you'll learn to fight before heading to Xanera.\"", "\"Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!\"": "\"Your training is complete. Good luck in Velmar!\"", "\"Un portal brillante que lleva al templo de Xanera.\"": "\"A glowing portal that leads to the temple of Xanera.\"", "Campo de entrenamiento": "Training Grounds", "Muñeco de práctica": "Training Dummy", "un muñeco de práctica": "a training dummy", "Maestra de armas Leira": "Leira, Master-at-Arms", "Portal a Xanera": "Portal to Xanera", "Ir a Xanera": "Go to Xanera", "¡Entendido!": "Got it!", "Primero termina tu entrenamiento con la Maestra Leira. Si ya sabes jugar, usa «Omitir tutorial».": "First finish your training with Master Leira. If you already know how to play, use \"Skip tutorial\".", "⚔ Modo de ataque": "⚔ Attack mode", "Automático: tocas una vez y tu personaje sigue atacando. Manual: cada toque es un golpe.": "Automatic: tap once and your character keeps attacking. Manual: every tap is one hit.", "Automático": "Automatic", "Manual": "Manual", "Tu personaje ataca solo mientras el aro rojo esté sobre el monstruo. No necesitas tocar otra vez.": "Your character attacks on their own while the red ring is on the monster. No need to tap again.", "Llegas al templo de Xanera.": "You arrive at the temple of Xanera."});
 Object.assign(EN, {"¡": "", "ratas": "rats", "conejos": "rabbits", "lobos": "wolves", "avispas": "wasps", "osos": "bears", "serpientes": "snakes", "esqueletos": "skeletons", "orcos": "orcs", "trols": "trolls", "minotauros": "minotaurs", "bronce": "bronze", "plata": "silver", "oro": "gold"});
+Object.assign(EN, {"Repisa de peluches": "Plush Shelf", "Llevar": "Wear", "Llevarlo colgado de tu cinturón, como llavero": "Hang it from your belt, like a keychain", "Regresaste ": "You put ", " a la repisa.": " back on the shelf.", "Ahora llevas ": "Now you're carrying ", " como llavero.": " as a keychain.", "Tus peluches se ven en la repisa junto a la casita. Toca \"Llevar\" para colgarte uno como llavero (uno a la vez).": "Your plushies are shown on the shelf next to the little house. Tap \"Wear\" to hang one from your belt as a keychain (one at a time).", "Set": "Set", "★ Objeto raro: ": "★ Rare item: "});
+Object.assign(EN, {" (se usan al caer)": " (used when you fall)", " de oro cada uno": " gold each", " pergamino de regreso": " return scroll", " pergamino.": " scroll.", " pergaminos de regreso": " return scrolls", " pergaminos.": " scrolls.", " · ": " · ", " · paquete: ": " · bundle: ", ". Tienes ": ". You have ", ". ✨ La Bendición de Elara cuidó tu oro y tu experiencia. Te quedan ": ". ✨ Elara's Blessing kept your gold and experience safe. Remaining: ", "Bendición de Galo": "Galo's Blessing", "En el Campo de entrenamiento no funciona el pergamino. Cruza el portal para ir a Xanera.": "The scroll doesn't work in the Training Grounds. Step through the portal to go to Xanera.", "La alquimista Nerea los vende.": "Nerea the alchemist sells them.", "Leyendo… no dejes que te golpeen.": "Reading… don't let anyone hit you.", "Lista para tomar: ": "Ready to drink: ", "Nerea te vendió ": "Nerea sold you ", "No tienes pergaminos de regreso. La alquimista Nerea los vende.": "You don't have any return scrolls. Nerea the alchemist sells them.", "Pergamino de regreso ×": "Return scroll ×", "Pergaminos": "Scrolls", "Pergaminos de regreso ×10": "Return scrolls ×10", "Recibiste la ": "You received ", "Si caes, conservas todo tu oro y tu experiencia. Se usa una cada vez que caes y puedes juntar varias.": "If you fall, you keep all your gold and experience. One is used each time you fall, and you can stack several.", "Si caes, no pierdes nada de tu mochila ni de lo que llevas puesto: todo se queda contigo. Se usa una cada vez que caes y puedes juntar varias.": "If you fall, you lose nothing from your backpack or what you're wearing: it all stays with you. One is used each time you fall, and you can stack several.", "Si compras algo por error, Google te ayuda con el reembolso.": "If you buy something by mistake, Google can help you get a refund.", "Solo tienes ": "You only have ", "Te lleva al templo de Xanera en 3 segundos (tecla H).": "Takes you to the temple of Xanera in 3 seconds (H key).", "Te llevan al templo de Xanera desde donde estés. Se leen en 3 segundos; si te golpean, se interrumpe y no se gasta.": "They take you to the temple of Xanera from wherever you are. Reading takes 3 seconds; if you get hit, it's interrupted and not used up.", "Te llevan al templo de Xanera. Tienes ": "They take you to the temple of Xanera. You have ", "Tomar ": "Drink ", "Ya estás en un lugar seguro.": "You're already somewhere safe.", "¡Te golpearon! Se interrumpió el pergamino. No se gastó.": "You got hit! The scroll was interrupted. It wasn't used up.", "🌿 Bendición de Galo: ": "🌿 Galo's Blessing: ", "🌿 La Bendición de Galo protegió tu mochila y tu equipo. Te quedan ": "🌿 Galo's Blessing protected your backpack and gear. Remaining: ", "📜 Lees el pergamino de regreso… (3 segundos). Si te golpean, se interrumpe.": "📜 You read the return scroll… (3 seconds). If you get hit, it's interrupted.", "📜 Llegaste al templo de Xanera. Te quedan ": "📜 You arrived at the temple of Xanera. Remaining: ", "📜 Pergaminos de regreso": "📜 Return scrolls"});
+Object.assign(EN, {"Tus sets · ": "Your sets · ", " piezas": " pieces", "Ocultar": "Hide", " · en tu baúl": " · in your chest", " · lo llevas puesto": " · you're wearing it", " · en tu mochila": " · in your backpack", "Te falta · De la tienda de Velmar": "Missing · From the Velmar shop"});
+Object.assign(EN, {" en tu colección. Cada objeto se guarda una sola vez.": " in your collection. Each item is stored only once.", " salió de la sala.": " left the room.", " ya estaba en tu colección: se vendió al herrero por ": " was already in your collection: it was sold to the blacksmith for ", " · ya está en tu colección": " · already in your collection", ". Ya no verás sus mensajes. Gracias por avisarnos.": ". You won't see their messages anymore. Thanks for letting us know.", "Aquí aparecen los jugadores cuando te escriben. Puedes silenciarlos o reportarlos.": "Players show up here when they message you. You can mute or report them.", "Cada objeto se guarda una sola vez: es tu colección.": "Each item is stored only once: it's your collection.", "Cuéntanos qué pasó (opcional):": "Tell us what happened (optional):", "De la tienda de Velmar": "From the Velmar shop", "El anfitrión te sacó de la sala.": "The host removed you from the room.", "En tu colección": "In your collection", "Equipo de inicio": "Starting gear", "Escuchar": "Unmute", "Jugadores que te escribieron": "Players who messaged you", "Lo vende el Herrero Bruno": "Sold by Bruno the Blacksmith", "Objeto raro: lo sueltan criaturas o jefes, o es un premio de misión": "Rare item: dropped by creatures or bosses, or a quest reward", "Qué datos usa Velmar y cómo borrarlos.": "What data Velmar uses and how to delete it.", "Reportar": "Report", "Reportaste a ": "You reported ", "Reporte de jugador en Velmar": "Velmar player report", "Silenciar": "Mute", "Te falta · ": "Missing · ", "Tu mochila está vacía. Cuando encuentres objetos nuevos, puedes guardarlos aquí para tu colección.": "Your backpack is empty. When you find new items, you can store them here for your collection.", "Ya tienes ": "You already have ", "Ya tienes este objeto en tu baúl de recuerdos.": "You already have this item in your memory chest.", "Álbum de criaturas · ": "Creature album · ", "⚔ Armas": "⚔ Weapons", "⛑ Cascos": "⛑ Helmets", "✨ Sets": "✨ Sets", "🎒 Guardar": "🎒 Store", "🎯 Cazador ": "🎯 Hunter ", "🏅 Logros ": "🏅 Achievements ", "🐉 Raziel": "🐉 Raziel", "📖 Criaturas ": "📖 Creatures ", "🔒 Política de privacidad": "🔒 Privacy policy", "🛡 Escudos": "🛡 Shields", "🥋 Armaduras": "🥋 Armor", "🧸 Peluches ": "🧸 Plushies ", "🧸 Peluches": "🧸 Plushies", "Ya lo tienes": "Already have it"});
 const REV = {}; for (const k in EN) if (!(EN[k] in REV)) REV[EN[k]] = k;
 const T = s => LANG === 'en' && typeof s === 'string' && EN[s] !== undefined ? EN[s] : s;
 const untr = s => LANG === 'en' && REV[s] !== undefined ? REV[s] : s;
@@ -1140,7 +1169,7 @@ function defTotal(E = P) { const eq = eqOf(E); let d = 0; for (const s of SLOTS)
 // El arco se usa con las dos manos: no se puede llevar escudo al mismo tiempo.
 const bowOn = (E = P) => { const a = eqOf(E).arma; return !!(ITEMS[a] && ITEMS[a].bow); };
 function shieldOffForBow() {
-  if (bowOn() && P.equip.escudo) { const sh = P.equip.escudo; P.equip.escudo = null; if (P.bag.length >= bagCap()) { P.vault.push(sh); log(T('El arco se usa con las dos manos: tu escudo se fue al baúl porque tu mochila está llena.'), '#9FD0FF'); return; } P.bag.push(sh); if (typeof log === 'function') log(T('El arco se usa con las dos manos: guardaste tu escudo en la mochila.'), '#9FD0FF'); }
+  if (bowOn() && P.equip.escudo) { const sh = P.equip.escudo; P.equip.escudo = null; if (P.bag.length >= bagCap()) { if (vaultPut(sh)) log(T('El arco se usa con las dos manos: tu escudo se fue al baúl porque tu mochila está llena.'), '#9FD0FF'); return; } P.bag.push(sh); if (typeof log === 'function') log(T('El arco se usa con las dos manos: guardaste tu escudo en la mochila.'), '#9FD0FF'); }
 }
 // Si es mejor te lo pones; si no, a la mochila. Si la mochila está llena, se queda en el suelo 1 minuto.
 function giveItem(id, gx, gy) {
@@ -1173,6 +1202,7 @@ const NPCS = [
   { id: 'bruno', name: T('Herrero Bruno'), x: 31, y: 24, kind: 'shop', robe: '#6B4A2E', trim: '#9A9A9A' },
   { id: 'aldric', name: T('Capitán Aldric'), x: 25, y: 30, kind: 'quest', robe: '#7A2420', trim: '#D4A73A' },
   { id: 'casa', name: T('Casita de Raziel'), x: 23, y: 32, kind: 'pet', house: true },
+  { id: 'repisa', name: T('Repisa de peluches'), x: 24, y: 32, kind: 'shelf', shelf: true },
   { id: 'nerea', name: T('Alquimista Nerea'), x: 33, y: 31, kind: 'alchemy', robe: '#4A2E6E', trim: '#7ED957' },
   { id: 'cofre', name: T('Cofre antiguo'), x: 10, y: 6, kind: 'chest', fl: 2 },
   { id: 'leira', name: T('Maestra de armas Leira'), x: 37, y: 35, kind: 'trainer', fl: 4, robe: '#2E5E8A', trim: '#E4B54A' },
@@ -1462,6 +1492,19 @@ function teoBtn(parent, label, fn) {
   const b = document.createElement('button'); b.textContent = label;
   b.addEventListener('click', fn); parent.appendChild(b); return b;
 }
+// Bendiciones: 100 gemas en la tienda o 10,000 de oro con su NPC (Galo y la Sacerdotisa Elara)
+const BLESS_GOLD = 10000;
+const BLESS = {
+  galo: { key: 'bless', name: T('Bendición de Galo'), note: T('Si caes, no pierdes nada de tu mochila ni de lo que llevas puesto: todo se queda contigo. Se usa una cada vez que caes y puedes juntar varias.') },
+  elara: { key: 'blessE', name: T('Bendición de Elara'), note: T('Si caes, conservas todo tu oro y tu experiencia. Se usa una cada vez que caes y puedes juntar varias.') },
+};
+function blessRow(body, k) {
+  const B = BLESS[k], have = (P.shop && P.shop[B.key]) || 0;
+  body.appendChild(row(undefined, (k === 'galo' ? '🌿 ' : '✨ ') + B.name, B.note + T(' · tienes ') + have, BLESS_GOLD.toLocaleString(LANG === 'en' ? 'en-US' : 'es-MX') + T(' oro'), P.gold >= BLESS_GOLD, () => {
+    if (P.gold < BLESS_GOLD) return; P.gold -= BLESS_GOLD; P.shop[B.key] = have + 1; hudCache = ''; Sound.play('level'); burst(P.x, P.y, '#FFE7A8', 18, 1.6, 2);
+    log(T('Recibiste la ') + B.name + T('. Tienes ') + P.shop[B.key] + '.', '#FFE7A8');
+  }));
+}
 function renderTeo(body) {
   const st = teoState(), say = (t, c, note) => {
     $('dlgQuote').textContent = '"' + t + '"';
@@ -1524,6 +1567,7 @@ function renderTeo(body) {
   } else {
     say(T('Hola.'), 'g_hola', NARR.galo);
   }
+  if (st !== 'help' && !net.guest) blessRow(body, 'galo');
 }
 function renderChest(body) {
   const st = P.trea.state, note = t => { const p = document.createElement('p'); p.className = 'empty'; p.textContent = t; body.appendChild(p); };
@@ -1540,12 +1584,56 @@ function renderChest(body) {
   else { $('dlgQuote').textContent = T('Un cofre antiguo, bien cerrado.'); teoChain = [NARR.chestLocked]; note(NARR.chestLocked); }
 }
 const RUNE_PRICE = 50; // por carga
+const SCROLL_PRICE = 1000; // pergamino de regreso
+function buyCountRow(body, title, note, price, give) {
+  const el = document.createElement('div'); el.className = 'item';
+  const tx = document.createElement('div'); tx.textContent = title;
+  const sm = document.createElement('small'); sm.textContent = note; tx.appendChild(sm); el.appendChild(tx);
+  const acts = document.createElement('div'); acts.className = 'acts';
+  for (const n of [1, 5, 10]) {
+    const b = document.createElement('button'); b.textContent = '+' + n; b.disabled = P.gold < price * n; b.title = (price * n) + T(' oro');
+    b.addEventListener('click', () => { if (P.gold < price * n) return; P.gold -= price * n; give(n); hudCache = ''; save(); renderDialog(); });
+    acts.appendChild(b);
+  }
+  el.appendChild(acts); body.appendChild(el);
+}
+// ---- Pergamino de regreso: 3 segundos de lectura; un golpe lo interrumpe y no se gasta ----
+let recall = null;
+const RECALL_SECS = 3;
+const canRecall = () => playing && !net.guest && !P.ghost && FLOOR !== 4 && !tutActive() && !isSafe(P.x, P.y);
+function startRecall() {
+  if (recall) return false;
+  if (!(P.shop && P.shop.scroll > 0)) { log(T('No tienes pergaminos de regreso. La alquimista Nerea los vende.'), '#C9C3B3'); return false; }
+  if (FLOOR === 4 || tutActive()) { log(T('En el Campo de entrenamiento no funciona el pergamino. Cruza el portal para ir a Xanera.'), '#C9C3B3'); return false; }
+  if (isSafe(P.x, P.y)) { log(T('Ya estás en un lugar seguro.'), '#C9C3B3'); return false; }
+  if (!canRecall()) return false;
+  recall = { t: 0, hurt: P.lastHurt }; Sound.play('ui');
+  log(T('📜 Lees el pergamino de regreso… (3 segundos). Si te golpean, se interrumpe.'), '#D9C4FF');
+  return true;
+}
+function recallTick(dt) {
+  if (!recall) return;
+  if (P.ghost || P.lastHurt !== recall.hurt) { recall = null; log(T('¡Te golpearon! Se interrumpió el pergamino. No se gastó.'), '#FF9A70'); return; }
+  const [rx, ry] = rpos(P);
+  if (Math.random() < dt * 14) burst(rx, ry - 0.2, '#C9A6FF', 2, 0.8, 1);
+  if ((recall.t += dt) < RECALL_SECS) return;
+  recall = null; P.shop.scroll--;
+  changeFloor(0, TEMPLE.x, TEMPLE.y);
+  monstersGoHome(monsters);
+  burst(TEMPLE.x, TEMPLE.y - 0.3, '#C9A6FF', 26, 2.2, 2); Sound.play('level');
+  log(T('📜 Llegaste al templo de Xanera. Te quedan ') + P.shop.scroll + (P.shop.scroll === 1 ? T(' pergamino.') : T(' pergaminos.')), '#D9C4FF');
+  save();
+}
 function renderAlchemy(body) {
   $('dlgQuote').textContent = T('"Pociones, hierbas y un poco de magia. Si tu runa se quedó sin fuerza, le pongo cargas por un poco de oro."');
   // Nerea vende las pociones de vida
   body.appendChild(row(undefined, T('Poción de vida'), T('Cura ') + potHeal(P.lvl) + T(' de vida · tienes ') + P.potions, POTION_PRICE + T(' oro'), P.gold >= POTION_PRICE, () => {
     P.gold -= POTION_PRICE; P.potions++; hudCache = ''; Sound.play('coin');
   }));
+  buyCountRow(body, T('📜 Pergaminos de regreso'), T('Te llevan al templo de Xanera. Tienes ') + P.shop.scroll + T(' · ') + SCROLL_PRICE.toLocaleString(LANG === 'en' ? 'en-US' : 'es-MX') + T(' de oro cada uno'), SCROLL_PRICE, n => {
+    P.shop.scroll += n; Sound.play('coin');
+    log(T('Nerea te vendió ') + n + (n === 1 ? T(' pergamino de regreso') : T(' pergaminos de regreso')) + T('. Tienes ') + P.shop.scroll + '.', '#E4B54A');
+  });
   if (!P.runes.got) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Todavía no tienes la runa de fuego. Dicen que Galo sabe de un tesoro escondido bajo la Cueva de los Huesos.'); body.appendChild(p); return; }
   // Cargas de fuego sueltas: 50 de oro cada una, todas las que alcancen
   const el = document.createElement('div'); el.className = 'item';
@@ -1590,8 +1678,8 @@ function renderPetDialog(body) {
 
 // ================= Coleccionables: medallas, álbum de criaturas y evolución de Raziel =================
 const kills = t => (P.stats && P.stats.kills[t]) || 0;
-const PET_STAGES = [{ name: T('Bebé dragón'), need: 0, size: 1 }, { name: T('Dragón joven'), need: 25, size: 1.25 }, { name: T('Gran dragón'), need: 80, size: 1.55 }];
-const petStage = () => P.bond >= PET_STAGES[2].need ? 2 : P.bond >= PET_STAGES[1].need ? 1 : 0;
+const PET_STAGES = [{ name: T('Bebé dragón'), need: 0, size: 1 }, { name: T('Dragón joven'), need: 80, size: 1.25 }, { name: T('Gran dragón'), need: 400, size: 1.55 }];
+const petStage = () => Math.max(P.bond >= PET_STAGES[2].need ? 2 : P.bond >= PET_STAGES[1].need ? 1 : 0, Math.min(2, P.stageSeen | 0));
 const CREATURES = {
   rata: T('Corren por los Campos del Sur y se comen el grano de Xanera.'),
   lobo: T('Cazan en el Bosque Gris y atacan a quien cruza el puente.'),
@@ -1685,6 +1773,38 @@ function collectUpdate(dt) {
     save();
   }
 }
+// Dibuja un peluche (o trofeo de jefe) en una caja de tamaño s cuya esquina está en (ox, oy)
+function drawPlush(type, ox, oy, s, noBase) {
+  const boss = HUNT.some(h => h[0] === type && h[2]);
+  ctx.save(); ctx.translate(ox, oy);
+  if (!noBase) {
+    ctx.fillStyle = boss ? '#B8862B' : '#C9A0C8'; ctx.beginPath(); ctx.ellipse(s / 2, s * 0.84, s * 0.38, s * 0.1, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = boss ? '#FFD86B' : '#F2D6EE'; ctx.beginPath(); ctx.ellipse(s / 2, s * 0.8, s * 0.36, s * 0.08, 0, 0, 7); ctx.fill();
+  }
+  const fake = { type, d: MT[type], mt: 1, steps: 0, flash: 0, id: 1, x: 1, fx: 0 };
+  const k = Math.min(1, 0.95 / MT[type].size);
+  drawMonster(fake, s / 2, s * 0.55, s * 0.8 * k);
+  if (!boss) { ctx.fillStyle = '#FF9FC4'; ctx.beginPath(); ctx.arc(s * 0.8, s * 0.2, s * 0.06, 0, 7); ctx.arc(s * 0.88, s * 0.2, s * 0.06, 0, 7); ctx.fill(); ctx.beginPath(); ctx.moveTo(s * 0.74, s * 0.22); ctx.lineTo(s * 0.84, s * 0.34); ctx.lineTo(s * 0.94, s * 0.22); ctx.fill(); }
+  ctx.restore();
+}
+// Repisa de madera junto a la casita de Raziel (2 casillas de ancho, 3 tablas). Los trofeos de jefe van arriba, en dorado.
+function drawShelf(cx, cy, s) {
+  const x0 = cx - s * 0.48, w = s * 1.96, top = cy - s * 1.05, h = s * 1.4;
+  ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.beginPath(); ctx.ellipse(x0 + w / 2, cy + s * 0.38, w * 0.52, s * 0.1, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#5C3A1E'; ctx.fillRect(x0, top, s * 0.08, h); ctx.fillRect(x0 + w - s * 0.08, top, s * 0.08, h);
+  ctx.fillStyle = 'rgba(60,36,18,0.55)'; ctx.fillRect(x0 + s * 0.08, top, w - s * 0.16, h);
+  const rowsY = [top + h * 0.32, top + h * 0.64, top + h * 0.96];
+  ctx.fillStyle = '#8A5A2B'; for (const y of rowsY) ctx.fillRect(x0 - s * 0.03, y, w + s * 0.06, s * 0.07);
+  ctx.fillStyle = '#E4B54A'; ctx.fillRect(x0 + w * 0.3, top - s * 0.12, w * 0.4, s * 0.14);
+  const tr = (P.trophies || []).slice(), bosses = tr.filter(t => HUNT.some(h => h[0] === t && h[2])), pl = tr.filter(t => !bosses.includes(t));
+  const slots = [], per = 6, ps = s * 0.32;
+  const put = (list, row) => list.forEach((t, i) => slots.push([t, row, i]));
+  put(bosses, 0); put(pl.slice(0, per - bosses.length), 0); put(pl.slice(per - bosses.length, per * 2 - bosses.length), 1); put(pl.slice(per * 2 - bosses.length), 2);
+  for (const [t, r, i] of slots) {
+    const boss = bosses.includes(t), sz = boss ? ps * 1.25 : ps;
+    drawPlush(t, x0 + s * 0.1 + i * (w - s * 0.2) / per + ((w - s * 0.2) / per - sz) / 2, rowsY[r] - sz * 0.88, sz, true);
+  }
+}
 function trophyCanvas(type, size) {
   const boss = HUNT.some(h => h[0] === type && h[2]);
   return sceneCanvas(size, size, () => {
@@ -1697,7 +1817,7 @@ function trophyCanvas(type, size) {
     if (!boss) { ctx.fillStyle = '#FF9FC4'; ctx.beginPath(); ctx.arc(s * 0.8, s * 0.2, s * 0.06, 0, 7); ctx.arc(s * 0.88, s * 0.2, s * 0.06, 0, 7); ctx.fill(); ctx.beginPath(); ctx.moveTo(s * 0.74, s * 0.22); ctx.lineTo(s * 0.84, s * 0.34); ctx.lineTo(s * 0.94, s * 0.22); ctx.fill(); }
   });
 }
-function trophyGrid(box) {
+function trophyGrid(box, canWear) {
   const tr = P.trophies || [];
   const h = document.createElement('h3'); h.textContent = T('Peluches y trofeos · ') + tr.length + T(' de ') + HUNT.length; box.appendChild(h);
   if (!tr.length) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Gana la medalla de oro de una criatura para recibir su peluche. Los jefes dan trofeos.'); box.appendChild(p); return; }
@@ -1707,6 +1827,12 @@ function trophyGrid(box) {
     const el = document.createElement('div'); el.className = 'creature';
     el.appendChild(trophyCanvas(t, 72));
     const b = document.createElement('b'); b.textContent = trophyName(t, boss); el.appendChild(b);
+    if (canWear && P.shop && P.shop.cos) {
+      const on = P.shop.cos.ll === t, bt = document.createElement('button'); bt.className = 'llbtn'; bt.textContent = on ? T('Quitar') : T('Llevar');
+      bt.title = T('Llevarlo colgado de tu cinturón, como llavero');
+      bt.addEventListener('click', () => { P.shop.cos.ll = on ? null : t; Sound.play('equip'); log(on ? T('Regresaste ') + trophyName(t, boss) + T(' a la repisa.') : T('Ahora llevas ') + trophyName(t, boss) + T(' como llavero.'), '#FFB3D1'); save(); renderDialog(); });
+      if (on) el.classList.add('wearing'); el.appendChild(bt);
+    }
     g.appendChild(el);
   }
   box.appendChild(g);
@@ -1729,73 +1855,83 @@ function sceneCanvas(w, h, draw) {
 }
 function openAlbum() { closeDialog(); renderAlbum(); $('album').hidden = false; $('albumClose').focus(); Sound.play('ui'); }
 function closeAlbum() { $('album').hidden = true; }
+let albumTab = 'raziel';
+function tabBar(parent, tabs, cur, pick) {
+  const bar = document.createElement('div'); bar.className = 'tabs'; bar.setAttribute('role', 'tablist');
+  for (const [id, label] of tabs) { const b = document.createElement('button'); b.textContent = label; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', String(cur === id)); b.addEventListener('click', () => { Sound.play('ui'); pick(id); const f = parent.querySelector('.tabs [aria-selected="true"]'); if (f) f.focus(); }); bar.appendChild(b); }
+  parent.appendChild(bar);
+}
 function renderAlbum() {
   const st = petStage(), box = $('albumBody'); box.innerHTML = '';
-  // Raziel
-  const pc = document.createElement('div'); pc.className = 'petcard';
-  pc.appendChild(sceneCanvas(96, 96, () => {
-    const keepFace = pet.face; pet.face = 1;
-    const s = 56 * PET_STAGES[st].size; drawPetAt(48, 62, s, st);
-    pet.face = keepFace;
-  }));
-  const pt = document.createElement('div');
-  const next = PET_STAGES[st + 1];
-  pt.innerHTML = T('<small>Tu compañero</small>');
-  const nm = document.createElement('b'); nm.textContent = 'Raziel · ' + PET_STAGES[st].name; pt.appendChild(nm);
-  const note = document.createElement('p');
-  note.textContent = P.fruit.state !== 'done' ? T('Ayuda a Galo con las frutas del dragón para que Raziel te acompañe.')
-    : next ? T('Crece cuando te acompaña y vencen monstruos juntos.') : T('¡Ya es un gran dragón!');
-  pt.appendChild(note);
-  if (next) {
-    const bar = document.createElement('div'); bar.className = 'bar xp';
-    const fill = document.createElement('i'); fill.style.width = Math.min(100, 100 * (P.bond - PET_STAGES[st].need) / (next.need - PET_STAGES[st].need)) + '%';
-    const lab = document.createElement('span'); lab.textContent = T('Vínculo ') + P.bond + '/' + next.need;
-    bar.append(fill, lab); pt.appendChild(bar);
-  }
-  pc.appendChild(pt); box.appendChild(pc);
-  // Medallas
-  const won = ACH.filter(a => P.ach[a.id]).length;
-  const h1 = document.createElement('h3'); h1.textContent = T('Medallas · ') + won + T(' de ') + ACH.length; box.appendChild(h1);
-  const mg = document.createElement('div'); mg.className = 'medals';
-  for (const a of ACH) {
-    const on = !!P.ach[a.id], el = document.createElement('div'); el.className = 'medal' + (on ? ' on' : '');
-    el.innerHTML = medalSvg(on);
-    const t = document.createElement('b'); t.textContent = a.name;
-    const dsc = document.createElement('small'); dsc.textContent = a.desc;
-    el.append(t, dsc); mg.appendChild(el);
-  }
-  box.appendChild(mg);
-  const hh = document.createElement('h3'); hh.textContent = T('Medallas de cazador'); box.appendChild(hh);
-  const hl = document.createElement('div'); hl.className = 'hunt';
-  for (const [type, plural, boss] of HUNT) {
-    const tier = P.tiers && P.tiers[type] || 0, k = kills(type), g = huntGoals(boss), next = g[Math.min(2, tier)];
-    const el = document.createElement('div'); el.className = 'huntrow';
-    const nm = document.createElement('b'); nm.textContent = kills(type) || tier ? (boss ? plural.replace(/^el /, '') : plural.charAt(0).toUpperCase() + plural.slice(1)) : '???';
-    const pr = document.createElement('small'); pr.textContent = tier >= 3 ? T('¡Completo! ') + k + T(' vencidos') : k + ' / ' + next;
-    const tx = document.createElement('div'); tx.append(nm, pr);
-    const ms = document.createElement('div'); ms.className = 'tiers';
-    [1, 2, 3].forEach(t => { const m = document.createElement('span'); m.className = 'tier' + (tier >= t ? ' on' : ''); m.title = TIER_NAMES[t] + ': ' + g[t - 1]; m.innerHTML = medalSvg(tier >= t, tier >= t ? t : 0); ms.appendChild(m); });
-    el.append(tx, ms); hl.appendChild(el);
-  }
-  box.appendChild(hl);
-  // Criaturas
-  const h2 = document.createElement('h3'); h2.textContent = T('Álbum de criaturas'); box.appendChild(h2);
-  const cg = document.createElement('div'); cg.className = 'creatures';
-  for (const t of Object.keys(MT).filter(t => !MT[t].noAlbum)) {
-    const n = kills(t), el = document.createElement('div'); el.className = 'creature' + (n ? '' : ' unknown');
-    el.appendChild(sceneCanvas(80, 72, () => {
-      const fake = { type: t, d: MT[t], mt: 1, steps: 0, flash: 0 };
-      if (!n) ctx.filter = 'brightness(0) opacity(0.55)';
-      drawMonster(fake, 40, t === 'ogro' ? 44 : 42, t === 'ogro' ? 58 : 66);
-      ctx.filter = 'none';
+  const albumKinds = Object.keys(MT).filter(t => !MT[t].noAlbum);
+  const won = ACH.filter(a => P.ach[a.id]).length, seen = albumKinds.filter(t => kills(t)).length;
+  const golds = HUNT.filter(([t, , boss]) => (P.tiers && P.tiers[t] || 0) >= 3).length;
+  tabBar(box, [['raziel', T('🐉 Raziel')], ['logros', T('🏅 Logros ') + won + '/' + ACH.length], ['cazador', T('🎯 Cazador ') + golds + '/' + HUNT.length], ['criaturas', T('📖 Criaturas ') + seen + '/' + albumKinds.length], ['peluches', T('🧸 Peluches ') + (P.trophies || []).length + '/' + HUNT.length]], albumTab, id => { albumTab = id; renderAlbum(); });
+  if (albumTab === 'raziel') {
+    const pc = document.createElement('div'); pc.className = 'petcard';
+    pc.appendChild(sceneCanvas(96, 96, () => {
+      const keepFace = pet.face; pet.face = 1;
+      const s = 56 * PET_STAGES[st].size; drawPetAt(48, 62, s, st);
+      pet.face = keepFace;
     }));
-    const b = document.createElement('b'); b.textContent = n ? MT[t].name : '???';
-    const sm = document.createElement('small'); sm.textContent = n ? CREATURES[t] : T('Aún no la descubres.');
-    const c = document.createElement('em'); c.textContent = T('Vencidos: ') + n;
-    el.append(b, sm, c); cg.appendChild(el);
-  }
-  box.appendChild(cg);
-  trophyGrid(box);
+    const pt = document.createElement('div');
+    const next = PET_STAGES[st + 1];
+    pt.innerHTML = T('<small>Tu compañero</small>');
+    const nm = document.createElement('b'); nm.textContent = 'Raziel · ' + PET_STAGES[st].name; pt.appendChild(nm);
+    const note = document.createElement('p');
+    note.textContent = P.fruit.state !== 'done' ? T('Ayuda a Galo con las frutas del dragón para que Raziel te acompañe.')
+      : next ? T('Crece cuando te acompaña y vencen monstruos juntos.') : T('¡Ya es un gran dragón!');
+    pt.appendChild(note);
+    if (next) {
+      const bar = document.createElement('div'); bar.className = 'bar xp';
+      const fill = document.createElement('i'); fill.style.width = Math.max(0, Math.min(100, 100 * (P.bond - PET_STAGES[st].need) / (next.need - PET_STAGES[st].need))) + '%';
+      const lab = document.createElement('span'); lab.textContent = T('Vínculo ') + P.bond + '/' + next.need;
+      bar.append(fill, lab); pt.appendChild(bar);
+    }
+    pc.appendChild(pt); box.appendChild(pc);
+  } else if (albumTab === 'logros') {
+    const h1 = document.createElement('h3'); h1.textContent = T('Medallas · ') + won + T(' de ') + ACH.length; box.appendChild(h1);
+    const mg = document.createElement('div'); mg.className = 'medals';
+    for (const a of ACH) {
+      const on = !!P.ach[a.id], el = document.createElement('div'); el.className = 'medal' + (on ? ' on' : '');
+      el.innerHTML = medalSvg(on);
+      const t = document.createElement('b'); t.textContent = a.name;
+      const dsc = document.createElement('small'); dsc.textContent = a.desc;
+      el.append(t, dsc); mg.appendChild(el);
+    }
+    box.appendChild(mg);
+  } else if (albumTab === 'cazador') {
+    const hh = document.createElement('h3'); hh.textContent = T('Medallas de cazador'); box.appendChild(hh);
+    const hl = document.createElement('div'); hl.className = 'hunt';
+    for (const [type, plural, boss] of HUNT) {
+      const tier = P.tiers && P.tiers[type] || 0, k = kills(type), g = huntGoals(boss), next = g[Math.min(2, tier)];
+      const el = document.createElement('div'); el.className = 'huntrow';
+      const nm = document.createElement('b'); nm.textContent = kills(type) || tier ? (boss ? plural.replace(/^el /, '') : plural.charAt(0).toUpperCase() + plural.slice(1)) : '???';
+      const pr = document.createElement('small'); pr.textContent = tier >= 3 ? T('¡Completo! ') + k + T(' vencidos') : k + ' / ' + next;
+      const tx = document.createElement('div'); tx.append(nm, pr);
+      const ms = document.createElement('div'); ms.className = 'tiers';
+      [1, 2, 3].forEach(t => { const m = document.createElement('span'); m.className = 'tier' + (tier >= t ? ' on' : ''); m.title = TIER_NAMES[t] + ': ' + g[t - 1]; m.innerHTML = medalSvg(tier >= t, tier >= t ? t : 0); ms.appendChild(m); });
+      el.append(tx, ms); hl.appendChild(el);
+    }
+    box.appendChild(hl);
+  } else if (albumTab === 'criaturas') {
+    const h2 = document.createElement('h3'); h2.textContent = T('Álbum de criaturas · ') + seen + T(' de ') + albumKinds.length; box.appendChild(h2);
+    const cg = document.createElement('div'); cg.className = 'creatures';
+    for (const t of albumKinds) {
+      const n = kills(t), el = document.createElement('div'); el.className = 'creature' + (n ? '' : ' unknown');
+      el.appendChild(sceneCanvas(80, 72, () => {
+        const fake = { type: t, d: MT[t], mt: 1, steps: 0, flash: 0, id: 1, x: 1, fx: 0 };
+        if (!n) ctx.filter = 'brightness(0) opacity(0.55)';
+        drawMonster(fake, 40, t === 'ogro' ? 44 : 42, t === 'ogro' ? 58 : 66);
+        ctx.filter = 'none';
+      }));
+      const b = document.createElement('b'); b.textContent = n ? MT[t].name : '???';
+      const sm = document.createElement('small'); sm.textContent = n ? CREATURES[t] : T('Aún no la descubres.');
+      const c = document.createElement('em'); c.textContent = T('Vencidos: ') + n;
+      el.append(b, sm, c); cg.appendChild(el);
+    }
+    box.appendChild(cg);
+  } else trophyGrid(box);
 }
 
 // ================= Créditos =================
@@ -2044,7 +2180,7 @@ function finishTutorial() {
   save();
 }
 function skipTutorial() {
-  const td = tutDrop(); if (td) { P.drops.splice(P.drops.indexOf(td), 1); for (const id of td.items) { if (id === td.eq && P.equip.arma === 'espada_corta') P.equip.arma = id; else if (!bagAdd(id, true)) P.vault.push(id); } }
+  const td = tutDrop(); if (td) { P.drops.splice(P.drops.indexOf(td), 1); for (const id of td.items) { if (id === td.eq && P.equip.arma === 'espada_corta') P.equip.arma = id; else if (!bagAdd(id, true)) vaultPut(id); } }
   if (!P.tut.chose && (P.tut.manualOn || P.tut.prevAttack)) { SET.attack = P.tut.prevAttack || 'auto'; saveSet(); }
   P.tut.done = true; showTut(false); Voice.stop();
   if (FLOOR === 4) goToXanera();
@@ -2247,7 +2383,7 @@ const TRAIN = { spawn: { x: 33, y: 37 }, leira: { x: 37, y: 35 }, portal: { x: 5
 // Cofre del tesoro de Galo: piso -2, en una sala alejada del camino
 const CHEST = { x: 10, y: 6 };
 maps[2][CHEST.y * MW + CHEST.x] = 'd';
-function setFloor(f) { FLOOR = f; map = maps[f]; monsters = floorMons[f]; CRYSTALS = floorCrystals[f]; }
+function setFloor(f) { if (f !== FLOOR && monsters) monstersGoHome(monsters); FLOOR = f; map = maps[f]; monsters = floorMons[f]; CRYSTALS = floorCrystals[f]; }
 function changeFloor(f, x, y) {
   setFloor(f);
   P.x = P.fx = x; P.y = P.fy = y; P.mt = 1; P.path = []; P.follow = false; target = null; destMark = null;
@@ -2581,6 +2717,7 @@ function killMonster(m) {
     if (k) { if (!allyGive(k, id)) { msg += ' ' + nameOf(k) + T(' tiene la mochila llena.'); continue; } msg += T(' ¡Encontró ') + ITEMS[id].name + '!'; }
     else {
     if (UNIQUE[id]) P.uniq[id] = true;
+    if (itemTier(id)) log(T('★ Objeto raro: ') + ITEMS[id].name, itemColor(id));
     const r = giveItem(id, m.x, m.y);
     msg += r === 'equip' ? T(' ¡Encontraste ') + ITEMS[id].name + T(' y te lo pusiste!') : r === 'bag' ? T(' Encontraste ') + ITEMS[id].name + T(' (está en tu mochila).') : T(' ¡') + ITEMS[id].name + T(' quedó en el suelo! Tienes 1 minuto para hacer espacio y recogerlo.');
     }
@@ -2632,12 +2769,13 @@ function playerDie(m) {
     Sound.play('death'); $('death').classList.add('show'); setTimeout(() => $('death').classList.remove('show'), 1600);
     save(); return;
   }
-  const lost = Math.floor(P.gold * 0.3);
-  P.gold -= lost; P.xp = 0; P.hp = maxHp(P.lvl);
-  if (P.shop) { P.shop.buff = null; P.shop.buffLeft = 0; }
-  // Se tira la mochila y puede caer una pieza de lo que traes puesto (20%; objetos raros de jefe 10%)
-  // Bendición de Elara (tienda): se gasta una y no pierdes nada de la mochila ni de lo que traes puesto
+  // Bendición de Galo: no pierdes nada de la mochila ni de lo que traes puesto. Bendición de Elara: no pierdes oro ni experiencia. Se gasta una de cada una al caer.
   const blessed = P.shop && P.shop.bless > 0; if (blessed) P.shop.bless--;
+  const blessE = P.shop && P.shop.blessE > 0; if (blessE) P.shop.blessE--;
+  const lost = blessE ? 0 : Math.floor(P.gold * 0.3);
+  P.gold -= lost; if (!blessE) P.xp = 0; P.hp = maxHp(P.lvl);
+  if (P.shop) { P.shop.buff = null; P.shop.buffLeft = 0; }
+  recall = null;
   const items = blessed ? [] : P.bag.slice(); if (!blessed) { P.bag = []; P.marks = {}; }
   const cand = blessed ? [] : SLOTS.map(sl => P.equip[sl.id]).filter(id => id && id !== 'espada_corta' && id !== 'tunica');
   let eqLost = null;
@@ -2650,9 +2788,10 @@ function playerDie(m) {
   if (FLOOR !== 0) setFloor(0);
   P.x = P.fx = TEMPLE.x; P.y = P.fy = TEMPLE.y; P.mt = 1; P.path = []; P.follow = false;
   target = null; lastZone = '';
-  for (const mm of monsters) mm.provoked = false;
-  log(T('Caíste ante ') + m.d.art + T('. Perdiste ') + lost + T(' de oro y la experiencia de este nivel.'), '#FF7B70');
-  if (blessed) log(T('✨ La Bendición de Elara protegió tu mochila y tu equipo. Te quedan ') + P.shop.bless + '.', '#FFE7A8');
+  monstersGoHome(monsters);
+  if (blessE) log(T('Caíste ante ') + m.d.art + T('. ✨ La Bendición de Elara cuidó tu oro y tu experiencia. Te quedan ') + P.shop.blessE + '.', '#FFE7A8');
+  else log(T('Caíste ante ') + m.d.art + T('. Perdiste ') + lost + T(' de oro y la experiencia de este nivel.'), '#FF7B70');
+  if (blessed) log(T('🌿 La Bendición de Galo protegió tu mochila y tu equipo. Te quedan ') + P.shop.bless + '.', '#FFE7A8');
   if (eqLost) log(T('¡Se te cayó ') + ITEMS[eqLost].name + T('! Está junto a tu mochila donde caíste.'), '#FF5A4E');
   if (items.length) log(T('Tu mochila quedó donde caíste. Tienes 5 minutos para regresar por ella. Sigue la flecha.'), '#FF5A4E');
   Sound.play('death');
@@ -2753,10 +2892,20 @@ function drawIcon(g, id, s) {
   }
   g.restore();
 }
+const RAR_SET = '#7DE07B', RAR_RARE = '#F2C14E';
+const itemTier = id => !id || !ITEMS[id] ? '' : ITEMS[id].set ? 'set' : ITEMS[id].rare ? 'rare' : '';
+const itemColor = id => { const t = itemTier(id); return t === 'set' ? RAR_SET : t === 'rare' ? RAR_RARE : ''; };
 function iconEl(id) {
   const c = document.createElement('canvas'); const d = Math.min(devicePixelRatio || 1, 2);
   c.width = c.height = Math.round(40 * d); const g = c.getContext('2d'); g.scale(d, d);
-  if (id) drawIcon(g, id, 40); return c;
+  if (id) drawIcon(g, id, 40);
+  const t = itemTier(id); if (t) c.classList.add('tier-' + t);
+  return c;
+}
+// Nombre del objeto con su color (y etiqueta "Set" en los de set)
+function itemName(el, id, txt) {
+  const sp = document.createElement('span'); sp.textContent = txt === undefined ? ITEMS[id].name : txt; const col = itemColor(id); if (col) sp.style.color = col; el.appendChild(sp);
+  if (itemTier(id) === 'set') { const tg = document.createElement('span'); tg.className = 'settag'; tg.textContent = T('Set'); el.appendChild(tg); }
 }
 
 // ================= NPC, tienda y equipo =================
@@ -2770,6 +2919,7 @@ function talkTo(n) {
   P.path = findPath(P.x, P.y, (x, y) => cheb(x, y, n.x, n.y) <= 1, 60) || [];
 }
 function openDialog(n) {
+  if (n && n.kind === 'shelf') { vaultTab = 'peluches'; n = { id: 'baul', name: T('Baúl de recuerdos'), kind: 'vault' }; }
   if (net.guest) {
     if (n.kind !== 'shop' && n.kind !== 'alchemy' && n.kind !== 'myeq') return;
     dlgNpc = n; keyStack.length = 0; padDir = null;
@@ -2790,7 +2940,7 @@ function closeDialog() { $('dlg').hidden = true; dlgNpc = null; Voice.stop(); }
 function row(iconId, title, note, label, enabled, onClick) {
   const el = document.createElement('div'); el.className = 'item';
   if (iconId !== undefined) el.appendChild(iconEl(iconId));
-  const tx = document.createElement('div'); tx.textContent = title;
+  const tx = document.createElement('div'); if (iconId && ITEMS[iconId] && title === ITEMS[iconId].name) itemName(tx, iconId); else tx.textContent = title;
   const sm = document.createElement('small'); sm.textContent = note; tx.appendChild(sm);
   el.appendChild(tx);
   if (label) {
@@ -2818,6 +2968,7 @@ function renderDialog() {
     body.appendChild(row(undefined, T('Curar heridas'), full ? T('Tu vida está completa.') : T('Recupera toda tu vida.'), T('Curar'), !full, () => {
       P.hp = maxHp(P.lvl); Sound.play('potion'); log(T('Elara te cura. Te sientes como nuevo.'), '#7DE07B');
     }));
+    blessRow(body, 'elara');
     return;
   }
   $('dlgQuote').textContent = T('"El mejor acero de Xanera. ¿Qué necesitas? Tienes ') + P.gold + T(' de oro."');
@@ -2960,6 +3111,12 @@ function renderCfg() {
     b.addEventListener('click', () => { closeCfg(); openCredits(false); });
     el.append(tx, b); list.appendChild(el); }
   { const el = document.createElement('div'); el.className = 'opt';
+    const tx = document.createElement('div'); tx.textContent = T('🔒 Política de privacidad');
+    const sm = document.createElement('small'); sm.textContent = T('Qué datos usa Velmar y cómo borrarlos.'); tx.appendChild(sm);
+    const a = document.createElement('a'); a.href = PRIVACY_URL; a.target = '_blank'; a.rel = 'noopener'; a.textContent = T('Ver'); a.className = 'btnlike';
+    a.style.cssText = 'display:inline-block;padding:8px 14px;border-radius:10px;border:2px solid #6B5326;color:#F1E6CC;text-decoration:none;white-space:nowrap';
+    el.append(tx, a); list.appendChild(el); }
+  { const el = document.createElement('div'); el.className = 'opt';
     const tx = document.createElement('div'); tx.textContent = T('Mi personaje');
     const sm = document.createElement('small'); sm.textContent = T('Cambia tu nombre, tu cabello, tu piel o tu ropa.'); tx.appendChild(sm);
     const b = document.createElement('button'); b.textContent = T('Cambiar');
@@ -3041,8 +3198,17 @@ function sellItem(id) {
   const v = sellValue(id); P.gold += v; Sound.play('coin');
   log(T('Vendiste ') + ITEMS[id].name + T(' por ') + v + T(' de oro.'), '#E4B54A');
 }
+const inVault = id => (P.vault || []).includes(id);
+// El baúl es una colección: cada objeto se guarda una sola vez. Si algo llega solo al baúl (mochila llena) y ya estaba, se vende al herrero.
+function vaultPut(id) {
+  if (!inVault(id) || (ITEMS[id] && ITEMS[id].shop)) { P.vault.push(id); return true; }
+  const v = sellValue(id); P.gold += v; Sound.play('coin');
+  log(ITEMS[id].name + T(' ya estaba en tu colección: se vendió al herrero por ') + v + T(' de oro.'), '#E4B54A');
+  return false;
+}
 function storeItem(id) {
   const i = P.bag.indexOf(id); if (i < 0) return;
+  if (inVault(id)) { delete P.marks[id]; log(T('Ya tienes ') + ITEMS[id].name + T(' en tu colección. Cada objeto se guarda una sola vez.'), '#FFB3D1'); return; }
   P.bag.splice(i, 1); delete P.marks[id]; P.vault.push(id); Sound.play('equip');
   log(ITEMS[id].name + T(' quedó guardado en tu baúl de recuerdos.'), '#FFB3D1');
 }
@@ -3062,7 +3228,7 @@ function bagRow(id) {
   const it = ITEMS[id], cur = P.equip[it.slot], better = statOf(id) > statOf(cur), mk = P.marks[id];
   const el = document.createElement('div'); el.className = 'item bagitem';
   el.appendChild(iconEl(id));
-  const tx = document.createElement('div'); tx.textContent = it.name;
+  const tx = document.createElement('div'); itemName(tx, id);
   const sm = document.createElement('small');
   sm.textContent = statText(id) + (it.shop ? T(' · de la tienda') : (it.rare ? T(' · raro') : '') + T(' · vale ') + sellValue(id) + T(' de oro')) + (mk === 'sell' ? T(' · por vender') : mk === 'keep' ? T(' · por guardar') : '');
   tx.appendChild(sm); el.appendChild(tx);
@@ -3074,27 +3240,87 @@ function bagRow(id) {
     if (canSellNow()) sellItem(id); else { P.marks[id] = mk === 'sell' ? undefined : 'sell'; if (!P.marks[id]) delete P.marks[id]; else log(T('Marcado para vender. Llévalo con el Herrero Bruno, en Xanera.'), '#E4B54A'); }
     hudCache = ''; save(); renderEquip();
   }));
-  acts.appendChild(icoBtn(CHEST_ICO, canStoreNow() ? T('Guardar') : mk === 'keep' ? T('Marcado') : T('Guardar'), mk === 'keep', () => {
+  if (inVault(id)) { const cb = icoBtn(CHEST_ICO, T('En tu colección'), false, () => {}); cb.disabled = true; cb.title = T('Ya tienes este objeto en tu baúl de recuerdos.'); acts.appendChild(cb); }
+  else acts.appendChild(icoBtn(CHEST_ICO, canStoreNow() ? T('Guardar') : mk === 'keep' ? T('Marcado') : T('Guardar'), mk === 'keep', () => {
     if (canStoreNow()) storeItem(id); else { P.marks[id] = mk === 'keep' ? undefined : 'keep'; if (!P.marks[id]) delete P.marks[id]; else log(T('Marcado para guardar. Llévalo al baúl de la casita de Raziel.'), '#FFB3D1'); }
     hudCache = ''; save(); renderEquip();
   }));
   el.appendChild(acts);
   return el;
 }
+let vaultTab = 'mochila', vaultSetOpen = null;
+const setDone = k => SETS[k].pieces.every(p => owned(p));
+const VAULT_TABS = [['mochila', T('🎒 Guardar')], ['arma', T('⚔ Armas')], ['escudo', T('🛡 Escudos')], ['casco', T('⛑ Cascos')], ['armadura', T('🥋 Armaduras')], ['set', T('✨ Sets')], ['peluches', T('🧸 Peluches')]];
+const inGroup = (id, g) => ITEMS[id] && (g === 'set' ? !!ITEMS[id].set : !ITEMS[id].set && ITEMS[id].slot === g);
 function renderVault(body) {
   $('dlgName').textContent = T('Baúl de recuerdos');
   $('dlgQuote').textContent = T('Este es tu baúl de recuerdos. Aquí puedes guardar los objetos que ya no usas, como una colección.');
   teoChain = [T('Este es tu baúl de recuerdos. Aquí puedes guardar los objetos que ya no usas, como una colección.')];
-  const ks = marked('keep');
-  if (ks.length) body.appendChild(row(undefined, T('Guardar lo marcado'), ks.length + (ks.length === 1 ? T(' objeto') : T(' objetos')) + ': ' + ks.map(i => ITEMS[i].name).join(', '), T('Guardar'), true, () => { ks.forEach(storeItem); dlgNpc = { id: 'baul', kind: 'vault' }; }));
   const vn = dlgNpc || { id: 'baul', kind: 'vault' };
-  const fromBag = P.bag.filter(id => P.marks[id] !== 'keep');
-  if (fromBag.length) { const h0 = document.createElement('h3'); h0.textContent = T('En tu mochila'); body.appendChild(h0); }
-  for (const [label, ids] of groupItems(fromBag)) { groupHead(body, label, ids.length); for (const id of ids) body.appendChild(row(id, ITEMS[id].name, statText(id), T('Guardar'), true, () => { storeItem(id); dlgNpc = vn; })); }
-  const h = document.createElement('h3'); h.textContent = T('Tu colección · ') + P.vault.length + (P.vault.length === 1 ? T(' objeto') : T(' objetos')); body.appendChild(h);
-  if (!P.vault.length) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Todavía no guardas nada. Desde tu mochila puedes marcar objetos para traerlos aquí.'); body.appendChild(p); }
-  for (const [label, ids] of groupItems(P.vault)) { groupHead(body, label, ids.length); for (const id of ids) body.appendChild(row(id, ITEMS[id].name, statText(id) + (ITEMS[id].rare ? T(' · raro') : ''), T('Sacar'), true, () => { takeItem(id); dlgNpc = vn; })); }
-  trophyGrid(body);
+  const uniq = [...new Set(P.vault)];
+  const showSets = STORE || uniq.some(id => ITEMS[id].set);
+  const tabs = [];
+  for (const [id, label] of VAULT_TABS) {
+    if (id === 'set' && !showSets) continue;
+    if (id === 'mochila') { const n = P.bag.filter(x => !inVault(x)).length; tabs.push([id, label + (n ? ' (' + n + ')' : '')]); continue; }
+    if (id === 'peluches') { tabs.push([id, label + ' ' + (P.trophies || []).length + '/' + HUNT.length]); continue; }
+    if (id === 'set') { const ks = Object.keys(SETS); tabs.push([id, label + ' ' + ks.filter(setDone).length + '/' + ks.length]); continue; }
+    const all = Object.keys(ITEMS).filter(x => inGroup(x, id));
+    tabs.push([id, label + ' ' + uniq.filter(x => inGroup(x, id)).length + '/' + all.length]);
+  }
+  if (!tabs.some(t => t[0] === vaultTab)) vaultTab = 'mochila';
+  tabBar(body, tabs, vaultTab, id => { vaultTab = id; dlgNpc = vn; renderDialog(); });
+  if (vaultTab === 'mochila') {
+    const ks = marked('keep').filter(id => !inVault(id));
+    if (ks.length) body.appendChild(row(undefined, T('Guardar lo marcado'), ks.length + (ks.length === 1 ? T(' objeto') : T(' objetos')) + ': ' + ks.map(i => ITEMS[i].name).join(', '), T('Guardar'), true, () => { ks.forEach(storeItem); dlgNpc = vn; }));
+    const fromBag = P.bag.filter(id => P.marks[id] !== 'keep' || inVault(id));
+    if (!P.bag.length) { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Tu mochila está vacía. Cuando encuentres objetos nuevos, puedes guardarlos aquí para tu colección.'); body.appendChild(p); }
+    else { const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Cada objeto se guarda una sola vez: es tu colección.'); body.appendChild(p); }
+    for (const [label, ids] of groupItems([...new Set(fromBag)])) { groupHead(body, label, ids.length); for (const id of ids) {
+      const have = inVault(id);
+      body.appendChild(row(id, ITEMS[id].name, statText(id) + (have ? T(' · ya está en tu colección') : ''), have ? T('Ya lo tienes') : T('Guardar'), !have, () => { storeItem(id); dlgNpc = vn; }));
+    } }
+  } else if (vaultTab === 'peluches') {
+    const p = document.createElement('p'); p.className = 'empty'; p.textContent = T('Tus peluches se ven en la repisa junto a la casita. Toca "Llevar" para colgarte uno como llavero (uno a la vez).'); body.appendChild(p);
+    trophyGrid(body, true);
+  } else if (vaultTab === 'set') {
+    const ks = Object.keys(SETS);
+    const h = document.createElement('h3'); h.textContent = T('Tus sets · ') + ks.filter(setDone).length + T(' de ') + ks.length; body.appendChild(h);
+    for (const k of ks) {
+      const S = SETS[k], have = S.pieces.filter(p => owned(p)).length, done = have === S.pieces.length, open = vaultSetOpen === k;
+      const el = document.createElement('div'); el.className = 'item clickable setrow' + (have ? '' : ' missing');
+      el.appendChild(iconEl(S.pieces[0]));
+      const tx = document.createElement('div'); tx.textContent = S.name + (done ? ' ✓' : '');
+      const sm = document.createElement('small'); sm.textContent = S.bonus; tx.appendChild(sm);
+      const pc = document.createElement('small'); pc.className = 'setcount'; pc.textContent = have + '/' + S.pieces.length + T(' piezas'); tx.appendChild(pc);
+      el.appendChild(tx);
+      const b = document.createElement('button'); b.textContent = open ? T('Ocultar') : T('Ver piezas'); el.appendChild(b);
+      const toggle = () => { vaultSetOpen = open ? null : k; Sound.play('ui'); dlgNpc = vn; renderDialog(); };
+      tx.addEventListener('click', toggle); b.addEventListener('click', toggle);
+      body.appendChild(el);
+      if (!open) continue;
+      for (const id of S.pieces) {
+        const it = ITEMS[id];
+        if (inVault(id)) { const n = P.vault.filter(x => x === id).length; const r = row(id, it.name, statText(id) + T(' · en tu baúl') + (n > 1 ? ' · ×' + n : ''), T('Sacar'), true, () => { takeItem(id); dlgNpc = vn; }); r.classList.add('setpiece'); body.appendChild(r); }
+        else if (owned(id)) { const r = row(id, it.name, statText(id) + (Object.values(P.equip).includes(id) ? T(' · lo llevas puesto') : T(' · en tu mochila')), '', false, () => {}); r.classList.add('setpiece'); body.appendChild(r); }
+        else { const r = row(id, it.name, T('Te falta · De la tienda de Velmar'), '', false, () => {}); r.classList.add('setpiece', 'missing'); body.appendChild(r); }
+      }
+    }
+  } else {
+    const all = Object.keys(ITEMS).filter(x => inGroup(x, vaultTab)), have = all.filter(inVault);
+    const h = document.createElement('h3'); h.textContent = T('Tu colección · ') + have.length + T(' de ') + all.length; body.appendChild(h);
+    const sorted = all.slice().sort((x, y) => vaultTab === 'set' ? ITEMS[x].set.localeCompare(ITEMS[y].set) || 0 : statOf(y) - statOf(x));
+    for (const id of sorted) {
+      const it = ITEMS[id];
+      if (inVault(id)) {
+        const n = P.vault.filter(x => x === id).length;
+        body.appendChild(row(id, it.name, statText(id) + (it.rare ? T(' · raro') : '') + (n > 1 ? ' · ×' + n : ''), T('Sacar'), true, () => { takeItem(id); dlgNpc = vn; }));
+      } else {
+        const where = it.set ? T('De la tienda de Velmar') : it.price > 0 ? T('Lo vende el Herrero Bruno') : it.rare ? T('Objeto raro: lo sueltan criaturas o jefes, o es un premio de misión') : T('Equipo de inicio');
+        const el = row(undefined, it.rare && !it.set ? '???' : it.name, T('Te falta · ') + where, '', false, () => {}); el.classList.add('missing'); body.appendChild(el);
+      }
+    }
+  }
   const back = document.createElement('div'); back.className = 'row'; body.appendChild(back);
   if (vn.remote) teoBtn(back, T('Volver a la mochila'), () => { closeDialog(); openEquip(); });
   else teoBtn(back, T('Volver a la casita'), () => { openDialog(NPCS.find(n => n.id === 'casa')); });
@@ -3112,7 +3338,7 @@ function renderEquip() {
     el.appendChild(iconEl(id));
     const tx = document.createElement('div');
     const lb = document.createElement('small'); lb.textContent = s.label;
-    const nm = document.createElement('b'); nm.textContent = id ? ITEMS[id].name : T('Vacío');
+    const nm = document.createElement('b'); if (id) itemName(nm, id); else nm.textContent = T('Vacío');
     tx.append(lb, nm);
     if (id) { const st = document.createElement('em'); st.textContent = statText(id); tx.appendChild(st); }
     if (id && (s.id === 'casco' || s.id === 'escudo')) {
@@ -3124,7 +3350,13 @@ function renderEquip() {
   }
   const bag = $('eqBag'); bag.innerHTML = '';
   $('eqBagH').textContent = T('Mochila') + ' · ' + P.bag.length + '/' + bagCap();
-  if (P.shop && P.shop.bless > 0) { const bl = document.createElement('p'); bl.className = 'empty'; bl.style.color = '#FFE7A8'; bl.textContent = T('✨ Bendición de Elara: ') + P.shop.bless + T(' (si caes, no pierdes tus objetos).'); bag.appendChild(bl); }
+  if (P.shop && (P.shop.bless > 0 || P.shop.blessE > 0)) { const bl = document.createElement('p'); bl.className = 'empty'; bl.style.color = '#FFE7A8'; bl.textContent = [P.shop.bless > 0 ? T('🌿 Bendición de Galo: ') + P.shop.bless : '', P.shop.blessE > 0 ? T('✨ Bendición de Elara: ') + P.shop.blessE : ''].filter(Boolean).join(' · ') + T(' (se usan al caer)'); bag.appendChild(bl); }
+  { const n = (P.shop && P.shop.scroll) || 0, sr = document.createElement('div'); sr.className = 'item scrollrow';
+    const ic = document.createElement('div'); ic.className = 'bundle'; ic.textContent = '📜'; sr.appendChild(ic);
+    const tx = document.createElement('div'); tx.textContent = T('Pergamino de regreso ×') + n;
+    const sm = document.createElement('small'); sm.textContent = recall ? T('Leyendo… no dejes que te golpeen.') : n ? T('Te lleva al templo de Xanera en 3 segundos (tecla H).') : T('La alquimista Nerea los vende.'); tx.appendChild(sm); sr.appendChild(tx);
+    const b = document.createElement('button'); b.textContent = T('Usar'); b.disabled = !n || !!recall || !canRecall(); b.addEventListener('click', () => { if (startRecall()) closeEquip(); });
+    sr.appendChild(b); bag.appendChild(sr); }
   if (magicBag()) { const vb = document.createElement('button'); vb.className = 'vaultbtn'; vb.innerHTML = CHEST_ICO; const vt = document.createElement('span'); vt.textContent = T(' Abrir mi baúl (') + P.vault.length + ')'; vb.appendChild(vt); vb.addEventListener('click', () => { closeEquip(); openDialog({ id: 'baul', name: T('Baúl de recuerdos'), kind: 'vault', remote: true }); }); bag.appendChild(vb); }
   if (!P.bag.length) {
     const p = document.createElement('p'); p.className = 'empty';
@@ -3185,8 +3417,10 @@ addEventListener('keydown', e => {
   else if (e.code === 'Digit2' || e.code === 'Numpad2') openEquip();
   else if (e.code === 'Digit3' || e.code === 'Numpad3') castRune();
   else if (e.code === 'KeyC') switchRune();
+  else if (e.code === 'KeyH') startRecall();
   else if (e.code === 'KeyB' && shopAvail()) openShop();
-  else if (e.code === 'KeyF' && shopAvail()) toggleSpec();
+  else if (e.code === 'KeyF' && shopAvail()) useSelSpec();
+  else if (e.code === 'KeyG' && shopAvail()) cycleSpec(1);
   else if (e.code === 'Enter' || e.code === 'NumpadEnter') { const n = nearNpc(); if (n) openDialog(n); else attackNearest(); }
   else if (e.code === 'Escape') { target = null; P.follow = false; }
 });
@@ -3243,7 +3477,7 @@ function gpNav(root, dx, dy) {
   }
   if (best) gpFocus(best);
 }
-const padPrev = {};
+const padPrev = {}; let padLB = false, padSpecSw = false;
 function padState(gp) {
   const prev = padPrev[gp.index] || [];
   const b = i => !!(gp.buttons[i] && (gp.buttons[i].pressed || gp.buttons[i].value > 0.5));
@@ -3272,13 +3506,18 @@ function pollPad(dt) {
     }
   } else if (playing) {
     if (p1) {
-      if (p1.dx || p1.dy) gpDir = [p1.dx, p1.dy];
+      // LB: tocar = tomar la poción especial; mantener LB + cruceta ← → = cambiarla (sin caminar)
+      const lb = p1.b(4);
+      if (lb) { if (p1.d(14)) { cycleSpec(-1); padSpecSw = true; } if (p1.d(15)) { cycleSpec(1); padSpecSw = true; } }
+      if (p1.d(4)) padSpecSw = false;
+      if (!lb && padLB && !padSpecSw) useSelSpec();
+      padLB = lb;
+      if ((p1.dx || p1.dy) && !lb) gpDir = [p1.dx, p1.dy];
       if (p1.d(0)) { const n = nearNpc(); if (n) openDialog(n); else attackNearest(); }
       if (p1.d(2)) drinkPotion();
       if (p1.d(3)) openEquip();
       if (p1.d(1)) castRune();
       if (p1.d(6)) switchRune();
-      if (p1.d(4)) toggleSpec();
       if (p1.d(7)) openShop();
       if (p1.d(5)) petToggle();
       if (p1.d(9)) openCfg();
@@ -3466,6 +3705,7 @@ function cosClean(c) {
   const o = { wear: {}, raz: null };
   for (const sl of COS_SLOTS) { const w = c.wear && c.wear[sl]; if (typeof w === 'string' && COS[w] && COS[w].slot === sl) o.wear[sl] = w; }
   if (typeof c.raz === 'string' && RAZ_PAL[c.raz]) o.raz = c.raz;
+  if (typeof c.ll === 'string' && MT[c.ll]) o.ll = c.ll;
   return o;
 }
 const cosHas = id => !!(P && P.shop && P.shop.cos.own[id]);
@@ -3494,16 +3734,17 @@ function razPreview(c) {
 // ================= Tienda (versión Play Store) =================
 // STORE prende la tienda. STORE_DEMO: modo de prueba, no cobra nada (en Play Store se cambia por el cobro de Google).
 const STORE = false, STORE_DEMO = true; // navegador (GitHub e itch.io): sin tienda, con donaciones
-function shopDefault() { return { gems: 0, inv: { ataque: 0, flecha: 0 }, maps: { calabozos: false }, first: false, tester: false, magic: false, big: false, sets: {}, gfirst: {}, bless: 0, buff: null, buffLeft: 0, cos: { own: {}, wear: {}, raz: null } }; }
+function shopDefault() { return { gems: 0, inv: { ataque: 0, flecha: 0 }, maps: { calabozos: false }, first: false, tester: false, magic: false, big: false, sets: {}, gfirst: {}, bless: 0, blessE: 0, scroll: 0, specSel: 'ataque', buff: null, buffLeft: 0, cos: { own: {}, wear: {}, raz: null } }; }
 function shopFix(o) {
   const d = shopDefault(); if (!o || typeof o !== 'object') return d;
   for (const k in d.inv) d.inv[k] = Math.max(0, Math.min(999, (o.inv && o.inv[k]) | 0));
-  d.maps.calabozos = !!(o.maps && o.maps.calabozos); d.first = !!o.first; d.tester = !!o.tester; d.magic = !!o.magic; d.big = !!o.big; d.bless = Math.max(0, Math.min(99, o.bless | 0)); d.gems = Math.max(0, Math.min(999999, o.gems | 0)); d.gfirst = {}; for (const k in (o.gfirst || {})) d.gfirst[k] = true;
+  d.maps.calabozos = !!(o.maps && o.maps.calabozos); d.first = !!o.first; d.tester = !!o.tester; d.magic = !!o.magic; d.big = !!o.big; d.bless = Math.max(0, Math.min(99, o.bless | 0)); d.blessE = Math.max(0, Math.min(99, o.blessE | 0)); d.scroll = Math.max(0, Math.min(999, o.scroll | 0)); if (o.specSel === 'flecha') d.specSel = 'flecha'; d.gems = Math.max(0, Math.min(999999, o.gems | 0)); d.gfirst = {}; for (const k in (o.gfirst || {})) d.gfirst[k] = true;
   for (const k in (o.sets || {})) if (SETS[k]) d.sets[k] = true;
   if (o.cos && typeof o.cos === 'object') {
     for (const k in (o.cos.own || {})) if (COS[k]) d.cos.own[k] = true;
     for (const sl of COS_SLOTS) { const w = o.cos.wear && o.cos.wear[sl]; if (w && d.cos.own[w] && COS[w].slot === sl) d.cos.wear[sl] = w; }
     if (o.cos.raz && RAZ_PAL[o.cos.raz] && d.cos.own['raz_' + o.cos.raz]) d.cos.raz = o.cos.raz;
+    if (typeof o.cos.ll === 'string' && MT[o.cos.ll]) d.cos.ll = o.cos.ll;
   }
   if ((o.buff === 'ataque' || o.buff === 'flecha') && o.buffLeft > 0) { d.buff = o.buff; d.buffLeft = Math.min(180, +o.buffLeft || 0); }
   return d;
@@ -3519,6 +3760,15 @@ const SPEC = {
   flecha: { name: T('Poción Flecha de muerte'), note: T('Con arco: +2 de alcance y daño x1.5 por 3 minutos, pero recibes 30% más daño.'), color: '#B46CFF' },
 };
 const specList = () => Object.keys(SPEC).filter(k => P.shop.inv[k] > 0);
+// Un solo botón: toma la poción especial elegida (F / LB). Se cambia con ⇄, la tecla G o manteniendo LB y la cruceta ← →.
+const specSel = () => { const l = specList(), k = P.shop.specSel; return l.includes(k) ? k : l[0] || k || 'ataque'; };
+function useSelSpec() { if (!shopAvail()) return; const k = specSel(); if (!(P.shop.inv[k] > 0)) { log(T('No tienes pociones especiales. Las encuentras en la tienda.'), '#C9C3B3'); return; } useSpecial(k); }
+function cycleSpec(dir = 1) {
+  if (!shopAvail()) return;
+  const l = specList(); if (l.length < 2) { log(l.length ? T('Solo tienes ') + SPEC[l[0]].name.toLowerCase().replace(/^poción /, 'la poción ') + '.' : T('No tienes pociones especiales. Las encuentras en la tienda.'), '#C9C3B3'); return; }
+  const i = l.indexOf(specSel()); P.shop.specSel = l[(i + dir + l.length) % l.length]; hudCache = ''; shopUiKey = ''; Sound.play('ui');
+  log(T('Lista para tomar: ') + SPEC[P.shop.specSel].name + '.', SPEC[P.shop.specSel].color); save();
+}
 function useSpecial(k) {
   const sh = P.shop;
   if (P.ghost || !(sh.inv[k] > 0)) return;
@@ -3535,6 +3785,7 @@ function useSpecial(k) {
 let shopUiKey = '';
 function shopTick(dt) {
   const sh = P && P.shop; if (!sh) return;
+  recallTick(dt);
   P.dur = setFull('raziel') ? 0.3 / 1.4 : 0.3; // Set de Raziel: caminas 40% más rápido
   if (TESTER_GIFT && !sh.tester && playing && !net.guest && !tutActive()) { sh.tester = true; cosGive(['calabaza', 'bruja', 'chispas'], false); log(T('🎃 ¡Gracias por ayudar a probar Velmar! Te regalamos el Paquete de Halloween. Está en la tienda, en Estilo.'), '#FF9A2E'); Sound.play('level'); save(); }
   cosTrail();
@@ -3542,10 +3793,13 @@ function shopTick(dt) {
   if (sh.buff && sh.buffLeft > 0) { sh.buffLeft -= dt; if (sh.buffLeft <= 0) { sh.buffLeft = 0; log(sh.buff === 'ataque' ? T('Se acabó la poción de ataque.') : T('Se acabó la Flecha de muerte.'), '#C9C3B3'); sh.buff = null; } }
   const av = shopAvail(), n = av ? specList().reduce((a, k) => a + sh.inv[k], 0) : 0;
   const left = sh.buff ? Math.ceil(sh.buffLeft) : 0, paused = sh.buff && !buffOn(sh.buff);
-  const ui = uiOpen(), key = [av, n, sh.buff, left, paused, ui].join('|');
+  const sel = specSel(), ns = av ? (sh.inv[sel] || 0) : 0, kinds = av ? specList().length : 0;
+  const ui = uiOpen(), key = [av, n, sh.buff, left, paused, ui, sel, ns, kinds].join('|');
   if (key === shopUiKey) return; shopUiKey = key;
   $('bShop').hidden = !av; $('bSpec').hidden = !av || (!n && !sh.buff);
-  $('hSpec').textContent = n; $('hSpec').hidden = !n;
+  $('hSpec').textContent = ns; $('hSpec').hidden = !ns;
+  $('bSpecSw').hidden = !av || kinds < 2;
+  { const lq = $('specLiq'); if (lq) lq.setAttribute('fill', SPEC[sel].color); const lb = T('Tomar ') + SPEC[sel].name.toLowerCase() + ' (F)'; $('bSpec').setAttribute('aria-label', lb); $('bSpec').title = lb; }
   const chip = $('buffChip');
   if (av && sh.buff && !ui) {
     chip.hidden = false; chip.style.borderColor = SPEC[sh.buff].color; chip.classList.toggle('paused', !!paused);
@@ -3577,7 +3831,6 @@ let shopTab = 'ofertas', shopSet = null;
 const SHOP = [
   { tab: 'ofertas', id: 'pack_aventurero', icon: '🎁', name: T('Paquete del aventurero'), note: T('Set de Xanera + Mochila del explorador + 10 cargas de curación + 10 pociones de ataque + Mapa de los calabozos.'), tag: T('Mejor valor'),
     give: () => { giveSet('xanera'); P.shop.big = true; P.runes.hgot = true; P.runes.heal += 10; P.shop.inv.ataque += 10; giveMap(); }, done: () => setOwned('xanera') && P.shop.maps.calabozos && P.shop.big },
-  { tab: 'ofertas', id: 'set_galo', set: 'galo', name: T('Set de Galo'), note: T('4 piezas. Con el set completo, tu arma envenena a los monstruos.') },
   { tab: 'ofertas', id: 'pack_navidad', icon: '🎄', name: T('Paquete de Navidad'), note: T('Traje de Santa + traje de duende + gorro de Santa + estela de nieve.'), tag: T('Mejor valor'),
     give: () => cosGive(['santa', 'duende', 'gorro_santa', 'nieve']), done: () => ['santa', 'duende', 'gorro_santa', 'nieve'].every(cosHas) },
   { tab: 'equipo', sec: T('Sets: toca uno para ver sus piezas') },
@@ -3587,11 +3840,14 @@ const SHOP = [
   { tab: 'pociones', sec: T('Runas (las cargas se suman)') },
   { tab: 'pociones', id: 'runa_fuego', rune: 'fire', name: T('Runa de fuego · 10 cargas'), note: T('Lanza bolas de fuego. Si no la tienes, es tuya.'), give: () => { P.runes.got = true; P.runes.fire += 10; } },
   { tab: 'pociones', id: 'runa_cura', rune: 'heal', name: T('Runa de curación · 10 cargas'), note: T('Cada carga te cura toda la vida. Solo en esta tienda.'), give: () => { P.runes.hgot = true; P.runes.heal += 10; if (!P.runes.got) P.runes.sel = 'heal'; } },
+  { tab: 'pociones', sec: T('Pergaminos') },
+  { tab: 'pociones', id: 'pergaminos10', icon: '📜', name: T('Pergaminos de regreso ×10'), note: T('Te llevan al templo de Xanera desde donde estés. Se leen en 3 segundos; si te golpean, se interrumpe y no se gasta.'), give: () => { P.shop.scroll += 10; } },
   { tab: 'pociones', sec: T('Pociones especiales (3 minutos)') },
   { tab: 'pociones', id: 'ataque3', spec: 'ataque', name: T('Poción de ataque ×3'), note: T('Tu daño x2. Solo con armas cuerpo a cuerpo.'), give: () => { P.shop.inv.ataque += 3; } },
   { tab: 'pociones', id: 'ataque10', spec: 'ataque', name: T('Poción de ataque ×10'), note: T('Tu daño x2. Solo con armas cuerpo a cuerpo.'), give: () => { P.shop.inv.ataque += 10; } },
   { tab: 'pociones', id: 'flecha3', spec: 'flecha', name: T('Poción Flecha de muerte ×3'), note: T('Solo con arco: +2 de alcance y daño x1.5, pero recibes 30% más daño.'), give: () => { P.shop.inv.flecha += 3; } },
-  { tab: 'mejoras', id: 'bendicion', icon: '✨', name: T('Bendición de Elara'), note: T('La próxima vez que caigas no pierdes nada de tu mochila ni de lo que traes puesto. Se gasta al caer; puedes juntar varias.'), give: () => { P.shop.bless += 1; } },
+  { tab: 'mejoras', id: 'bendicion', icon: '🌿', name: T('Bendición de Galo'), note: BLESS.galo.note, give: () => { P.shop.bless += 1; } },
+  { tab: 'mejoras', id: 'bendicion_elara', icon: '✨', name: T('Bendición de Elara'), note: BLESS.elara.note, give: () => { P.shop.blessE += 1; } },
   { tab: 'mejoras', id: 'mochila_explorador', icon: '🎒', name: T('Mochila del explorador'), note: T('Tu mochila pasa de 10 a 20 objetos. Compra única.'), give: () => { P.shop.big = true; }, done: () => !!P.shop.big },
   { tab: 'mejoras', id: 'mochila_magica', icon: '✨', name: T('Mochila mágica'), note: T('Vende al herrero y guarda en tu baúl desde cualquier lugar. Compra única.'), give: () => { P.shop.magic = true; }, done: () => !!P.shop.magic },
   { tab: 'mejoras', id: 'mapa_calabozos', map: true, name: T('Mapa de los calabozos'), note: T('Muestra completos los calabozos de los esqueletos y de Torvak. Compra única.'), give: () => giveMap(), done: () => P.shop.maps.calabozos },
@@ -3612,7 +3868,7 @@ const SHOP = [
     prev: () => razPreview(c), give: () => { cosGive(['raz_' + c]); P.shop.cos.raz = c; }, done: () => cosHas('raz_' + c) })),
 ];
 // Precio en gemas de cada producto: [gemas, antes, primera compra]
-const GEM_PRICE = { bendicion: [100], mochila_explorador: [150], mochila_magica: [200], pack_aventurero: [750, 1100], set_galo: [750], set_xanera: [500], set_raziel: [750], ataque3: [100], ataque10: [250, 330],
+const GEM_PRICE = { bendicion: [100], bendicion_elara: [100], pergaminos10: [100], mochila_explorador: [150], mochila_magica: [200], pack_aventurero: [750, 1100], set_galo: [750], set_xanera: [500], set_raziel: [750], ataque3: [100], ataque10: [250, 330],
   flecha3: [100], runa_fuego: [50], runa_cura: [100], mapa_calabozos: [100], pack_navidad: [600, 900], santa: [300], duende: [300], gorro_santa: [100], nieve: [200], medallita: [50],
   raz_todos: [300, 400], raz_dorado: [100], raz_plata: [100], raz_rosa: [100], raz_morado: [100] };
 // Pieza suelta de un set (para recuperar una que se perdió)
@@ -3620,7 +3876,7 @@ const PIECE_GEMS = { galo: 280, xanera: 190, raziel: 375 };
 const setOwned = id => SETS[id].pieces.every(p => owned(p));
 const setBought = id => !!P.shop.sets[id] || SETS[id].pieces.some(p => owned(p));
 // Guarda un objeto en la mochila; si está llena, al baúl
-function stashToBagOrVault(id) { if (!bagAdd(id, true)) { P.vault.push(id); log(ITEMS[id].name + T(' se fue a tu baúl porque tu mochila está llena.'), '#FFB3D1'); } }
+function stashToBagOrVault(id) { if (!bagAdd(id, true)) { if (vaultPut(id)) log(ITEMS[id].name + T(' se fue a tu baúl porque tu mochila está llena.'), '#FFB3D1'); } }
 function giveSet(id) {
   P.shop.sets[id] = true;
   for (const p of SETS[id].pieces) {
@@ -3699,9 +3955,19 @@ function renderShop() {
     }
   }
   if (shopTab === 'estilo' && cosHas('calabaza')) { const d = document.createElement('p'); d.className = 'shopdemo halloween'; d.textContent = T('🎃 Gracias por ayudar a probar Velmar: te regalamos el Paquete de Halloween (abajo, en Mi Halloween).'); box.appendChild(d); }
-  for (const it of SHOP) {
+  if (shopTab === 'estilo') renderStyles(box);
+  else for (const it of SHOP) {
     if (it.tab !== shopTab || (it.show && !it.show())) continue;
     if (it.sec) { const h = document.createElement('div'); h.className = 'shopsec'; h.textContent = it.sec; box.appendChild(h); continue; }
+    shopRow(box, it);
+  }
+  if (shopTab !== 'gemas') {
+    const ft = document.createElement('p'); ft.className = 'empty'; ft.style.marginTop = '10px';
+    ft.textContent = T('Si compras algo por error, Google te ayuda con el reembolso.');
+    box.appendChild(ft);
+  }
+}
+function shopRow(box, it) {
     const gp = GEM_PRICE[it.id] || [];
     const el = document.createElement('div'); el.className = 'item';
     el.appendChild(shopIcon(it));
@@ -3712,6 +3978,8 @@ function renderShop() {
     const sm = document.createElement('small'); sm.textContent = it.note;
     if (it.spec) sm.textContent += T(' · tienes ') + P.shop.inv[it.spec];
     if (it.id === 'bendicion') sm.textContent += T(' · tienes ') + P.shop.bless;
+    if (it.id === 'bendicion_elara') sm.textContent += T(' · tienes ') + P.shop.blessE;
+    if (it.id === 'pergaminos10') sm.textContent += T(' · tienes ') + P.shop.scroll;
     if (it.rune) sm.textContent += T(' · tienes ') + (it.rune === 'fire' ? P.runes.fire : P.runes.heal);
     tx.appendChild(sm); el.appendChild(tx);
     const b = document.createElement('button');
@@ -3720,26 +3988,50 @@ function renderShop() {
       b.textContent = setOwned(it.set) ? T('Ver (lo tienes)') : T('Ver piezas');
       const open = () => { shopSet = it.set; Sound.play('ui'); renderShop(); const f = $('shopBody').querySelector('.setdetail button'); if (f) f.focus(); };
       b.addEventListener('click', open); el.classList.add('clickable'); tx.addEventListener('click', open);
-      el.appendChild(b); box.appendChild(el); continue;
+      el.appendChild(b); box.appendChild(el); return;
     }
     const done = it.done && it.done();
     if (done && (it.wear || it.raz)) {
       const on = it.wear ? cosOn(it.wear) : P.shop.cos.raz === it.raz;
       b.textContent = on ? T('Quitar') : T('Usar');
       b.addEventListener('click', () => { if (it.wear) cosToggle(it.wear); else P.shop.cos.raz = on ? null : it.raz; Sound.play('ui'); save(); renderShop(); });
-      el.appendChild(b); box.appendChild(el); continue;
+      el.appendChild(b); box.appendChild(el); return;
     }
-    if (it.gift) { b.textContent = T('Regalo'); b.disabled = true; el.appendChild(b); box.appendChild(el); continue; }
+    if (it.gift) { b.textContent = T('Regalo'); b.disabled = true; el.appendChild(b); box.appendChild(el); return; }
     const cost = promo ? gp[2] : gp[0], was = promo ? gp[0] : gp[1];
     if (done) { b.textContent = T('Ya lo tienes'); b.disabled = true; }
     else priceBtn(b, cost, was);
     b.addEventListener('click', () => buyShop(it, cost));
     el.appendChild(b); box.appendChild(el);
-  }
-  if (shopTab !== 'gemas') {
-    const ft = document.createElement('p'); ft.className = 'empty'; ft.style.marginTop = '10px';
-    ft.textContent = T('Todo lo que da poder también se puede ganar jugando. Si compras algo por error, Google te ayuda con el reembolso.');
-    box.appendChild(ft);
+}
+// Estilo: una fila por estilo con tu personaje vestido; al tocarla se despliegan sus piezas
+const STYLE_GROUPS = [
+  { id: 'navidad', name: T('Estilo de Navidad'), pack: 'pack_navidad', items: ['santa', 'duende', 'gorro_santa', 'nieve'], look: { traje: 'santa', cabeza: 'gorro_santa' } },
+  { id: 'adornos', name: T('Adornos'), items: ['medallita'], look: { cuello: 'medallita' } },
+  { id: 'halloween', name: T('Mi Halloween'), items: ['calabaza', 'bruja', 'chispas'], look: { traje: 'calabaza', cabeza: 'bruja' }, show: () => cosHas('calabaza') },
+  { id: 'raziel', name: T('Colores de Raziel'), pack: 'raz_todos', items: ['raz_dorado', 'raz_plata', 'raz_rosa', 'raz_morado'], raz: 'dorado' },
+];
+let styleOpen = null;
+function renderStyles(box) {
+  for (const g of STYLE_GROUPS) {
+    if (g.show && !g.show()) continue;
+    const its = g.items.map(id => SHOP.find(x => x.id === id)).filter(Boolean), have = its.filter(it => it.done && it.done()).length, open = styleOpen === g.id;
+    const el = document.createElement('div'); el.className = 'item clickable stylerow';
+    el.appendChild(sceneCanvas(64, 64, () => { ctx.scale(64 / 44, 64 / 44); if (g.raz) razPreview(g.raz); else cosPreview(g.look); }));
+    const tx = document.createElement('div'); tx.textContent = g.name + (have === its.length ? ' ✓' : '');
+    const sm = document.createElement('small'); sm.textContent = its.map(it => it.name).join(' · '); tx.appendChild(sm);
+    const pk = g.pack && GEM_PRICE[g.pack], pc = document.createElement('small'); pc.className = 'setcount';
+    pc.textContent = have + '/' + its.length + T(' piezas') + (pk && have < its.length ? T(' · paquete: ') + pk[0] + ' 💎' : ''); tx.appendChild(pc);
+    el.appendChild(tx);
+    const b = document.createElement('button'); b.textContent = open ? T('Ocultar') : T('Ver piezas'); el.appendChild(b);
+    const toggle = () => { styleOpen = open ? null : g.id; Sound.play('ui'); renderShop(); };
+    tx.addEventListener('click', toggle); b.addEventListener('click', toggle);
+    box.appendChild(el);
+    if (!open) continue;
+    const list = [];
+    if (g.pack) { const pit = SHOP.find(x => x.id === g.pack); if (pit && !(pit.done && pit.done())) list.push(pit); }
+    list.push(...its);
+    for (const it of list) { const wrap = document.createElement('div'); wrap.className = 'stylepiece'; shopRow(wrap, it); box.appendChild(wrap); }
   }
 }
 // Vista de un set: cómo se ve puesto, cada pieza con lo que da, y el bono del set completo
@@ -3758,7 +4050,7 @@ function renderSetDetail(box, id) {
   for (const p of S.pieces) {
     const el = document.createElement('div'); el.className = 'item';
     el.appendChild(iconEl(p));
-    const tx = document.createElement('div'); tx.textContent = ITEMS[p].name;
+    const tx = document.createElement('div'); itemName(tx, p);
     const sm = document.createElement('small'); sm.textContent = statText(p) + ' · ' + SLOTS.find(x => x.id === ITEMS[p].slot).label.toLowerCase(); tx.appendChild(sm);
     el.appendChild(tx);
     const b = document.createElement('button');
@@ -3904,13 +4196,16 @@ function drawDrop(d, ox, oy, S) {
 }
 
 const DONATE_URL = 'https://xaner1327.itch.io/velmar/donate';
+const PRIVACY_URL = 'https://xaner1327.github.io/velmar/privacy.html', SUPPORT_MAIL = 'xanergames.soporte@gmail.com';
 // Versión visible: número del paquete que se sube (vNN) + número de prueba en Claude
-const GAME_VERSION = 'v49.82';
+const GAME_VERSION = 'v50.86';
 (function showVersion() {
   const card = document.querySelector('#menu .card'); if (!card) return;
   const p = document.createElement('p'); p.className = 'vertag'; p.textContent = 'Velmar ' + GAME_VERSION; card.appendChild(p);
 })();
-const donateOK = () => !/crazygames|poki/i.test(location.hostname + ' ' + (document.referrer || ''));
+// App de Google Play: abre la página con ?src=play (se recuerda, porque el juego puede recargar sin el parámetro).
+const IN_APP = (() => { let on = false; try { on = new URLSearchParams(location.search).get('src') === 'play' || /^android-app:\/\/io\.github\.xaner1327\.velmar/.test(document.referrer || ''); if (on) sessionStorage.setItem('velmar-src', 'play'); else on = sessionStorage.getItem('velmar-src') === 'play'; } catch (e) {} return on; })();
+const donateOK = () => !IN_APP && !/crazygames|poki/i.test(location.hostname + ' ' + (document.referrer || ''));
 let donPend = null;
 function donateQueue(k) {
   if (!P || net.guest || !donateOK()) return;
@@ -4050,7 +4345,7 @@ function hostMsg(c, d) {
   }
   else if (d.t === 'go') { const gx = d.x | 0, gy = d.y | 0; if (!a.ghost) { a.target = null; a.follow = false; a.path = findPath(a.x, a.y, (x, y) => x === gx && y === gy, 60, a) || []; } }
 }
-const SNAP_SKIP = new Set(['seen', 'stats', 'ach', 'vault', 'trophies', 'tiers', 'zones', 'path', 'tut', 'marks', 'drops', 'uniq']);
+const SNAP_SKIP = new Set(['seen', 'stats', 'ach', 'vault', 'tiers', 'zones', 'path', 'tut', 'marks', 'drops', 'uniq']);
 function buildSnap() {
   const pp = {}; for (const k in P) if (!SNAP_SKIP.has(k) && typeof P[k] !== 'function') pp[k] = P[k];
   pp.swing = P.swing > 0 ? 0.2 : 0; pp.marks = {};
@@ -4123,7 +4418,7 @@ function openJoinOnline() {
 async function joinRoom(code) {
   if (code.length !== 4) { onStatus(T('El código tiene 4 letras o números.')); return; }
   let comp = null;
-  if (String(net.pick).startsWith('__save')) { const sn = parseInt(net.pick.slice(6), 10) || 1, sv = loadSlot(sn); if (sv) { const lk = Object.assign({}, DEFAULT_LOOK, fixLook(sv.look) || {}); comp = { id: 'main' + sn, slot: sn, main: true, name: lk.name || T('Aventurera'), look: lk, lvl: sv.lvl || 1, xp: sv.xp | 0, equip: sv.equip || null, gold: sv.gold | 0, potions: sv.potions | 0, bag: sv.bag || [], cos: sv.shop && sv.shop.cos ? { wear: sv.shop.cos.wear, raz: sv.shop.cos.raz } : null }; } }
+  if (String(net.pick).startsWith('__save')) { const sn = parseInt(net.pick.slice(6), 10) || 1, sv = loadSlot(sn); if (sv) { const lk = Object.assign({}, DEFAULT_LOOK, fixLook(sv.look) || {}); comp = { id: 'main' + sn, slot: sn, main: true, name: lk.name || T('Aventurera'), look: lk, lvl: sv.lvl || 1, xp: sv.xp | 0, equip: sv.equip || null, gold: sv.gold | 0, potions: sv.potions | 0, bag: sv.bag || [], cos: sv.shop && sv.shop.cos ? { wear: sv.shop.cos.wear, raz: sv.shop.cos.raz, ll: sv.shop.cos.ll || null } : null }; } }
   else comp = loadComps().find(c => c.id === net.pick);
   if (!comp) { onStatus(T('Elige o crea tu personaje.')); return; }
   onStatus(T('Conectando…'));
@@ -4352,8 +4647,14 @@ function badWord(w) {
 const cleanChat = txt => txt.split(/(\s+)/).map(w => /\s/.test(w) || !badWord(w) ? w : '*'.repeat(Math.min(5, Math.max(3, w.length)))).join('');
 const chatOn = () => playing && (net.guest || (net.host && net.conns.length > 0));
 const chatHist = []; let chatUnread = 0, chatLast = 0;
+// Moderación: cada quien puede silenciar o reportar a otro jugador; el anfitrión además puede sacarlo de la sala.
+const chatMuted = new Set(), chatPeople = new Map();
+const chatKey = (slot, name) => (slot | 0) + '|' + name;
 function chatShow(slot, name, raw) {
   let txt = String(raw).replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, 80); if (!txt) return;
+  const key = chatKey(slot, name), mine = net.guest ? slot === net.slot : slot === 0;
+  if (!mine) { const pp = chatPeople.get(key) || { slot: slot | 0, name, msgs: [] }; pp.msgs.push(txt); while (pp.msgs.length > 5) pp.msgs.shift(); chatPeople.set(key, pp); if (!$('chatMod').hidden) renderChatMod(); }
+  if (chatMuted.has(key)) return;
   if (SET.chatFilter) txt = cleanChat(txt);
   const col = PCOL[slot] || '#F1E6CC', cap = net.capture; net.capture = false;
   log(name + ': ' + txt, col); Sound.play('ui');
@@ -4390,13 +4691,47 @@ function openChat() {
   $('chatHist').scrollTop = $('chatHist').scrollHeight;
   if (!isTouch) $('chatIn').focus();
 }
-function closeChat() { $('chatbar').hidden = true; if (document.activeElement === $('chatIn')) $('chatIn').blur(); }
+function chatReport(pp) {
+  chatMuted.add(chatKey(pp.slot, pp.name));
+  const body = 'Velmar ' + GAME_VERSION + (IN_APP ? ' (app)' : '') + '\nSala: ' + net.code + '\nJugador reportado: ' + pp.name + ' (Jugador ' + (pp.slot + 1) + ')\nFecha: ' + new Date().toISOString() + '\nÚltimos mensajes:\n' + pp.msgs.map(m => '- ' + m).join('\n') + '\n\n' + T('Cuéntanos qué pasó (opcional):') + '\n';
+  const a = document.createElement('a'); a.href = 'mailto:' + SUPPORT_MAIL + '?subject=' + encodeURIComponent(T('Reporte de jugador en Velmar')) + '&body=' + encodeURIComponent(body); a.target = '_blank'; a.rel = 'noopener';
+  document.body.appendChild(a); a.click(); a.remove();
+  log(T('Reportaste a ') + pp.name + T('. Ya no verás sus mensajes. Gracias por avisarnos.'), '#F2C14E');
+  renderChatMod();
+}
+function chatKick(pp) {
+  if (!net.host) return;
+  const a = allies.find(x => x.remote && x.slot === pp.slot); if (!a) return;
+  try { a.remote.send({ t: 'err', m: T('El anfitrión te sacó de la sala.') }); } catch (e) {}
+  const c = a.remote; setTimeout(() => { try { c.close(); } catch (e) {} }, 400);
+  log(pp.name + T(' salió de la sala.'), '#F2C14E'); renderChatMod();
+}
+function renderChatMod() {
+  const box = $('chatMod'); box.innerHTML = '';
+  const h = document.createElement('div'); h.className = 'modh'; h.textContent = T('Jugadores que te escribieron'); box.appendChild(h);
+  const list = [...chatPeople.values()];
+  if (!list.length) { const p = document.createElement('div'); p.className = 'modempty'; p.textContent = T('Aquí aparecen los jugadores cuando te escriben. Puedes silenciarlos o reportarlos.'); box.appendChild(p); return; }
+  for (const pp of list) {
+    const key = chatKey(pp.slot, pp.name), muted = chatMuted.has(key);
+    const r = document.createElement('div'); r.className = 'modrow';
+    const b = document.createElement('b'); b.textContent = pp.name; b.style.color = PCOL[pp.slot] || '#F1E6CC'; r.appendChild(b);
+    const m = document.createElement('button'); m.textContent = muted ? T('Escuchar') : T('Silenciar');
+    m.addEventListener('click', () => { if (muted) chatMuted.delete(key); else chatMuted.add(key); Sound.play('ui'); renderChatMod(); });
+    const rp = document.createElement('button'); rp.textContent = T('Reportar'); rp.addEventListener('click', () => chatReport(pp));
+    r.append(m, rp);
+    if (net.host && allies.some(x => x.remote && x.slot === pp.slot)) { const k = document.createElement('button'); k.textContent = T('Sacar'); k.addEventListener('click', () => chatKick(pp)); r.appendChild(k); }
+    box.appendChild(r);
+  }
+}
+function closeChat() { $('chatMod').hidden = true; $('chatbar').hidden = true; if (document.activeElement === $('chatIn')) $('chatIn').blur(); }
 function chatVis() { const on = chatOn(); if ($('bChat').hidden === on) $('bChat').hidden = !on; if (!on && !$('chatbar').hidden) closeChat(); }
 function sendTyped() { const v = $('chatIn').value.trim(); if (!v) return; chatSend({ m: v }); $('chatIn').value = ''; }
 $('chatIn').placeholder = T('Escribe un mensaje…');
+{ const l = $('dlgClose').querySelector('.lbl'); if (l) l.textContent = T('Cerrar'); $('dlgClose').setAttribute('aria-label', T('Cerrar')); }
 $('chatIn').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendTyped(); } });
 $('chatSend').addEventListener('click', sendTyped);
 $('chatX').addEventListener('click', closeChat);
+$('chatModB').addEventListener('click', () => { const box = $('chatMod'); box.hidden = !box.hidden; if (!box.hidden) renderChatMod(); Sound.play('ui'); });
 $('bChat').addEventListener('click', () => { if ($('chatbar').hidden) openChat(); else closeChat(); });
 // ================= App instalable (PWA) =================
 // Solo en la página propia (GitHub Pages): ahí se registra el service worker para jugar sin internet.
@@ -4625,7 +4960,7 @@ function drawCoopPlayer(E, cx, cy, s) {
   else {
     const keep = { look: P.look, dir: P.dir, swing: P.swing, mt: P.mt, steps: P.steps, equip: P.equip, shop: P.shop };
     P.look = E.look; P.dir = E.dir; P.swing = E.swing; P.mt = E.mt; P.steps = E.steps; if (E.equip) P.equip = E.equip;
-    P.shop = Object.assign({}, keep.shop || {}, { cos: { own: {}, wear: (E.cos && E.cos.wear) || {}, raz: null } }); // cada quien con sus cosméticos
+    P.shop = Object.assign({}, keep.shop || {}, { cos: { own: {}, wear: (E.cos && E.cos.wear) || {}, raz: null, ll: (E.cos && E.cos.ll) || null } }); // cada quien con sus cosméticos
     try { drawPlayer(cx, cy, s); } finally { Object.assign(P, keep); }
   }
   ctx.globalAlpha = 1;
@@ -4653,7 +4988,8 @@ $('bRuneSw').addEventListener('click', () => playing && switchRune());
 $('bPet').addEventListener('click', () => playing && petToggle());
 const bPotEl = $('bPot');
 $('bShop').addEventListener('click', () => playing && openShop());
-$('bSpec').addEventListener('click', () => playing && toggleSpec());
+$('bSpec').addEventListener('click', () => playing && useSelSpec());
+$('bSpecSw').addEventListener('click', () => playing && cycleSpec(1));
 $('shopClose').addEventListener('click', closeShop);
 $('bPot').addEventListener('click', () => playing && drinkPotion());
 $('bEq').addEventListener('click', () => playing && openEquip());
@@ -4773,9 +5109,10 @@ function update(dt) {
     m.atkCD -= dt; m.moveCD -= dt; if (m.castT > 0) m.castT -= dt; if (m.flash > 0) m.flash -= dt;
     if (!m.provoked && m.hp < m.d.hp) m.hp = Math.min(m.d.hp, m.hp + dt * m.d.hp * 0.02);
     const dHome = cheb(m.x, m.y, m.hx, m.hy);
-    if (dHome > 11) { m.leash = true; m.provoked = false; }
-    if (m.leash && dHome <= 3) m.leash = false;
+    if (m.leash && dHome <= 1) m.leash = false;
     const tp = nearestPlayer(m), dist = tp ? cheb(m.x, m.y, tp.x, tp.y) : 99;
+    // Sin correa: una vez que te persigue, te sigue por todo el nivel. Solo regresa (caminando) si entras a una zona segura, cambias de nivel o caes.
+    if (m.provoked && !m.d.passive && (!tp || isSafe(tp.x, tp.y))) { m.provoked = false; m.leash = true; }
     if (m.d.still) { if (m.hp < m.d.hp && now - (m.lastHit || 0) > 4) m.hp = m.d.hp; continue; }
     if (m.d.passive) {
       if (m.moveCD <= 0 && m.mt >= 1) {
@@ -4784,15 +5121,22 @@ function update(dt) {
       }
       continue;
     }
-    const hunting = !!tp && !m.leash && !isSafe(tp.x, tp.y) && (dist <= m.d.aggro || (m.provoked && dist <= 10));
+    const hunting = !!tp && !m.leash && !isSafe(tp.x, tp.y) && (dist <= m.d.aggro || m.provoked);
+    if (hunting) m.provoked = true;
     if (hunting && !m.hunting && dist <= 5) petSay('cuidado');
     m.hunting = hunting;
     if (hunting) {
       if (m.d.hitrun && m.retreatUntil > now) { if (m.mt >= 1 && m.moveCD <= 0) { stepAway(m); m.moveCD = m.d.step; } }
-      else if (m.d.range && dist <= m.d.range && clearLine(m.x, m.y, tp.x, tp.y)) { if (m.atkCD <= 0) { monsterShoot(m, tp); m.atkCD = m.d.atk; } }
+      else if (m.d.range && dist <= m.d.range && clearLine(m.x, m.y, tp.x, tp.y)) {
+        // Arqueros y magos: si te acercas a 3 casillas o menos, retroceden hasta su rango máximo sin dejar de disparar (un poco más lento que tú)
+        if (dist <= m.d.range - 1 && m.moveCD > KITE_STEP) m.moveCD = KITE_STEP;
+        if (dist <= m.d.range - 1 && m.mt >= 1 && m.moveCD <= 0) { if (stepAwayFrom(m, tp)) { m.dur = KITE_STEP; m.moveCD = KITE_STEP; } else m.moveCD = 0.3; }
+        if (m.atkCD <= 0) { monsterShoot(m, tp); m.atkCD = m.d.atk; }
+      }
       else if (dist <= 1) { if (m.atkCD <= 0) { monsterAttack(m, tp); m.atkCD = m.d.atk; if (m.d.hitrun) m.retreatUntil = now + 0.7; } }
-      else if (m.moveCD <= 0 && m.mt >= 1) { stepToward(m, tp.x, tp.y); m.moveCD = m.d.step; }
+      else if (m.moveCD <= 0 && m.mt >= 1) { m.dur = m.d.step; stepToward(m, tp.x, tp.y); m.moveCD = m.d.step; }
     } else if (m.moveCD <= 0 && m.mt >= 1) {
+      m.dur = m.d.step;
       if (m.leash || dHome > 4) stepToward(m, m.hx, m.hy);
       else {
         const [dx, dy] = DIRS[Math.floor(Math.random() * 4)];
@@ -4836,6 +5180,16 @@ function updateFx(dt) {
 // Las ratas del Campo de entrenamiento no salen de su corral (adentro: x 42-48, y 41-44)
 const inPen = (x, y) => x >= 42 && x <= 48 && y >= 41 && y <= 44;
 function canEnter(m, x, y) { const c = at(x, y); if (FLOOR === 4 && m && m.type === 'rata' && !inPen(x, y)) return false; return walkable(x, y) && c !== 'S' && c !== 'U' && !isSafe(x, y) && !occupied(x, y, m); }
+const KITE_STEP = 0.38;
+function stepAwayFrom(m, tp) {
+  const cur = cheb(m.x, m.y, tp.x, tp.y);
+  const opts = DIRS.map(([dx, dy]) => [m.x + dx, m.y + dy]).filter(([x, y]) => canEnter(m, x, y) && cheb(x, y, tp.x, tp.y) > cur && clearLine(x, y, tp.x, tp.y))
+    .map(q => [q, Math.abs(q[0] - tp.x) + Math.abs(q[1] - tp.y) + Math.random() * 0.5]).sort((a, b) => b[1] - a[1]);
+  if (!opts.length) return false;
+  startMove(m, opts[0][0][0], opts[0][0][1]); return true;
+}
+// Todos los que te perseguían en un nivel regresan caminando a su lugar
+function monstersGoHome(list) { for (const mm of list || []) if (!mm.dead && (mm.provoked || cheb(mm.x, mm.y, mm.hx, mm.hy) > 1)) { mm.provoked = false; mm.leash = true; } }
 function stepAway(m) {
   const opts = DIRS.map(([dx, dy]) => [m.x + dx, m.y + dy]).filter(([x, y]) => canEnter(m, x, y) && cheb(x, y, m.hx, m.hy) <= 9)
     .map(q => [q, Math.abs(q[0] - P.x) + Math.abs(q[1] - P.y) + Math.random() * 0.5]).sort((a, b) => b[1] - a[1]);
@@ -5058,6 +5412,10 @@ function drawPlayer(cx, cy, s) {
   if (tr && tr.deco) tr.deco(cx, cy, s, hw, shw);
   if (!(tr && tr.noBelt)) { ctx.fillStyle = tr ? tr.belt : '#8A5A2B'; ctx.fillRect(cx - s * 0.2, cy + s * 0.02, s * 0.4, s * 0.05); if (tr) { ctx.fillStyle = '#F2C14E'; ctx.fillRect(cx - s * 0.04, cy + s * 0.015, s * 0.08, s * 0.06); ctx.fillStyle = tr.belt; ctx.fillRect(cx - s * 0.02, cy + s * 0.03, s * 0.04, s * 0.03); } }
   if (cw.cuello) COS[cw.cuello].draw(cx, cy, s, side);
+  { const ll = P.shop && P.shop.cos && P.shop.cos.ll; if (ll && MT[ll]) { // llavero de peluche colgado del cinturón
+    const lx = cx - side * s * 0.24, ly = cy - s * 0.02, sw = reduceMotion ? 0 : Math.sin(now * 3 + cx * 0.1) * s * 0.015;
+    ctx.strokeStyle = '#E4B54A'; ctx.lineWidth = Math.max(1, s * 0.018); ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(lx + sw, ly + s * 0.08); ctx.stroke();
+    drawPlush(ll, lx + sw - s * 0.22, ly - s * 0.02, s * 0.44, true); } }
   if (tr && tr.ears) tr.ears(cx, cy, s, lk);
   ctx.fillStyle = SKINS[lk.skin]; ctx.beginPath(); ctx.arc(cx, cy - s * 0.24, s * 0.14, 0, 7); ctx.fill();
   faceDetails(cx, cy, s, lk, side);
@@ -5183,6 +5541,7 @@ function drawNpc(n, cx, cy, s) {
     return;
   }
   if (n.kind === 'chest') { drawChest(cx, cy, s, P.trea && (P.trea.state === 'found' || P.trea.state === 'done')); return; }
+  if (n.shelf) { drawShelf(cx, cy, s); return; }
   if (n.house) {
     ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.beginPath(); ctx.ellipse(cx, cy + s * 0.36, s * 0.42, s * 0.1, 0, 0, 7); ctx.fill();
     ctx.fillStyle = '#C9A46A'; ctx.fillRect(cx - s * 0.34, cy - s * 0.05, s * 0.68, s * 0.4);
@@ -5323,7 +5682,7 @@ function render() {
     const cx = ox + (n.x + 0.5) * S, cy = oy + (n.y + 0.5) * S;
     list.push({ y: n.y, f: () => drawNpc(n, cx, cy, S) });
     labels.push(() => {
-      label(cx, cy - S * (n.house ? 0.62 : 0.42), n.name, null, n.house ? '#FFB3D1' : '#9FD0FF');
+      label(n.shelf ? cx + S * 0.5 : cx, cy - S * (n.shelf ? 1.3 : n.house ? 0.62 : 0.42), n.shelf ? n.name + ' · ' + (P.trophies || []).length + '/' + HUNT.length : n.name, null, n.house || n.shelf ? '#FFB3D1' : '#9FD0FF');
       if ((n.kind === 'quest' && P.q.i < QUESTS.length) || n.kind === 'teo') {
         const mark = n.kind === 'teo' ? teoMark() : questReady() ? '?' : !P.q.active ? '!' : '';
         if (mark) {

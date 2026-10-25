@@ -1,11 +1,14 @@
 {
+  "id": "/velmar/",
   "name": "Velmar",
   "short_name": "Velmar",
-  "description": "RPG de fantasía medieval para todas las edades · Medieval fantasy RPG for all ages",
+  "description": "Una aventura de rol y fantasía medieval · A medieval fantasy RPG adventure",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
   "orientation": "any",
+  "categories": ["games"],
+  "lang": "es-MX",
   "background_color": "#15130F",
   "theme_color": "#15130F",
   "icons": [
