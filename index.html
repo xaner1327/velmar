@@ -198,6 +198,18 @@ body.touch .act.big i.key { display: none; }
 #chatMod .modrow b { flex: 1 1 90px; min-width: 0; overflow-wrap: anywhere; }
 #chatMod .modrow button { padding: 3px 8px; font-size: 12px; }
 .item.missing { opacity: 0.5; }
+#acct .card { width: min(460px, 100%); }
+#acct input.acctIn { display: block; width: 100%; box-sizing: border-box; margin: 6px 0; padding: 11px 12px; border-radius: 10px; border: 2px solid #6B5326; background: #1B1610; color: var(--ink); font: inherit; font-size: 16px; }
+#acct input.acctIn:focus { outline: none; border-color: var(--gold); }
+#acct button.primary { flex: 1; background: var(--gold); color: #2A1A08; font-weight: 800; border-color: var(--gold); }
+#acct button.gbtn { display: block; width: 100%; margin: 8px 0 4px; background: #fff; color: #1F1F1F; font-weight: 700; border: 1px solid #DADCE0; }
+#acct button.danger { background: #7A1F17; border-color: #B33A2C; color: #FFE9E3; }
+#acct .warn { color: #F2C14E; }
+#acct .who { color: var(--gold); font-weight: 800; overflow-wrap: anywhere; }
+#acct .center { text-align: center; }
+#acct button.choice.accPick { display: block; width: 100%; text-align: left; margin: 8px 0; padding: 12px; }
+#acct button.choice.accPick small { display: block; text-align: left; color: var(--muted); margin-top: 4px; font-weight: 600; }
+#acctMsg:empty { display: none; }
 #slots .slot { padding: 0; background: none; border: none; align-items: stretch; }
 #slots .slot > button.choice { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
 #slots .slot > button.choice canvas { width: 72px; height: 72px; flex: none; background: radial-gradient(circle at 50% 60%, rgba(228,181,74,0.16), rgba(0,0,0,0.3) 70%); border: 1px solid #4B3D29; border-radius: 8px; }
@@ -494,8 +506,9 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
       <button id="bContinue" hidden>Continuar</button>
       <button id="bNew" hidden>Nueva partida</button>
     </div>
-    <div class="row" style="margin-top:8px"><button id="bJoin">🌐 Unirse con código</button><button id="bInstall" hidden>📲 Instalar Velmar</button><a id="aInstall" hidden target="_blank" rel="noopener" href="https://xaner1327.github.io/velmar/" style="display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:1px solid var(--edge);color:var(--ink);text-decoration:none;font-weight:700">📲 Instalar Velmar</a></div>
+    <div class="row" style="margin-top:8px"><button id="bAcct" hidden>👤 Cuenta</button><button id="bJoin">🌐 Unirse con código</button><button id="bInstall" hidden>📲 Instalar Velmar</button><a id="aInstall" hidden target="_blank" rel="noopener" href="https://xaner1327.github.io/velmar/" style="display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:1px solid var(--edge);color:var(--ink);text-decoration:none;font-weight:700">📲 Instalar Velmar</a></div>
     <p id="cloudNote" class="credits" hidden>Tu avance se guarda en tu cuenta de Claude.</p>
+    <p id="acctNote" class="credits" hidden></p>
     <p class="credits"><button id="bCredits" class="linkish">Créditos</button></p>
   </div>
 </div>
@@ -592,6 +605,15 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
   </div>
 </div>
 
+<div id="acct" class="overlay" hidden>
+  <div class="card panel" role="dialog" aria-labelledby="acctTitle">
+    <h2 id="acctTitle">👤 Cuenta</h2>
+    <div id="acctBody"></div>
+    <p id="acctMsg" class="note" aria-live="polite"></p>
+    <div class="row" style="margin-top:14px"><button id="acctClose">Cerrar</button></div>
+  </div>
+</div>
+
 <div id="shopv" class="overlay" hidden>
   <div class="card panel wide" role="dialog" aria-labelledby="shopTitle">
     <h2 id="shopTitle">Tienda de Velmar</h2>
@@ -671,6 +693,7 @@ Object.assign(EN, {"La Maestra Leira te dio la Espada del Aprendiz": "Master Lei
 Object.assign(EN, {"Versión: ": "Version: "});
 Object.assign(EN, {"Practica con los muñecos y las ratas.": "Practice on the dummies and the rats.", "¡Te damos la bienvenida al Campo de entrenamiento! Camina con el joystick o con las flechas del teclado hasta la Maestra Leira.": "Welcome to the Training Grounds! Walk with the joystick or the arrow keys over to Master Leira.", "Para hablar con alguien, tócalo o presiona Espacio cuando estés a su lado. Habla con la Maestra Leira.": "To talk to someone, tap them or press Space when you're next to them. Talk to Master Leira.", "Toca una sola vez un muñeco de práctica. Tu personaje camina hacia él y ataca solo. El aro rojo marca a quién atacas. No necesitas tocar más.": "Tap a training dummy just once. Your character walks to it and attacks on their own. The red ring shows who you're attacking. No need to tap again.", "Ahora toca otro muñeco. Así cambias de objetivo.": "Now tap a different dummy. That's how you switch targets.", "Las ratas del corral sí muerden. Entra al corral y vence a una.": "The rats in the pen do bite. Go into the pen and defeat one.", "Si tu vida baja, toca el botón Poción para curarte. Pruébalo ahora.": "If your health gets low, tap the Potion button to heal. Try it now.", "Toca el botón Equipo para ver lo que llevas puesto y lo que guardas en tu mochila.": "Tap the Equipment button to see what you're wearing and what's in your backpack.", "Toca el botón Mapa. El mapa se descubre mientras exploras y el signo de exclamación marca tu misión.": "Tap the Map button. The map reveals itself as you explore, and the exclamation mark shows your quest.", "¡Muy bien! Ya sabes lo necesario. Cruza el portal brillante para llegar al templo de Xanera.": "Well done! You know everything you need. Step through the glowing portal to reach the temple of Xanera.", "Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.": "I'm Leira, master-at-arms. Here you'll learn to fight before heading to Xanera.", "Un portal brillante que lleva al templo de Xanera.": "A glowing portal that leads to the temple of Xanera.", "Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!": "Your training is complete. Good luck in Velmar!", "\"Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.\"": "\"I'm Leira, master-at-arms. Here you'll learn to fight before heading to Xanera.\"", "\"Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!\"": "\"Your training is complete. Good luck in Velmar!\"", "\"Un portal brillante que lleva al templo de Xanera.\"": "\"A glowing portal that leads to the temple of Xanera.\"", "Campo de entrenamiento": "Training Grounds", "Muñeco de práctica": "Training Dummy", "un muñeco de práctica": "a training dummy", "Maestra de armas Leira": "Leira, Master-at-Arms", "Portal a Xanera": "Portal to Xanera", "Ir a Xanera": "Go to Xanera", "¡Entendido!": "Got it!", "Primero termina tu entrenamiento con la Maestra Leira. Si ya sabes jugar, usa «Omitir tutorial».": "First finish your training with Master Leira. If you already know how to play, use \"Skip tutorial\".", "⚔ Modo de ataque": "⚔ Attack mode", "Automático: tocas una vez y tu personaje sigue atacando. Manual: cada toque es un golpe.": "Automatic: tap once and your character keeps attacking. Manual: every tap is one hit.", "Automático": "Automatic", "Manual": "Manual", "Tu personaje ataca solo mientras el aro rojo esté sobre el monstruo. No necesitas tocar otra vez.": "Your character attacks on their own while the red ring is on the monster. No need to tap again.", "Llegas al templo de Xanera.": "You arrive at the temple of Xanera."});
 Object.assign(EN, {"¡": "", "ratas": "rats", "conejos": "rabbits", "lobos": "wolves", "avispas": "wasps", "osos": "bears", "serpientes": "snakes", "esqueletos": "skeletons", "orcos": "orcs", "trols": "trolls", "minotauros": "minotaurs", "bronce": "bronze", "plata": "silver", "oro": "gold"});
+Object.assign(EN, {"👤 Cuenta": "👤 Account", "No se pudo conectar con tu cuenta. Revisa tu internet; lo intentaremos otra vez.": "Couldn't connect to your account. Check your internet; we'll try again.", "No entraste a tu cuenta. Tus personajes siguen en este aparato.": "You didn't sign in. Your characters are still on this device.", "Escribe tu contraseña.": "Enter your password.", "Ese correo no es válido.": "That email isn't valid.", "El correo o la contraseña no son correctos.": "The email or password is incorrect.", "Ya hay una cuenta con ese correo. Toca Entrar.": "There's already an account with that email. Tap Sign in.", "La contraseña debe tener al menos 6 letras o números.": "Your password needs at least 6 letters or numbers.", "Demasiados intentos. Espera un momento y vuelve a intentar.": "Too many attempts. Wait a moment and try again.", "No hay internet. Revisa tu conexión.": "No internet. Check your connection.", "No se pudo abrir la ventana de Google aquí. Entra con tu correo.": "Couldn't open the Google window here. Sign in with your email.", "Por seguridad, sal de tu cuenta y vuelve a entrar antes de borrarla.": "For security, sign out and sign back in before deleting your account.", "Ese correo ya tiene cuenta con otra forma de entrar. Entra con tu correo y contraseña.": "That email already has an account with another sign-in method. Sign in with your email and password.", "Esa no es la cuenta con la que entraste.": "That isn't the account you signed in with.", "Algo salió mal. Intenta otra vez.": "Something went wrong. Try again.", "Un momento…": "One moment…", "¡Listo! Entraste a tu cuenta.": "Done! You're signed in.", "Las contraseñas no coinciden.": "The passwords don't match.", "¡Tu cuenta está lista! Te mandamos un correo para confirmarla. Puedes seguir jugando mientras.": "Your account is ready! We sent you an email to confirm it. You can keep playing meanwhile.", "Te mandamos un correo para crear una contraseña nueva. Revisa también tu carpeta de spam.": "We sent you an email to create a new password. Check your spam folder too.", "Saliste de tu cuenta. Tus personajes siguen en este aparato.": "You signed out. Your characters are still on this device.", "Tu cuenta y tu avance en la nube se borraron. Tus personajes siguen en este aparato.": "Your account and cloud progress were deleted. Your characters are still on this device.", "Cuenta: ": "Account: ", "Sin personajes": "No characters", "Tu cuenta ya tiene avance guardado, y este aparato también tiene personajes. ¿Con cuál te quedas?": "Your account already has saved progress, and this device has characters too. Which one do you want to keep?", "Lo de este aparato": "This device's progress", "Lo de tu cuenta": "Your account's progress", "Lo que no elijas se borra.": "Whatever you don't choose will be deleted.", "Cancelar y no entrar": "Cancel and don't sign in", "Entraste como:": "Signed in as:", "☁️ Tu avance se guarda en tu cuenta. Entra con ella en otro celular o computadora para seguir jugando.": "☁️ Your progress is saved to your account. Sign in on another phone or computer to keep playing.", "Conectando con tu cuenta…": "Connecting to your account…", "⚠️ Tu correo todavía no está confirmado. Busca el correo que te mandamos (revisa también spam).": "⚠️ Your email isn't confirmed yet. Look for the email we sent you (check spam too).", "Reenviar correo": "Resend email", "Te mandamos otro correo para confirmar.": "We sent you another confirmation email.", "Ya lo confirmé": "I confirmed it", "¡Correo confirmado!": "Email confirmed!", "Todavía no aparece confirmado. Abre el enlace del correo y vuelve a intentar.": "It doesn't show as confirmed yet. Open the link in the email and try again.", "Salir de la cuenta": "Sign out", "Tus personajes se quedan en este aparato aunque salgas.": "Your characters stay on this device even if you sign out.", "🗑 Borrar mi cuenta": "🗑 Delete my account", "Se borrarán tu cuenta y tu avance en la nube para siempre. Tus personajes en este aparato no se borran.": "Your account and cloud progress will be deleted forever. Your characters on this device won't be deleted.", "Escribe tu contraseña para confirmar": "Enter your password to confirm", "Te pediremos entrar con Google otra vez para confirmar.": "We'll ask you to sign in with Google again to confirm.", "Borrar para siempre": "Delete forever", "Cancelar": "Cancel", "Escribe tu correo y te mandaremos un enlace para crear una contraseña nueva.": "Enter your email and we'll send you a link to create a new password.", "Correo": "Email", "Enviar correo": "Send email", "Volver": "Back", "Con una cuenta, tu avance se guarda en la nube y puedes seguir jugando en otro celular o computadora. Es opcional: también puedes jugar sin cuenta.": "With an account, your progress is saved in the cloud and you can keep playing on another phone or computer. It's optional: you can also play without an account.", "Entrar con Google": "Sign in with Google", "o con tu correo:": "or with your email:", "Contraseña (mínimo 6)": "Password (at least 6)", "Contraseña": "Password", "Repite la contraseña": "Repeat your password", "Crear cuenta": "Create account", "Entrar": "Sign in", "¿Ya tienes cuenta? Entrar": "Already have an account? Sign in", "¿No tienes cuenta? Crear una": "No account? Create one", "Olvidé mi contraseña": "I forgot my password", "Aquí solo puedes entrar con correo. Para entrar con Google, abre el juego en su propia pestaña.": "Here you can only sign in with email. To sign in with Google, open the game in its own tab.", "Guarda tu avance en la nube para jugar en otro aparato.": "Save your progress in the cloud to play on another device.", "Abrir": "Open", "Tu avance se guarda en tu cuenta de Velmar: entra con ella en otro aparato. ": "Your progress is saved to your Velmar account: sign in with it on another device. "});
 Object.assign(EN, {"Teclado:": "Keyboard:", "Espacio atacar o hablar, Q poción, I equipo, 3 runa, C cambiar runa, F poción especial, G cambiar poción especial, H pergamino de regreso, M mapa, R Raziel.": "Space attack or talk, Q potion, I equipment, 3 rune, C switch rune, F special potion, G switch special potion, H return scroll, M map, R Raziel.", "palanca para caminar, A atacar o hablar, X poción, Y equipo, B runa, LT cambiar runa, LB tomar poción especial (mantén LB y usa la cruceta ← → para cambiarla), RT tienda, RB Raziel, Start ajustes.": "stick to walk, A attack or talk, X potion, Y equipment, B rune, LT switch rune, LB drink special potion (hold LB and use the d-pad ← → to switch it), RT shop, RB Raziel, Start settings.", "▶ Jugar": "▶ Play", "¡Torvak lanza una lluvia de flechas! Cúbrete detrás de una roca.": "Torvak unleashes a rain of arrows! Take cover behind a rock."});
 Object.assign(EN, {"Repisa de peluches": "Plush Shelf", "Llevar": "Wear", "Llevarlo colgado de tu cinturón, como llavero": "Hang it from your belt, like a keychain", "Regresaste ": "You put ", " a la repisa.": " back on the shelf.", "Ahora llevas ": "Now you're carrying ", " como llavero.": " as a keychain.", "Tus peluches se ven en la repisa junto a la casita. Toca \"Llevar\" para colgarte uno como llavero (uno a la vez).": "Your plushies are shown on the shelf next to the little house. Tap \"Wear\" to hang one from your belt as a keychain (one at a time).", "Set": "Set", "★ Objeto raro: ": "★ Rare item: "});
 Object.assign(EN, {" (se usan al caer)": " (used when you fall)", " de oro cada uno": " gold each", " pergamino de regreso": " return scroll", " pergamino.": " scroll.", " pergaminos de regreso": " return scrolls", " pergaminos.": " scrolls.", " · ": " · ", " · paquete: ": " · bundle: ", ". Tienes ": ". You have ", ". ✨ La Bendición de Elara cuidó tu oro y tu experiencia. Te quedan ": ". ✨ Elara's Blessing kept your gold and experience safe. Remaining: ", "Bendición de Galo": "Galo's Blessing", "En el Campo de entrenamiento no funciona el pergamino. Cruza el portal para ir a Xanera.": "The scroll doesn't work in the Training Grounds. Step through the portal to go to Xanera.", "La alquimista Nerea los vende.": "Nerea the alchemist sells them.", "Leyendo… no dejes que te golpeen.": "Reading… don't let anyone hit you.", "Lista para tomar: ": "Ready to drink: ", "Nerea te vendió ": "Nerea sold you ", "No tienes pergaminos de regreso. La alquimista Nerea los vende.": "You don't have any return scrolls. Nerea the alchemist sells them.", "Pergamino de regreso ×": "Return scroll ×", "Pergaminos": "Scrolls", "Pergaminos de regreso ×10": "Return scrolls ×10", "Recibiste la ": "You received ", "Si caes, conservas todo tu oro y tu experiencia. Se usa una cada vez que caes y puedes juntar varias.": "If you fall, you keep all your gold and experience. One is used each time you fall, and you can stack several.", "Si caes, no pierdes nada de tu mochila ni de lo que llevas puesto: todo se queda contigo. Se usa una cada vez que caes y puedes juntar varias.": "If you fall, you lose nothing from your backpack or what you're wearing: it all stays with you. One is used each time you fall, and you can stack several.", "Si compras algo por error, Google te ayuda con el reembolso.": "If you buy something by mistake, Google can help you get a refund.", "Solo tienes ": "You only have ", "Te lleva al templo de Xanera en 3 segundos (tecla H).": "Takes you to the temple of Xanera in 3 seconds (H key).", "Te llevan al templo de Xanera desde donde estés. Se leen en 3 segundos; si te golpean, se interrumpe y no se gasta.": "They take you to the temple of Xanera from wherever you are. Reading takes 3 seconds; if you get hit, it's interrupted and not used up.", "Te llevan al templo de Xanera. Tienes ": "They take you to the temple of Xanera. You have ", "Tomar ": "Drink ", "Ya estás en un lugar seguro.": "You're already somewhere safe.", "¡Te golpearon! Se interrumpió el pergamino. No se gastó.": "You got hit! The scroll was interrupted. It wasn't used up.", "🌿 Bendición de Galo: ": "🌿 Galo's Blessing: ", "🌿 La Bendición de Galo protegió tu mochila y tu equipo. Te quedan ": "🌿 Galo's Blessing protected your backpack and gear. Remaining: ", "📜 Lees el pergamino de regreso… (3 segundos). Si te golpean, se interrumpe.": "📜 You read the return scroll… (3 seconds). If you get hit, it's interrupted.", "📜 Llegaste al templo de Xanera. Te quedan ": "📜 You arrived at the temple of Xanera. Remaining: ", "📜 Pergaminos de regreso": "📜 Return scrolls"});
@@ -2106,9 +2129,215 @@ function loadCode(code) {
   try {
     const txt = decodeURIComponent(escape(atob(code.trim().replace(/^VELMAR-/, '').replace(/\s+/g, ''))));
     const s = JSON.parse(txt); if (!s || typeof s.lvl !== 'number') return false;
-    s.savedAt = Date.now(); store.set(SAVE_KEY, JSON.stringify(s)); cloudPush(true); return true;
+    s.savedAt = Date.now(); store.set(SAVE_KEY, JSON.stringify(s)); cloudPush(true); accPush(true); return true;
   } catch (e) { return false; }
 }
+
+// ================= Cuenta de Velmar (Firebase): entrar con correo o con Google; el avance se guarda en la nube =================
+// Cada personaje es un documento users/{uid}/slots/{1,2,3} con el guardado como texto. Se puede jugar sin cuenta.
+const FB_CFG = { apiKey: 'AIzaSyCsYW1MR21sGnyTl-6Uv1S3fcbhqu7J7DI', authDomain: 'velmar-c39ad.firebaseapp.com', projectId: 'velmar-c39ad', storageBucket: 'velmar-c39ad.firebasestorage.app', messagingSenderId: '212609932700', appId: '1:212609932700:web:3799b4583692396b153c59' };
+const FB_SDK = 'https://www.gstatic.com/firebasejs/10.12.2/';
+const IN_FRAME = (() => { try { return window.top !== window.self; } catch (e) { return true; } })(); // itch.io: Google no deja entrar dentro de un marco
+const Acc = { on: false, auth: null, db: null, user: null, ready: false, last: 0, dirty: false, timer: 0, hold: false, view: 'in', ask: null, msg: '', ok: false, wait: false, delArm: false, email: '' };
+const accRef = (uid, n) => Acc.db.collection('users').doc(uid).collection('slots').doc(String(n));
+const accSleep = ms => new Promise(r => setTimeout(r, ms));
+function addScript(src) { return new Promise((ok, no) => { const el = document.createElement('script'); el.src = src; el.async = true; el.onload = ok; el.onerror = no; document.head.appendChild(el); }); }
+function accInit() {
+  if (window.claude && typeof window.claude.use === 'function') return Promise.resolve(); // dentro de Claude se usa su propio guardado
+  return (async () => {
+    try {
+      await addScript(FB_SDK + 'firebase-app-compat.js');
+      await Promise.all([addScript(FB_SDK + 'firebase-auth-compat.js'), addScript(FB_SDK + 'firebase-firestore-compat.js')]);
+      const fb = window.firebase; if (!fb) return;
+      if (!fb.apps.length) fb.initializeApp(FB_CFG);
+      Acc.auth = fb.auth(); Acc.db = fb.firestore(); Acc.auth.languageCode = LANG === 'en' ? 'en' : 'es';
+      Acc.on = true; $('bAcct').hidden = false;
+      await new Promise(done => { let first = true; Acc.auth.onAuthStateChanged(u => { const pr = accChanged(u); if (first) { first = false; pr.then(done, done); } }); });
+    } catch (e) { /* sin internet o sin Firebase: se juega sin cuenta */ }
+  })();
+}
+async function accChanged(u) {
+  Acc.user = u || null; Acc.ready = false; Acc.delArm = false;
+  if (u) { try { await accSync(u); } catch (e) { if (!Acc.ask) accSay(T('No se pudo conectar con tu cuenta. Revisa tu internet; lo intentaremos otra vez.')); } }
+  accUI();
+}
+function accUI() { accNote(); if (!$('acct').hidden) accRender(); if (!playing && slotsReady) renderSlots(); }
+const slotFromDoc = d => { if (!d || typeof d.save !== 'string' || !d.save) return null; try { const v = JSON.parse(d.save); return v && typeof v.lvl === 'number' ? v : null; } catch (e) { return null; } };
+const accPut = (u, n, sv) => accRef(u.uid, n).set({ save: JSON.stringify(sv), savedAt: sv.savedAt || Date.now() }).catch(() => {});
+const accWipe = (u, n) => accRef(u.uid, n).set({ save: '', savedAt: Date.now() }).catch(() => {});
+const dropLocal = n => { try { localStorage.removeItem(slotKey(n)); } catch (e) {} };
+async function accSync(u) {
+  if (playing) save();
+  const snaps = await Promise.all([1, 2, 3].map(n => accRef(u.uid, n).get()));
+  if (Acc.user !== u) return;
+  const N = [1, 2, 3], cloud = {}, tomb = {}, local = {};
+  snaps.forEach((sn, i) => { const n = i + 1, d = sn.exists ? sn.data() : null; cloud[n] = slotFromDoc(d); tomb[n] = d && !cloud[n] ? (d.savedAt || 0) : 0; local[n] = loadSlot(n); });
+  const hasC = N.some(n => cloud[n]), hasL = N.some(n => local[n]);
+  const sameData = N.every(n => (!cloud[n] && !local[n]) || (cloud[n] && local[n] && cloud[n].savedAt === local[n].savedAt));
+  let choice = null;
+  if (store.get('velmar-acc') === u.uid) {
+    // Este aparato ya usa esta cuenta: de cada personaje gana lo más nuevo
+    for (const n of N) {
+      const c = cloud[n], l = local[n], busy = playing && n === curSlot;
+      if (c && (!l || (c.savedAt || 0) > (l.savedAt || 0))) { if (!busy) store.set(slotKey(n), JSON.stringify(c)); }
+      else if (!c && l && tomb[n] > (l.savedAt || 0)) { if (!busy) dropLocal(n); } // lo borraron en otro aparato
+      else if (l && (!c || (l.savedAt || 0) > (c.savedAt || 0))) accPut(u, n, l);
+    }
+  } else if (!hasC || sameData) choice = 'local';   // primera vez: se sube lo del aparato
+  else if (!hasL) choice = 'cloud';                 // aparato vacío: se baja lo de la cuenta
+  else choice = await accAsk(local, cloud);         // los dos tienen avance distinto: el jugador elige
+  if (Acc.user !== u) return;
+  if (choice === 'cancel') { await Acc.auth.signOut(); accSay(T('No entraste a tu cuenta. Tus personajes siguen en este aparato.'), true); return; }
+  if (choice === 'local') for (const n of N) { if (local[n]) accPut(u, n, local[n]); else if (cloud[n]) accWipe(u, n); }
+  if (choice === 'cloud') {
+    for (const n of N) { if (cloud[n]) store.set(slotKey(n), JSON.stringify(cloud[n])); else dropLocal(n); }
+    store.set('velmar-acc', u.uid);
+    if (playing) { Acc.hold = true; location.reload(); return; } // se recarga para jugar con lo de la cuenta
+  }
+  store.set('velmar-acc', u.uid);
+  Acc.ready = true;
+}
+function accAsk(local, cloud) { return new Promise(res => { Acc.ask = { local, cloud, res }; Acc.msg = ''; openAcct(); }); }
+function accPush(force) {
+  if (!Acc.ready || !Acc.user || Acc.hold) return;
+  const left = 60000 - (Date.now() - Acc.last);
+  if (!force && left > 0) { Acc.dirty = true; if (!Acc.timer) Acc.timer = setTimeout(() => { Acc.timer = 0; if (Acc.dirty) accPush(true); }, left); return; }
+  const raw = store.get(SAVE_KEY); if (!raw) return;
+  let sv; try { sv = JSON.parse(raw); } catch (e) { return; }
+  Acc.last = Date.now(); Acc.dirty = false;
+  return accRef(Acc.user.uid, curSlot).set({ save: raw, savedAt: sv.savedAt || Date.now() }).catch(() => { Acc.dirty = true; });
+}
+addEventListener('online', () => { if (Acc.user && !Acc.ready && !Acc.ask) accChanged(Acc.user); else if (Acc.dirty) accPush(true); });
+function accErr(e) {
+  const c = (e && e.code) || '';
+  if (c === 'need-pw') return T('Escribe tu contraseña.');
+  if (c === 'auth/invalid-email' || c === 'auth/missing-email') return T('Ese correo no es válido.');
+  if (/user-not-found|wrong-password|invalid-credential|invalid-login-credentials|missing-password/.test(c)) return T('El correo o la contraseña no son correctos.');
+  if (c === 'auth/email-already-in-use') return T('Ya hay una cuenta con ese correo. Toca Entrar.');
+  if (c === 'auth/weak-password') return T('La contraseña debe tener al menos 6 letras o números.');
+  if (c === 'auth/too-many-requests') return T('Demasiados intentos. Espera un momento y vuelve a intentar.');
+  if (c === 'auth/network-request-failed' || c === 'unavailable') return T('No hay internet. Revisa tu conexión.');
+  if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request' || c === 'auth/user-cancelled') return '';
+  if (c === 'auth/popup-blocked' || c === 'auth/operation-not-supported-in-this-environment' || c === 'auth/web-storage-unsupported') return T('No se pudo abrir la ventana de Google aquí. Entra con tu correo.');
+  if (c === 'auth/requires-recent-login') return T('Por seguridad, sal de tu cuenta y vuelve a entrar antes de borrarla.');
+  if (c === 'auth/account-exists-with-different-credential') return T('Ese correo ya tiene cuenta con otra forma de entrar. Entra con tu correo y contraseña.');
+  if (c === 'auth/user-mismatch') return T('Esa no es la cuenta con la que entraste.');
+  return T('Algo salió mal. Intenta otra vez.');
+}
+function accSay(txt, ok) { Acc.msg = txt || ''; Acc.ok = !!ok; const m = $('acctMsg'); m.textContent = Acc.msg; m.style.color = Acc.ok ? '#7DE07B' : '#F08A6A'; }
+async function accDo(fn) {
+  if (Acc.wait) return; Acc.wait = true; accSay(T('Un momento…'), true);
+  try { await fn(); } catch (e) { accSay(accErr(e)); }
+  if (Acc.ask) Acc.msg = '';
+  Acc.wait = false; if (!$('acct').hidden && !Acc.ask) accRender();
+}
+const accMailOk = em => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+function accIn(em, pw) {
+  em = em.trim(); if (!accMailOk(em)) return accSay(T('Ese correo no es válido.')); if (!pw) return accSay(T('Escribe tu contraseña.'));
+  accDo(async () => { await Acc.auth.signInWithEmailAndPassword(em, pw); accSay(T('¡Listo! Entraste a tu cuenta.'), true); });
+}
+function accUp(em, pw, pw2) {
+  em = em.trim(); if (!accMailOk(em)) return accSay(T('Ese correo no es válido.'));
+  if (pw.length < 6) return accSay(T('La contraseña debe tener al menos 6 letras o números.'));
+  if (pw !== pw2) return accSay(T('Las contraseñas no coinciden.'));
+  accDo(async () => {
+    const cr = await Acc.auth.createUserWithEmailAndPassword(em, pw);
+    try { await cr.user.sendEmailVerification(); } catch (e) {}
+    accSay(T('¡Tu cuenta está lista! Te mandamos un correo para confirmarla. Puedes seguir jugando mientras.'), true);
+  });
+}
+function accReset(em) {
+  em = em.trim(); if (!accMailOk(em)) return accSay(T('Ese correo no es válido.'));
+  accDo(async () => { await Acc.auth.sendPasswordResetEmail(em); Acc.view = 'in'; accSay(T('Te mandamos un correo para crear una contraseña nueva. Revisa también tu carpeta de spam.'), true); });
+}
+function accGoogle() {
+  accDo(async () => { const pr = new window.firebase.auth.GoogleAuthProvider(); pr.setCustomParameters({ prompt: 'select_account' }); await Acc.auth.signInWithPopup(pr); accSay(T('¡Listo! Entraste a tu cuenta.'), true); });
+}
+function accOut() {
+  accDo(async () => {
+    if (playing) save();
+    await Promise.race([accPush(true), accSleep(4000)]);
+    await Acc.auth.signOut(); try { localStorage.removeItem('velmar-acc'); } catch (e) {}
+    accSay(T('Saliste de tu cuenta. Tus personajes siguen en este aparato.'), true);
+  });
+}
+function accDelete(pw) {
+  accDo(async () => {
+    const u = Acc.user, fb = window.firebase, mail = u.providerData.some(x => x.providerId === 'password');
+    if (mail) { if (!pw) throw { code: 'need-pw' }; await u.reauthenticateWithCredential(fb.auth.EmailAuthProvider.credential(u.email, pw)); }
+    else await u.reauthenticateWithPopup(new fb.auth.GoogleAuthProvider());
+    Acc.ready = false;
+    await Promise.all([1, 2, 3].map(n => accRef(u.uid, n).delete()));
+    await u.delete(); try { localStorage.removeItem('velmar-acc'); } catch (e) {}
+    Acc.delArm = false; Acc.view = 'in';
+    accSay(T('Tu cuenta y tu avance en la nube se borraron. Tus personajes siguen en este aparato.'), true);
+  });
+}
+function accNote() {
+  const n = $('acctNote'); n.hidden = !(Acc.on && Acc.user);
+  n.textContent = Acc.user ? '☁️ ' + T('Cuenta: ') + (Acc.user.email || Acc.user.displayName || '') : '';
+}
+const slotSum = o => { const a = [1, 2, 3].filter(n => o[n]).map(n => ((o[n].look && o[n].look.name) || T('Personaje ') + n) + ' · ' + T('Nivel ') + o[n].lvl); return a.length ? a.join(', ') : T('Sin personajes'); };
+function accRender() {
+  const box = $('acctBody'); box.innerHTML = '';
+  const para = (txt, cls) => { const e = document.createElement('p'); e.className = cls || 'note'; e.textContent = txt; box.appendChild(e); return e; };
+  const btn = (txt, fn, cls) => { const b = document.createElement('button'); b.textContent = txt; if (cls) b.className = cls; b.disabled = Acc.wait; b.addEventListener('click', fn); return b; };
+  const row = (...bs) => { const r = document.createElement('div'); r.className = 'row'; r.style.marginTop = '10px'; r.append(...bs); box.appendChild(r); return r; };
+  const inp = (type, ph, ac) => { const i = document.createElement('input'); i.type = type; i.placeholder = ph; i.setAttribute('aria-label', ph); i.autocomplete = ac; i.className = 'acctIn'; box.appendChild(i); return i; };
+  $('acctClose').hidden = !!Acc.ask;
+  if (Acc.ask) {
+    const a = Acc.ask;
+    para(T('Tu cuenta ya tiene avance guardado, y este aparato también tiene personajes. ¿Con cuál te quedas?'));
+    const pick = c => { Acc.ask = null; $('acctClose').hidden = false; $('acct').hidden = true; a.res(c); };
+    for (const [k, ico, lbl, o] of [['local', '📱', T('Lo de este aparato'), a.local], ['cloud', '☁️', T('Lo de tu cuenta'), a.cloud]]) {
+      const b = btn(ico + ' ' + lbl, () => pick(k), 'choice accPick');
+      const sm = document.createElement('small'); sm.textContent = slotSum(o); b.appendChild(sm); box.appendChild(b);
+    }
+    para(T('Lo que no elijas se borra.'), 'note warn');
+    row(btn(T('Cancelar y no entrar'), () => pick('cancel'), 'linkish'));
+  } else if (Acc.user) {
+    const u = Acc.user, mail = u.providerData.some(x => x.providerId === 'password');
+    para(T('Entraste como:'));
+    para(u.email || u.displayName || '', 'note who');
+    para(Acc.ready ? T('☁️ Tu avance se guarda en tu cuenta. Entra con ella en otro celular o computadora para seguir jugando.') : T('Conectando con tu cuenta…'));
+    if (mail && !u.emailVerified) {
+      para(T('⚠️ Tu correo todavía no está confirmado. Busca el correo que te mandamos (revisa también spam).'), 'note warn');
+      row(btn(T('Reenviar correo'), () => accDo(async () => { await u.sendEmailVerification(); accSay(T('Te mandamos otro correo para confirmar.'), true); })),
+          btn(T('Ya lo confirmé'), () => accDo(async () => { await u.reload(); Acc.user = Acc.auth.currentUser; accSay(Acc.user.emailVerified ? T('¡Correo confirmado!') : T('Todavía no aparece confirmado. Abre el enlace del correo y vuelve a intentar.'), Acc.user.emailVerified); })));
+    }
+    row(btn(T('Salir de la cuenta'), accOut));
+    para(T('Tus personajes se quedan en este aparato aunque salgas.'));
+    if (!Acc.delArm) row(btn(T('🗑 Borrar mi cuenta'), () => { Acc.delArm = true; accSay(''); accRender(); }, 'linkish del'));
+    else {
+      para(T('Se borrarán tu cuenta y tu avance en la nube para siempre. Tus personajes en este aparato no se borran.'), 'note warn');
+      const pw = mail ? inp('password', T('Escribe tu contraseña para confirmar'), 'current-password') : null;
+      if (!mail) para(T('Te pediremos entrar con Google otra vez para confirmar.'));
+      row(btn(T('Borrar para siempre'), () => accDelete(pw && pw.value), 'danger'), btn(T('Cancelar'), () => { Acc.delArm = false; accSay(''); accRender(); }));
+    }
+  } else if (Acc.view === 'reset') {
+    para(T('Escribe tu correo y te mandaremos un enlace para crear una contraseña nueva.'));
+    const em = inp('email', T('Correo'), 'email'); em.value = Acc.email; em.addEventListener('input', () => Acc.email = em.value);
+    row(btn(T('Enviar correo'), () => accReset(em.value), 'primary'), btn(T('Volver'), () => { Acc.view = 'in'; accSay(''); accRender(); }));
+  } else {
+    const up = Acc.view === 'up';
+    para(T('Con una cuenta, tu avance se guarda en la nube y puedes seguir jugando en otro celular o computadora. Es opcional: también puedes jugar sin cuenta.'));
+    if (!IN_FRAME) { box.appendChild(btn(T('Entrar con Google'), accGoogle, 'gbtn')); para(T('o con tu correo:'), 'note center'); }
+    const em = inp('email', T('Correo'), 'email'); em.value = Acc.email; em.addEventListener('input', () => Acc.email = em.value);
+    const pw = inp('password', up ? T('Contraseña (mínimo 6)') : T('Contraseña'), up ? 'new-password' : 'current-password');
+    const pw2 = up ? inp('password', T('Repite la contraseña'), 'new-password') : null;
+    const go = () => up ? accUp(em.value, pw.value, pw2.value) : accIn(em.value, pw.value);
+    for (const i of [em, pw, pw2]) if (i) i.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+    row(btn(up ? T('Crear cuenta') : T('Entrar'), go, 'primary'));
+    const sw = btn(up ? T('¿Ya tienes cuenta? Entrar') : T('¿No tienes cuenta? Crear una'), () => { Acc.view = up ? 'in' : 'up'; accSay(''); accRender(); }, 'linkish');
+    if (up) row(sw); else row(sw, btn(T('Olvidé mi contraseña'), () => { Acc.view = 'reset'; accSay(''); accRender(); }, 'linkish'));
+    if (IN_FRAME) para(T('Aquí solo puedes entrar con correo. Para entrar con Google, abre el juego en su propia pestaña.'));
+  }
+  accSay(Acc.msg, Acc.ok);
+}
+function openAcct() { keyStack.length = 0; padDir = null; if (!Acc.ask) accSay(''); Acc.delArm = false; accRender(); $('acct').hidden = false; Sound.play('ui'); const f = $('acct').querySelector('button, input'); if (f) f.focus(); }
+function closeAcct() { if (Acc.ask) return; $('acct').hidden = true; }
+$('bAcct').addEventListener('click', () => { Sound.init(); openAcct(); });
+$('acctClose').addEventListener('click', closeAcct);
 
 // ================= Tutorial =================
 function nearestRat() {
@@ -2930,7 +3159,7 @@ function itemName(el, id, txt) {
 // ================= NPC, tienda y equipo =================
 let pendingTalk = null, dlgNpc = null;
 const _qHidden = 0;
-const uiOpen = () => !$('shopv').hidden || !$('mapv').hidden || !$('inst').hidden || !$('donate').hidden || !$('online').hidden || !$('coop').hidden || !$('create').hidden || !$('dlg').hidden || !$('eq').hidden || !$('cfg').hidden || !$('album').hidden || !$('credits').hidden;
+const uiOpen = () => !$('shopv').hidden || !$('mapv').hidden || !$('inst').hidden || !$('donate').hidden || !$('online').hidden || !$('coop').hidden || !$('create').hidden || !$('dlg').hidden || !$('eq').hidden || !$('cfg').hidden || !$('album').hidden || !$('credits').hidden || !$('acct').hidden;
 function nearNpc() { if (net.guest) { const me = net.me; return me ? NPCS.find(n => npcHere(n) && (n.kind === 'shop' || n.kind === 'alchemy') && cheb(me.x, me.y, n.x, n.y) <= 1) || null : null; } return NPCS.find(n => npcHere(n) && cheb(P.x, P.y, n.x, n.y) <= 1) || null; }
 function talkTo(n) {
   if (cheb(P.x, P.y, n.x, n.y) <= 1) { openDialog(n); return; }
@@ -3141,10 +3370,16 @@ function renderCfg() {
     const b = document.createElement('button'); b.textContent = T('Cambiar');
     b.addEventListener('click', () => { closeCfg(); openCreate('edit'); });
     el.append(tx, b); list.appendChild(el); }
+  if (Acc.on) { const el = document.createElement('div'); el.className = 'opt';
+    const tx = document.createElement('div'); tx.textContent = T('👤 Cuenta');
+    const sm = document.createElement('small'); sm.textContent = Acc.user ? T('Entraste como:') + ' ' + (Acc.user.email || '') : T('Guarda tu avance en la nube para jugar en otro aparato.'); tx.appendChild(sm);
+    const b = document.createElement('button'); b.textContent = T('Abrir');
+    b.addEventListener('click', () => { closeCfg(); openAcct(); });
+    el.append(tx, b); list.appendChild(el); }
   { const el = document.createElement('div'); el.className = 'opt col';
     const tx = document.createElement('div'); tx.textContent = T('Jugar en otro aparato');
     const sm = document.createElement('small');
-    sm.textContent = (Cloud.ready ? T('Tu avance se guarda en tu cuenta de Claude y aparece en cualquier aparato donde la abras. ') : T('Tu avance se guarda en este aparato. ')) + T('Para pasarlo a otro aparato, copia tu código y pégalo allá, en Ajustes.');
+    sm.textContent = (Cloud.ready ? T('Tu avance se guarda en tu cuenta de Claude y aparece en cualquier aparato donde la abras. ') : Acc.ready ? T('Tu avance se guarda en tu cuenta de Velmar: entra con ella en otro aparato. ') : T('Tu avance se guarda en este aparato. ')) + T('Para pasarlo a otro aparato, copia tu código y pégalo allá, en Ajustes.');
     tx.appendChild(sm); el.appendChild(tx);
     const out = document.createElement('textarea'); out.id = 'codeOut'; out.readOnly = true; out.rows = 2; out.value = saveCode();
     const r1 = document.createElement('div'); r1.className = 'row';
@@ -3396,9 +3631,10 @@ let SAVE_KEY = slotKey(curSlot);
 function setSlot(n) { curSlot = n; SAVE_KEY = slotKey(n); store.set('velmar-slot', String(n)); }
 function loadSlot(n) { try { const s = JSON.parse(store.get(slotKey(n)) || 'null'); return s && typeof s.lvl === 'number' ? s : null; } catch (e) { return null; } }
 function save() {
-  if (!P || net.guest || !playing) return; // en el menú no se guarda (evita crear partidas vacías)
+  if (!P || net.guest || !playing || Acc.hold) return; // en el menú no se guarda (evita crear partidas vacías)
   store.set(SAVE_KEY, JSON.stringify({ v: 2, lvl: P.lvl, xp: P.xp, hp: P.hp, gold: P.gold, potions: P.potions, equip: P.equip, bag: P.bag, q: P.q, tut: P.tut, pet: P.pet, teo: P.teo, fruit: P.fruit, stats: P.stats, ach: P.ach, bond: P.bond, stageSeen: P.stageSeen, look: P.look, tiers: P.tiers, trophies: P.trophies, zones: P.zones, fireCount: P.fireCount | 0, poisonSurvived: !!P.poisonSurvived, vault: P.vault, marks: P.marks, trea: P.trea, runes: P.runes, shop: P.shop, uniq: P.uniq, drops: P.drops, deepest: P.deepest, runeUsed: !!P.runeUsed, don: P.don || {}, seen: SEEN ? packSeen() : undefined, floor: FLOOR, savedAt: Date.now(), x: P.x, y: P.y }));
   cloudPush(false);
+  accPush(false);
   syncComps();
 }
 function load() {
@@ -3419,6 +3655,7 @@ addEventListener('keydown', e => {
   if (!$('coop').hidden) { if (e.code === 'Escape') closeJoin(); return; }
   if (!$('dlg').hidden) { if (e.code === 'Escape') closeDialog(); return; }
   if (!$('eq').hidden) { if (e.code === 'Escape' || e.code === 'KeyI') closeEquip(); return; }
+  if (!$('acct').hidden) { if (e.code === 'Escape') closeAcct(); return; }
   if (!$('cfg').hidden) { if (e.code === 'Escape') closeCfg(); return; }
   if (!$('album').hidden) { if (e.code === 'Escape') closeAlbum(); return; }
   if (!$('credits').hidden) { if (e.code === 'Escape') closeCredits(); return; }
@@ -4217,7 +4454,7 @@ function drawDrop(d, ox, oy, S) {
 const DONATE_URL = 'https://xaner1327.itch.io/velmar/donate';
 const PRIVACY_URL = 'https://xaner1327.github.io/velmar/privacy.html', SUPPORT_MAIL = 'xanergames.soporte@gmail.com';
 // Versión visible: número del paquete que se sube (vNN) + número de prueba en Claude
-const GAME_VERSION = 'v50.87';
+const GAME_VERSION = 'v50.88';
 (function showVersion() {
   const card = document.querySelector('#menu .card'); if (!card) return;
   const p = document.createElement('p'); p.className = 'vertag'; p.textContent = 'Velmar ' + GAME_VERSION; card.appendChild(p);
@@ -5945,6 +6182,7 @@ function renderSlots() {
         if (delArmed !== n) { delArmed = n; Sound.play('ui'); renderSlots(); return; }
         delArmed = 0; try { localStorage.removeItem(slotKey(n)); } catch (e) {}
         if (Cloud.docs[n]) Cloud.docs[n].set({ save: null, savedAt: Date.now() }).catch(() => {});
+        if (Acc.ready && Acc.user) accWipe(Acc.user, n);
         Sound.play('miss'); renderSlots();
       });
       wrap.appendChild(d);
@@ -5973,9 +6211,9 @@ $('cName').addEventListener('keydown', e => { if (e.key === 'Enter') finishCreat
 { // Botones del menú esperan un momento a la partida guardada en la cuenta
   slotsReady = false; renderSlots();
   let done = false; const ready = () => { if (done) return; done = true; slotsReady = true; renderSlots(); };
-  cloudInit().then(ready, ready); setTimeout(ready, 4000);
+  Promise.all([cloudInit(), accInit()]).then(ready, ready); setTimeout(ready, 4000);
 }
-addEventListener('pagehide', () => { save(); cloudPush(true); });
+addEventListener('pagehide', () => { save(); cloudPush(true); accPush(true); });
 document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
 
 P = newPlayer();
