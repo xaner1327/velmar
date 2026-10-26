@@ -198,6 +198,23 @@ body.touch .act.big i.key { display: none; }
 #chatMod .modrow b { flex: 1 1 90px; min-width: 0; overflow-wrap: anywhere; }
 #chatMod .modrow button { padding: 3px 8px; font-size: 12px; }
 .item.missing { opacity: 0.5; }
+#slots .slot { padding: 0; background: none; border: none; align-items: stretch; }
+#slots .slot > button.choice { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+#slots .slot > button.choice canvas { width: 72px; height: 72px; flex: none; background: radial-gradient(circle at 50% 60%, rgba(228,181,74,0.16), rgba(0,0,0,0.3) 70%); border: 1px solid #4B3D29; border-radius: 8px; }
+#slots .slot > button.choice span { display: block; text-align: center; overflow-wrap: anywhere; }
+#slots .slot > button.choice small { display: block; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+#slots .slot > button.choice em.play { display: block; font-style: normal; font-size: 12px; font-weight: 800; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; margin-top: 2px; }
+#eq #eqBagH { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; letter-spacing: 0; text-transform: none; color: var(--gold); margin: 18px 0 8px; }
+#eq #eqBagH small { font-family: var(--font-ui); font-size: 14px; font-weight: 800; color: var(--muted); margin-left: 8px; letter-spacing: .06em; }
+@media (min-width: 700px) {
+  #eq .card { width: min(1100px, 100%); display: grid; grid-template-columns: 1fr 1fr; column-gap: 18px; grid-template-rows: auto auto 1fr auto; overflow: hidden; }
+  #eq .card > h2 { grid-column: 1; grid-row: 1; align-self: end; }
+  #eq #eqStats { grid-column: 1; grid-row: 2; }
+  #eq #eqSlots { grid-column: 1; grid-row: 3; align-self: start; grid-template-columns: 1fr 1fr; }
+  #eq #eqBagH { grid-column: 2; grid-row: 1; align-self: end; margin: 0; line-height: 1.2; }
+  #eq #eqBag { grid-column: 2; grid-row: 2 / 4; overflow-y: auto; min-height: 0; padding-right: 4px; margin-top: 6px; }
+  #eq .card > .row { grid-column: 1 / -1; grid-row: 4; }
+}
 .item canvas.tier-set, .slot canvas.tier-set { border-color: #7DE07B; box-shadow: 0 0 0 1px rgba(125,224,123,0.35); }
 .item canvas.tier-rare, .slot canvas.tier-rare { border-color: #F2C14E; box-shadow: 0 0 0 1px rgba(242,193,78,0.35); }
 .settag { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 6px; background: #1E4A22; border: 1px solid #7DE07B; color: #BDF5BC; font-size: 11px; font-weight: 800; vertical-align: middle; }
@@ -460,7 +477,8 @@ select { font: inherit; font-size: 16px; color: var(--ink); background: #2A231B;
     <p class="sub">Un reino de ratas, lobos, huesos y un ogro que nadie ha vencido.</p>
     <ul class="help">
       <li><b>Caminar:</b> flechas o WASD, o toca el suelo. En celular, usa el joystick.</li>
-      <li><b>Control (Xbox):</b> palanca para caminar, A atacar o hablar, X poción, Y equipo, B runa, LT cambiar runa, LB pociones especiales, RT tienda, RB Raziel, Start ajustes.</li>
+      <li><b>Teclado:</b> Espacio atacar o hablar, Q poción, I equipo, 3 runa, C cambiar runa, F poción especial, G cambiar poción especial, H pergamino de regreso, M mapa, R Raziel.</li>
+      <li><b>Control (Xbox):</b> palanca para caminar, A atacar o hablar, X poción, Y equipo, B runa, LT cambiar runa, LB tomar poción especial (mantén LB y usa la cruceta ← → para cambiarla), RT tienda, RB Raziel, Start ajustes.</li>
       <li><b>Atacar:</b> toca o haz clic en un monstruo. Tu personaje lo sigue y ataca solo.</li>
       <li><b>Xanera:</b> dentro de sus muros nadie te ataca. La sacerdotisa te cura, el herrero vende equipo y la alquimista vende pociones.</li>
       <li><b>Misiones:</b> el Capitán Aldric, junto a la fuente, te encarga cacerías y búsquedas.</li>
@@ -653,6 +671,7 @@ Object.assign(EN, {"La Maestra Leira te dio la Espada del Aprendiz": "Master Lei
 Object.assign(EN, {"Versión: ": "Version: "});
 Object.assign(EN, {"Practica con los muñecos y las ratas.": "Practice on the dummies and the rats.", "¡Te damos la bienvenida al Campo de entrenamiento! Camina con el joystick o con las flechas del teclado hasta la Maestra Leira.": "Welcome to the Training Grounds! Walk with the joystick or the arrow keys over to Master Leira.", "Para hablar con alguien, tócalo o presiona Espacio cuando estés a su lado. Habla con la Maestra Leira.": "To talk to someone, tap them or press Space when you're next to them. Talk to Master Leira.", "Toca una sola vez un muñeco de práctica. Tu personaje camina hacia él y ataca solo. El aro rojo marca a quién atacas. No necesitas tocar más.": "Tap a training dummy just once. Your character walks to it and attacks on their own. The red ring shows who you're attacking. No need to tap again.", "Ahora toca otro muñeco. Así cambias de objetivo.": "Now tap a different dummy. That's how you switch targets.", "Las ratas del corral sí muerden. Entra al corral y vence a una.": "The rats in the pen do bite. Go into the pen and defeat one.", "Si tu vida baja, toca el botón Poción para curarte. Pruébalo ahora.": "If your health gets low, tap the Potion button to heal. Try it now.", "Toca el botón Equipo para ver lo que llevas puesto y lo que guardas en tu mochila.": "Tap the Equipment button to see what you're wearing and what's in your backpack.", "Toca el botón Mapa. El mapa se descubre mientras exploras y el signo de exclamación marca tu misión.": "Tap the Map button. The map reveals itself as you explore, and the exclamation mark shows your quest.", "¡Muy bien! Ya sabes lo necesario. Cruza el portal brillante para llegar al templo de Xanera.": "Well done! You know everything you need. Step through the glowing portal to reach the temple of Xanera.", "Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.": "I'm Leira, master-at-arms. Here you'll learn to fight before heading to Xanera.", "Un portal brillante que lleva al templo de Xanera.": "A glowing portal that leads to the temple of Xanera.", "Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!": "Your training is complete. Good luck in Velmar!", "\"Soy Leira, maestra de armas. Aquí aprenderás a pelear antes de ir a Xanera.\"": "\"I'm Leira, master-at-arms. Here you'll learn to fight before heading to Xanera.\"", "\"Ya terminaste tu entrenamiento. ¡Buena suerte en Velmar!\"": "\"Your training is complete. Good luck in Velmar!\"", "\"Un portal brillante que lleva al templo de Xanera.\"": "\"A glowing portal that leads to the temple of Xanera.\"", "Campo de entrenamiento": "Training Grounds", "Muñeco de práctica": "Training Dummy", "un muñeco de práctica": "a training dummy", "Maestra de armas Leira": "Leira, Master-at-Arms", "Portal a Xanera": "Portal to Xanera", "Ir a Xanera": "Go to Xanera", "¡Entendido!": "Got it!", "Primero termina tu entrenamiento con la Maestra Leira. Si ya sabes jugar, usa «Omitir tutorial».": "First finish your training with Master Leira. If you already know how to play, use \"Skip tutorial\".", "⚔ Modo de ataque": "⚔ Attack mode", "Automático: tocas una vez y tu personaje sigue atacando. Manual: cada toque es un golpe.": "Automatic: tap once and your character keeps attacking. Manual: every tap is one hit.", "Automático": "Automatic", "Manual": "Manual", "Tu personaje ataca solo mientras el aro rojo esté sobre el monstruo. No necesitas tocar otra vez.": "Your character attacks on their own while the red ring is on the monster. No need to tap again.", "Llegas al templo de Xanera.": "You arrive at the temple of Xanera."});
 Object.assign(EN, {"¡": "", "ratas": "rats", "conejos": "rabbits", "lobos": "wolves", "avispas": "wasps", "osos": "bears", "serpientes": "snakes", "esqueletos": "skeletons", "orcos": "orcs", "trols": "trolls", "minotauros": "minotaurs", "bronce": "bronze", "plata": "silver", "oro": "gold"});
+Object.assign(EN, {"Teclado:": "Keyboard:", "Espacio atacar o hablar, Q poción, I equipo, 3 runa, C cambiar runa, F poción especial, G cambiar poción especial, H pergamino de regreso, M mapa, R Raziel.": "Space attack or talk, Q potion, I equipment, 3 rune, C switch rune, F special potion, G switch special potion, H return scroll, M map, R Raziel.", "palanca para caminar, A atacar o hablar, X poción, Y equipo, B runa, LT cambiar runa, LB tomar poción especial (mantén LB y usa la cruceta ← → para cambiarla), RT tienda, RB Raziel, Start ajustes.": "stick to walk, A attack or talk, X potion, Y equipment, B rune, LT switch rune, LB drink special potion (hold LB and use the d-pad ← → to switch it), RT shop, RB Raziel, Start settings.", "▶ Jugar": "▶ Play", "¡Torvak lanza una lluvia de flechas! Cúbrete detrás de una roca.": "Torvak unleashes a rain of arrows! Take cover behind a rock."});
 Object.assign(EN, {"Repisa de peluches": "Plush Shelf", "Llevar": "Wear", "Llevarlo colgado de tu cinturón, como llavero": "Hang it from your belt, like a keychain", "Regresaste ": "You put ", " a la repisa.": " back on the shelf.", "Ahora llevas ": "Now you're carrying ", " como llavero.": " as a keychain.", "Tus peluches se ven en la repisa junto a la casita. Toca \"Llevar\" para colgarte uno como llavero (uno a la vez).": "Your plushies are shown on the shelf next to the little house. Tap \"Wear\" to hang one from your belt as a keychain (one at a time).", "Set": "Set", "★ Objeto raro: ": "★ Rare item: "});
 Object.assign(EN, {" (se usan al caer)": " (used when you fall)", " de oro cada uno": " gold each", " pergamino de regreso": " return scroll", " pergamino.": " scroll.", " pergaminos de regreso": " return scrolls", " pergaminos.": " scrolls.", " · ": " · ", " · paquete: ": " · bundle: ", ". Tienes ": ". You have ", ". ✨ La Bendición de Elara cuidó tu oro y tu experiencia. Te quedan ": ". ✨ Elara's Blessing kept your gold and experience safe. Remaining: ", "Bendición de Galo": "Galo's Blessing", "En el Campo de entrenamiento no funciona el pergamino. Cruza el portal para ir a Xanera.": "The scroll doesn't work in the Training Grounds. Step through the portal to go to Xanera.", "La alquimista Nerea los vende.": "Nerea the alchemist sells them.", "Leyendo… no dejes que te golpeen.": "Reading… don't let anyone hit you.", "Lista para tomar: ": "Ready to drink: ", "Nerea te vendió ": "Nerea sold you ", "No tienes pergaminos de regreso. La alquimista Nerea los vende.": "You don't have any return scrolls. Nerea the alchemist sells them.", "Pergamino de regreso ×": "Return scroll ×", "Pergaminos": "Scrolls", "Pergaminos de regreso ×10": "Return scrolls ×10", "Recibiste la ": "You received ", "Si caes, conservas todo tu oro y tu experiencia. Se usa una cada vez que caes y puedes juntar varias.": "If you fall, you keep all your gold and experience. One is used each time you fall, and you can stack several.", "Si caes, no pierdes nada de tu mochila ni de lo que llevas puesto: todo se queda contigo. Se usa una cada vez que caes y puedes juntar varias.": "If you fall, you lose nothing from your backpack or what you're wearing: it all stays with you. One is used each time you fall, and you can stack several.", "Si compras algo por error, Google te ayuda con el reembolso.": "If you buy something by mistake, Google can help you get a refund.", "Solo tienes ": "You only have ", "Te lleva al templo de Xanera en 3 segundos (tecla H).": "Takes you to the temple of Xanera in 3 seconds (H key).", "Te llevan al templo de Xanera desde donde estés. Se leen en 3 segundos; si te golpean, se interrumpe y no se gasta.": "They take you to the temple of Xanera from wherever you are. Reading takes 3 seconds; if you get hit, it's interrupted and not used up.", "Te llevan al templo de Xanera. Tienes ": "They take you to the temple of Xanera. You have ", "Tomar ": "Drink ", "Ya estás en un lugar seguro.": "You're already somewhere safe.", "¡Te golpearon! Se interrumpió el pergamino. No se gastó.": "You got hit! The scroll was interrupted. It wasn't used up.", "🌿 Bendición de Galo: ": "🌿 Galo's Blessing: ", "🌿 La Bendición de Galo protegió tu mochila y tu equipo. Te quedan ": "🌿 Galo's Blessing protected your backpack and gear. Remaining: ", "📜 Lees el pergamino de regreso… (3 segundos). Si te golpean, se interrumpe.": "📜 You read the return scroll… (3 seconds). If you get hit, it's interrupted.", "📜 Llegaste al templo de Xanera. Te quedan ": "📜 You arrived at the temple of Xanera. Remaining: ", "📜 Pergaminos de regreso": "📜 Return scrolls"});
 Object.assign(EN, {"Tus sets · ": "Your sets · ", " piezas": " pieces", "Ocultar": "Hide", " · en tu baúl": " · in your chest", " · lo llevas puesto": " · you're wearing it", " · en tu mochila": " · in your backpack", "Te falta · De la tienda de Velmar": "Missing · From the Velmar shop"});
@@ -1139,7 +1158,7 @@ const MT = {
   orco:      { name: T('Orco'), art: T('un orco'), hp: 95, dmg: [4, 14], xp: 50, gold: [6, 18], step: 0.55, atk: 1.6, resp: 30, aggro: 6, size: 0.9, pot: 0.15, blood: '#5B7A2E' },
   trol:      { name: T('Trol'), art: T('un trol'), hp: 120, dmg: [5, 16], xp: 62, gold: [8, 20], step: 0.6, atk: 1.7, resp: 35, aggro: 6, size: 1.0, pot: 0.15, blood: '#4E6E8A' },
   minotauro: { name: T('Minotauro'), art: T('un minotauro'), hp: 190, dmg: [8, 22], xp: 110, gold: [12, 30], step: 0.55, atk: 1.7, resp: 40, aggro: 7, size: 1.05, pot: 0.2, blood: '#8E2A22' },
-  torvak:    { name: T('Torvak, Rey del Laberinto'), art: T('Torvak, el Rey del Laberinto'), hp: 1500, dmg: [16, 38], xp: 1600, gold: [200, 400], step: 0.6, atk: 1.8, resp: 600, aggro: 7, size: 1.35, pot: 1, boss: true, blood: '#8E2A22' },
+  torvak:    { name: T('Torvak, Rey del Laberinto'), art: T('Torvak, el Rey del Laberinto'), hp: 1500, dmg: [16, 38], xp: 1600, gold: [200, 400], step: 0.6, atk: 1.8, resp: 600, aggro: 7, size: 1.35, pot: 1, boss: true, range: 4, shot: 'arrow', shotDmg: [12, 28], melee: true, nokite: true, volley: true, blood: '#8E2A22' },
   ogro:      { name: T('Ogro del Pantano'), art: T('el Ogro del Pantano'), hp: 900, dmg: [12, 34], xp: 600, gold: [100, 180], step: 0.65, atk: 1.8, resp: 150, aggro: 6, size: 1.2, pot: 1, boss: true, blood: '#5B7A2E' },
 };
 const POTION_PRICE = 100;
@@ -2548,7 +2567,7 @@ function monsterShoot(m, E = P) {
   const [sx, sy] = rpos(m), f = FLOOR;
   m.face = E.x < m.x ? -1 : 1; m.castT = 0.35;
   Sound.play(m.d.shot === 'fire' ? 'fire' : 'shoot');
-  shots.push({ kind: m.d.shot, x0: sx, y0: sy - 0.2, m: E, t: 0, dur: Math.max(0.22, cheb(E.x, E.y, m.x, m.y) * 0.09), onHit: () => { if (FLOOR === f && !m.dead) monsterAttack(m, E); } });
+  shots.push({ kind: m.d.shot, x0: sx, y0: sy - 0.2, m: E, t: 0, dur: Math.max(0.22, cheb(E.x, E.y, m.x, m.y) * 0.09), onHit: () => { if (FLOOR === f && !m.dead) monsterAttack(m, E, m.d.shotDmg); } });
 }
 function updateShots(dt) {
   for (const p of shots) { p.t += dt; if (p.t >= p.dur && !p.done) { p.done = true; if (!p.m.dead) p.onHit(p.m); } }
@@ -2744,9 +2763,9 @@ function gainXp(n) {
     log(T('¡Subiste al nivel ') + P.lvl + T('! Tu vida y tu fuerza aumentan.'), '#E4B54A');
   }
 }
-function monsterAttack(m, E = P) {
+function monsterAttack(m, E = P, dr) {
   if (E.ghost || E.hp <= 0) return;
-  const raw = rint(m.d.dmg[0], m.d.dmg[1]);
+  const rr = dr || m.d.dmg, raw = rint(rr[0], rr[1]);
   const dmg = Math.round(Math.max(0, raw - rint(0, defTotal(E))) * (E === P && buffOn('flecha') ? 1.3 : 1));
   const [rx, ry] = rpos(E), me = E === P;
   E.lastHurt = now;
@@ -3349,7 +3368,7 @@ function renderEquip() {
     el.appendChild(tx); slots.appendChild(el);
   }
   const bag = $('eqBag'); bag.innerHTML = '';
-  $('eqBagH').textContent = T('Mochila') + ' · ' + P.bag.length + '/' + bagCap();
+  $('eqBagH').innerHTML = ''; $('eqBagH').append(T('Mochila')); { const c = document.createElement('small'); c.textContent = P.bag.length + '/' + bagCap(); $('eqBagH').appendChild(c); }
   if (P.shop && (P.shop.bless > 0 || P.shop.blessE > 0)) { const bl = document.createElement('p'); bl.className = 'empty'; bl.style.color = '#FFE7A8'; bl.textContent = [P.shop.bless > 0 ? T('🌿 Bendición de Galo: ') + P.shop.bless : '', P.shop.blessE > 0 ? T('✨ Bendición de Elara: ') + P.shop.blessE : ''].filter(Boolean).join(' · ') + T(' (se usan al caer)'); bag.appendChild(bl); }
   { const n = (P.shop && P.shop.scroll) || 0, sr = document.createElement('div'); sr.className = 'item scrollrow';
     const ic = document.createElement('div'); ic.className = 'bundle'; ic.textContent = '📜'; sr.appendChild(ic);
@@ -4198,7 +4217,7 @@ function drawDrop(d, ox, oy, S) {
 const DONATE_URL = 'https://xaner1327.itch.io/velmar/donate';
 const PRIVACY_URL = 'https://xaner1327.github.io/velmar/privacy.html', SUPPORT_MAIL = 'xanergames.soporte@gmail.com';
 // Versión visible: número del paquete que se sube (vNN) + número de prueba en Claude
-const GAME_VERSION = 'v50.86';
+const GAME_VERSION = 'v50.87';
 (function showVersion() {
   const card = document.querySelector('#menu .card'); if (!card) return;
   const p = document.createElement('p'); p.className = 'vertag'; p.textContent = 'Velmar ' + GAME_VERSION; card.appendChild(p);
@@ -5127,10 +5146,15 @@ function update(dt) {
     m.hunting = hunting;
     if (hunting) {
       if (m.d.hitrun && m.retreatUntil > now) { if (m.mt >= 1 && m.moveCD <= 0) { stepAway(m); m.moveCD = m.d.step; } }
-      else if (m.d.range && dist <= m.d.range && clearLine(m.x, m.y, tp.x, tp.y)) {
+      else if (m.d.volley && m.volleyLeft > 0) { if (now >= (m.volleyNext || 0)) { if (clearLine(m.x, m.y, tp.x, tp.y) && dist <= m.d.range) monsterShoot(m, tp); m.volleyLeft--; m.volleyNext = now + 0.3; if (!m.volleyLeft) m.atkCD = m.d.atk; } }
+      else if (m.d.volley && m.hp < m.d.hp / 2 && now - (m.volleyAt || -99) >= 10 && dist >= 2 && dist <= m.d.range && clearLine(m.x, m.y, tp.x, tp.y)) {
+        // Torvak: con menos de la mitad de vida, cada 10 segundos lanza una lluvia de 3 flechas
+        m.volleyAt = now; m.volleyLeft = 3; m.volleyNext = now; log(T('¡Torvak lanza una lluvia de flechas! Cúbrete detrás de una roca.'), '#F0B04A');
+      }
+      else if (m.d.range && dist <= m.d.range && !(m.d.melee && dist <= 1) && clearLine(m.x, m.y, tp.x, tp.y)) {
         // Arqueros y magos: si te acercas a 3 casillas o menos, retroceden hasta su rango máximo sin dejar de disparar (un poco más lento que tú)
-        if (dist <= m.d.range - 1 && m.moveCD > KITE_STEP) m.moveCD = KITE_STEP;
-        if (dist <= m.d.range - 1 && m.mt >= 1 && m.moveCD <= 0) { if (stepAwayFrom(m, tp)) { m.dur = KITE_STEP; m.moveCD = KITE_STEP; } else m.moveCD = 0.3; }
+        if (!m.d.nokite && dist <= m.d.range - 1 && m.moveCD > KITE_STEP) m.moveCD = KITE_STEP;
+        if (!m.d.nokite && dist <= m.d.range - 1 && m.mt >= 1 && m.moveCD <= 0) { if (stepAwayFrom(m, tp)) { m.dur = KITE_STEP; m.moveCD = KITE_STEP; } else m.moveCD = 0.3; }
         if (m.atkCD <= 0) { monsterShoot(m, tp); m.atkCD = m.d.atk; }
       }
       else if (dist <= 1) { if (m.atkCD <= 0) { monsterAttack(m, tp); m.atkCD = m.d.atk; if (m.d.hitrun) m.retreatUntil = now + 0.7; } }
@@ -5909,7 +5933,8 @@ function renderSlots() {
       const lk = Object.assign({}, DEFAULT_LOOK, fixLook(sv.look) || {});
       b.appendChild(previewLookEq(lk, sv.equip, 72, 72, 56));
       const sp = document.createElement('span'); sp.textContent = lk.name || T('Personaje ') + n;
-      const sm = document.createElement('small'); sm.textContent = T('Nivel ') + sv.lvl + T(' · Jugar'); sp.appendChild(sm); b.appendChild(sp);
+      const sm = document.createElement('small'); sm.textContent = T('Nivel ') + sv.lvl; sp.appendChild(sm);
+      const pl = document.createElement('em'); pl.className = 'play'; pl.textContent = T('▶ Jugar'); sp.appendChild(pl); b.appendChild(sp);
       b.setAttribute('aria-label', T('Jugar con ') + (lk.name || T('personaje ') + n) + T(', nivel ') + sv.lvl);
       b.addEventListener('click', () => { Sound.init(); setSlot(n); delArmed = 0; if (!sv.look) openCreate('continue'); else start(true); });
       wrap.appendChild(b);
