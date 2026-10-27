@@ -680,6 +680,7 @@ Object.assign(EN, {"Espada de Galo": "Galo's Sword", "Escudo de Galo": "Galo's S
 Object.assign(EN, {"Casco de Raziel": "Raziel's Helmet", "Armadura de Raziel": "Raziel's Armor", "Set de Raziel": "Raziel's Set", "Con el set completo, caminas 20% más rápido.": "With the full set, you walk 20% faster.", "4 piezas. Con el set completo, caminas 20% más rápido.": "4 pieces. With the full set, you walk 20% faster."});
 Object.assign(EN, {"Arco de Raziel": "Raziel's Bow", "Arco, casco y armadura ligeros. Con el set completo, caminas 20% más rápido.": "Light bow, helmet and armor. With the full set, you walk 20% faster."});
 Object.assign(EN, {"Quitar": "Take off", "Usar": "Wear", "Regalo": "Gift", "🎃 ¡Ya tienes tu Paquete de Halloween! Póntelo en la sección Mi Halloween.": "🎃 You have your Halloween Pack! Put it on in the My Halloween section.", "🎃 Regalo de Halloween: compra o recarga cualquier cosa antes del 6 de noviembre y te llevas gratis el Paquete de Halloween (traje de calabaza, sombrero de bruja y chispas).": "🎃 Halloween gift: buy or refill anything before November 6 and get the Halloween Pack for free (pumpkin costume, witch hat and sparks).", "🎃 ¡Regalo de Halloween! Te llevas el traje de calabaza, el sombrero de bruja y las chispas.": "🎃 Halloween gift! You get the pumpkin costume, the witch hat and the sparks.", "Estilo de Navidad": "Christmas style", "Paquete de Navidad": "Christmas Pack", "Traje de Santa + traje de duende + gorro de Santa + estela de nieve.": "Santa costume + elf costume + Santa hat + snow trail.", "Traje de Santa": "Santa costume", "Se ve encima de cualquier armadura. Con barba en cuerpo de hombre.": "Shows over any armor. With a beard on the male body.", "Traje de duende": "Elf costume", "Con su gorrito, orejas puntiagudas y cascabel.": "With its little hat, pointy ears and bell.", "Gorro de Santa": "Santa hat", "Se ve encima de cualquier casco.": "Shows over any helmet.", "Estela de nieve": "Snow trail", "Copitos de nieve donde caminas.": "Little snowflakes where you walk.", "Adornos": "Accessories", "Medallita de Xanera": "Xanera medal", "Una medalla dorada colgada al cuello.": "A golden medal around your neck.", "Mi Halloween": "My Halloween", "Traje de calabaza": "Pumpkin costume", "Regalo de Halloween.": "Halloween gift.", "Sombrero de bruja": "Witch hat", "Chispas de Halloween": "Halloween sparks", "Chispas naranjas y moradas donde caminas.": "Orange and purple sparks where you walk.", "Colores de Raziel": "Raziel colors", "Todos los colores de Raziel": "All Raziel colors", "Dorado, plata, rosa y morado.": "Gold, silver, pink and purple.", "Cambia el color de Raziel. Puedes volver al verde cuando quieras.": "Changes Raziel's color. You can go back to green anytime.", "Verde": "Green", "Raziel dorado": "Golden Raziel", "Raziel plata": "Silver Raziel", "Raziel rosa": "Pink Raziel", "Raziel morado": "Purple Raziel"});
+Object.assign(EN, {"100 gemas cuestan ": "100 gems cost ", "Comprar": "Buy"});
 Object.assign(EN, {"100 gemas": "100 gems", "550 gemas": "550 gems", "1200 gemas": "1200 gems", "Incluye 50 de regalo.": "Includes 50 bonus.", "Incluye 200 de regalo.": "Includes 200 bonus.", "Modo de prueba: no se cobra nada. En la app de Play Store las gemas se pagan con Google.": "Test mode: nothing is charged. In the Play Store app, gems are paid through Google.", "🎃 Gracias por ayudar a probar Velmar: te regalamos el Paquete de Halloween. Póntelo en la sección Mi Halloween.": "🎃 Thanks for helping test Velmar: here's the Halloween Pack as a gift. Put it on in the My Halloween section.", "Tus gemas: ": "Your gems: ", "100 gemas cuestan $0.99 USD": "100 gems cost US$0.99", "Recargar gemas": "Get gems", "¡Recargaste ": "You got ", " gemas!": " gems!", "Te faltan ": "You need ", " gemas. Puedes recargar arriba.": " more gems. You can get more at the top.", "🎃 ¡Gracias por ayudar a probar Velmar! Te regalamos el Paquete de Halloween. Está en la tienda, en Mi Halloween.": "🎃 Thanks for helping test Velmar! Here's the Halloween Pack as a gift. It's in the shop, under My Halloween."});
 Object.assign(EN, {"Armas": "Weapons", "Escudos": "Shields", "Cascos": "Helmets", "Armaduras": "Armor", "Sets": "Sets", "Mochila mágica: vendes y guardas en el baúl desde cualquier lugar.": "Magic backpack: sell and store in your chest from anywhere.", " Abrir mi baúl (": " Open my chest (", "En tu mochila": "In your backpack", "Volver a la mochila": "Back to backpack", "Mejoras": "Upgrades", "Mochila mágica": "Magic backpack", "Vende al herrero y guarda en tu baúl desde cualquier lugar. Compra única.": "Sell to the blacksmith and store in your chest from anywhere. One-time purchase."});
 Object.assign(EN, {" · de la tienda": " · from the shop"});
@@ -3927,7 +3928,6 @@ $('mapClose').addEventListener('click', closeMap);
 // Se ven encima de cualquier armadura o casco y no cambian la fuerza ni la defensa.
 const COS_SLOTS = ['traje', 'cabeza', 'cuello', 'estela'];
 // Versión de prueba cerrada: quienes ayudan a probar reciben el Paquete de Halloween (en la versión pública se apaga).
-const TESTER_GIFT = true;
 const RAZ_PAL = {
   verde:  { name: T('Verde'), wing: '#7FD6B8', body: '#3FA88A', head: '#46B596', spike: '#2E8B70' },
   dorado: { name: T('Raziel dorado'), wing: '#FFE08A', body: '#D9A62E', head: '#E8B84A', spike: '#A87A1A' },
@@ -3992,6 +3992,7 @@ function razPreview(c) {
 const IN_APP = (() => { let on = false; try { on = new URLSearchParams(location.search).get('src') === 'play' || /^android-app:\/\/io\.github\.xaner1327\.velmar/.test(document.referrer || ''); if (on) sessionStorage.setItem('velmar-src', 'play'); else on = sessionStorage.getItem('velmar-src') === 'play'; } catch (e) {} return on; })();
 // Tienda solo dentro de la app de Google Play (cobro real). Navegador (GitHub e itch.io): sin tienda, con donaciones.
 const STORE = IN_APP, STORE_DEMO = false;
+const TESTER_GIFT = IN_APP; // regalo de Halloween a testers: solo dentro de la app de Play (apagar antes de abrir al público)
 function shopDefault() { return { gems: 0, inv: { ataque: 0, flecha: 0 }, maps: { calabozos: false }, first: false, tester: false, magic: false, big: false, sets: {}, gfirst: {}, bless: 0, blessE: 0, scroll: 0, specSel: 'ataque', buff: null, buffLeft: 0, cos: { own: {}, wear: {}, raz: null } }; }
 function shopFix(o) {
   const d = shopDefault(); if (!o || typeof o !== 'object') return d;
@@ -4186,7 +4187,7 @@ function renderShop() {
   // Barra fija: gemas y pestañas
   const bal = document.createElement('div'); bal.className = 'gembal';
   const bb = document.createElement('b'); bb.textContent = gemTxt(P.shop.gems);
-  const bs = document.createElement('small'); bs.textContent = T('100 gemas cuestan $0.99 USD');
+  const bs = document.createElement('small'); bs.textContent = Bill.price.g100 ? T('100 gemas cuestan ') + Bill.price.g100 : STORE_DEMO ? T('100 gemas cuestan $0.99 USD') : '';
   const plus = document.createElement('button'); plus.className = 'gemplus'; plus.textContent = T('+ Recargar'); plus.addEventListener('click', () => { shopTab = 'gemas'; shopSet = null; Sound.play('ui'); renderShop(); });
   bal.append(bb, bs, plus); box.appendChild(bal);
   if (shopSet) { renderSetDetail(box, shopSet); return; }
@@ -4208,7 +4209,7 @@ function renderShop() {
       if (fb) { const sm = document.createElement('small'); sm.textContent = T('Normalmente ') + g.base + ' + ' + g.gift + T('. Solo en tu primera compra de este paquete.'); tx.appendChild(sm); }
       else if (g.note) { const sm = document.createElement('small'); sm.textContent = g.note; tx.appendChild(sm); }
       el.appendChild(tx);
-      const b = document.createElement('button'); b.textContent = Bill.price[g.id] || money(g.price); b.addEventListener('click', () => buyGems(g));
+      const b = document.createElement('button'); b.textContent = Bill.price[g.id] || (STORE_DEMO ? money(g.price) : T('Comprar')); b.addEventListener('click', () => buyGems(g));
       el.appendChild(b); box.appendChild(el);
     }
   }
@@ -4512,7 +4513,7 @@ function drawDrop(d, ox, oy, S) {
 const DONATE_URL = 'https://xaner1327.itch.io/velmar/donate';
 const PRIVACY_URL = 'https://xaner1327.github.io/velmar/privacy.html', SUPPORT_MAIL = 'xanergames.soporte@gmail.com';
 // Versión visible: número del paquete que se sube (vNN) + número de prueba en Claude
-const GAME_VERSION = 'v50.89';
+const GAME_VERSION = 'v50.90';
 (function showVersion() {
   const card = document.querySelector('#menu .card'); if (!card) return;
   const p = document.createElement('p'); p.className = 'vertag'; p.textContent = 'Velmar ' + GAME_VERSION; card.appendChild(p);
