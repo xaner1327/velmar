@@ -3989,7 +3989,9 @@ function razPreview(c) {
 
 // ================= Tienda (versión Play Store) =================
 // STORE prende la tienda. STORE_DEMO: modo de prueba, no cobra nada (en Play Store se cambia por el cobro de Google).
-const STORE = false, STORE_DEMO = true; // navegador (GitHub e itch.io): sin tienda, con donaciones
+const IN_APP = (() => { let on = false; try { on = new URLSearchParams(location.search).get('src') === 'play' || /^android-app:\/\/io\.github\.xaner1327\.velmar/.test(document.referrer || ''); if (on) sessionStorage.setItem('velmar-src', 'play'); else on = sessionStorage.getItem('velmar-src') === 'play'; } catch (e) {} return on; })();
+// Tienda solo dentro de la app de Google Play (cobro real). Navegador (GitHub e itch.io): sin tienda, con donaciones.
+const STORE = IN_APP, STORE_DEMO = false;
 function shopDefault() { return { gems: 0, inv: { ataque: 0, flecha: 0 }, maps: { calabozos: false }, first: false, tester: false, magic: false, big: false, sets: {}, gfirst: {}, bless: 0, blessE: 0, scroll: 0, specSel: 'ataque', buff: null, buffLeft: 0, cos: { own: {}, wear: {}, raz: null } }; }
 function shopFix(o) {
   const d = shopDefault(); if (!o || typeof o !== 'object') return d;
@@ -4206,7 +4208,7 @@ function renderShop() {
       if (fb) { const sm = document.createElement('small'); sm.textContent = T('Normalmente ') + g.base + ' + ' + g.gift + T('. Solo en tu primera compra de este paquete.'); tx.appendChild(sm); }
       else if (g.note) { const sm = document.createElement('small'); sm.textContent = g.note; tx.appendChild(sm); }
       el.appendChild(tx);
-      const b = document.createElement('button'); b.textContent = money(g.price); b.addEventListener('click', () => buyGems(g));
+      const b = document.createElement('button'); b.textContent = Bill.price[g.id] || money(g.price); b.addEventListener('click', () => buyGems(g));
       el.appendChild(b); box.appendChild(el);
     }
   }
@@ -4328,14 +4330,70 @@ function renderSetDetail(box, id) {
   }
   box.appendChild(wrap);
 }
-function buyGems(g) {
-  if (!shopAvail()) return;
-  // Aquí, en la versión de Play Store, se abre el cobro de Google. En modo de prueba se entrega directo.
+// ---- Cobro con Google Play (Digital Goods API + Payment Request, dentro de la app de Play Store) ----
+const BILL_URL = 'https://play.google.com/billing';
+const Bill = { svc: null, ready: false, busy: false, price: {}, tried: false };
+const billDone = () => { try { return JSON.parse(localStorage.getItem('velmar-iap-done') || '[]'); } catch (e) { return []; } };
+const billMark = t => { try { const a = billDone(); if (!a.includes(t)) { a.push(t); localStorage.setItem('velmar-iap-done', JSON.stringify(a.slice(-60))); } } catch (e) {} };
+function billMoney(v, cur) { try { return new Intl.NumberFormat(LANG === 'en' ? 'en-US' : 'es-MX', { style: 'currency', currency: cur }).format(v); } catch (e) { return v + ' ' + cur; } }
+async function billInit() {
+  if (Bill.tried || STORE_DEMO || !IN_APP) return; Bill.tried = true;
+  try {
+    if (!('getDigitalGoodsService' in window)) return;
+    Bill.svc = await window.getDigitalGoodsService(BILL_URL);
+    const det = await Bill.svc.getDetails(GEM_PACKS.map(g => g.id));
+    for (const d of det) Bill.price[d.itemId] = billMoney(+d.price.value, d.price.currency);
+    Bill.ready = true;
+  } catch (e) { Bill.svc = null; Bill.ready = false; }
+  if ($('shopv') && !$('shopv').hidden) renderShop();
+  billRecover();
+}
+// Compras que se pagaron pero no se entregaron (se cortó la conexión o se cerró el juego): se entregan y se consumen
+async function billRecover() {
+  if (!Bill.ready || Bill.busy || !playing || net.guest) return;
+  Bill.busy = true;
+  try {
+    const list = await Bill.svc.listPurchases();
+    for (const pu of list) {
+      const g = GEM_PACKS.find(x => x.id === pu.itemId); if (!g) continue;
+      if (!billDone().includes(pu.purchaseToken)) { billGrant(g, pu.purchaseToken, true); }
+      try { await Bill.svc.consume(pu.purchaseToken); } catch (e) {}
+    }
+  } catch (e) {}
+  Bill.busy = false;
+}
+function billGrant(g, token, recovered) {
+  billMark(token); // se anota primero para no entregar dos veces
   const fb = gemFirstBonus(g); if (fb) P.shop.gfirst[g.id] = true;
   P.shop.gems = Math.min(999999, P.shop.gems + g.gems + fb);
   Sound.play('coin'); burst(P.x, P.y, '#8FD3FF', 18, 1.6, 2);
-  log(T('¡Recargaste ') + (g.gems + fb) + T(' gemas!') + (g.base ? T(' (incluye ') + (g.gift + fb) + T(' de regalo)') : '') + (STORE_DEMO ? T(' (prueba, sin cobro)') : ''), '#8FD3FF');
-  save(); renderShop();
+  log((recovered ? T('Recuperamos tu compra. ') : '') + T('¡Recargaste ') + (g.gems + fb) + T(' gemas!') + (g.base ? T(' (incluye ') + (g.gift + fb) + T(' de regalo)') : ''), '#8FD3FF');
+  save(); if (typeof accPush === 'function') { try { accPush(true); } catch (e) {} } if ($('shopv') && !$('shopv').hidden) renderShop();
+}
+async function buyGems(g) {
+  if (!shopAvail()) return;
+  if (STORE_DEMO) { // solo en la versión de prueba de Claude: no cobra
+    const fb = gemFirstBonus(g); if (fb) P.shop.gfirst[g.id] = true;
+    P.shop.gems = Math.min(999999, P.shop.gems + g.gems + fb);
+    Sound.play('coin'); burst(P.x, P.y, '#8FD3FF', 18, 1.6, 2);
+    log(T('¡Recargaste ') + (g.gems + fb) + T(' gemas!') + (g.base ? T(' (incluye ') + (g.gift + fb) + T(' de regalo)') : '') + T(' (prueba, sin cobro)'), '#8FD3FF');
+    save(); renderShop(); return;
+  }
+  if (!Bill.ready) { log(T('Las compras no están disponibles ahora. Abre Velmar desde Google Play y revisa tu conexión.'), '#E36B6B'); Sound.play('ui'); billInit(); return; }
+  if (Bill.busy) return; Bill.busy = true;
+  try {
+    const req = new PaymentRequest([{ supportedMethods: BILL_URL, data: { sku: g.id } }], { total: { label: g.name || g.id, amount: { currency: 'USD', value: '0' } } });
+    const resp = await req.show();
+    const token = resp.details && resp.details.purchaseToken;
+    if (!token) { await resp.complete('fail'); throw new Error('sin token'); }
+    await resp.complete('success');
+    billGrant(g, token, false);
+    try { await Bill.svc.consume(token); } catch (e) { /* si falla, se vuelve a intentar al abrir la tienda */ }
+  } catch (e) {
+    const cancel = e && (e.name === 'AbortError' || e.name === 'NotAllowedError');
+    log(cancel ? T('Compra cancelada. No se cobró nada.') : T('No se pudo completar la compra. Si te cobraron, tus gemas llegan al abrir la tienda de nuevo.'), cancel ? '#C9C3B3' : '#E36B6B'); Sound.play('ui');
+  }
+  Bill.busy = false;
 }
 function needGems(cost) {
   if (P.shop.gems >= cost) return false;
@@ -4358,7 +4416,7 @@ function buyPiece(p, cost) {
   const s = ITEMS[p].set; if (s && setFull(s)) log(SETS[s].bonus, '#9FD0FF');
   hudCache = ''; save(); renderShop();
 }
-function openShop() { if (!shopAvail()) return; closeDialog(); closeSpec(); shopSet = null; renderShop(); $('shopv').hidden = false; const f = $('shopBody').querySelector('.tabs [aria-selected="true"]'); (f || $('shopClose')).focus(); Sound.play('ui'); }
+function openShop() { if (!shopAvail()) return; billInit(); billRecover(); closeDialog(); closeSpec(); shopSet = null; renderShop(); $('shopv').hidden = false; const f = $('shopBody').querySelector('.tabs [aria-selected="true"]'); (f || $('shopClose')).focus(); Sound.play('ui'); }
 function closeShop() { $('shopv').hidden = true; }
 
 // ================= Mochila con límite y cosas tiradas en el suelo =================
@@ -4454,13 +4512,12 @@ function drawDrop(d, ox, oy, S) {
 const DONATE_URL = 'https://xaner1327.itch.io/velmar/donate';
 const PRIVACY_URL = 'https://xaner1327.github.io/velmar/privacy.html', SUPPORT_MAIL = 'xanergames.soporte@gmail.com';
 // Versión visible: número del paquete que se sube (vNN) + número de prueba en Claude
-const GAME_VERSION = 'v50.88';
+const GAME_VERSION = 'v50.89';
 (function showVersion() {
   const card = document.querySelector('#menu .card'); if (!card) return;
   const p = document.createElement('p'); p.className = 'vertag'; p.textContent = 'Velmar ' + GAME_VERSION; card.appendChild(p);
 })();
 // App de Google Play: abre la página con ?src=play (se recuerda, porque el juego puede recargar sin el parámetro).
-const IN_APP = (() => { let on = false; try { on = new URLSearchParams(location.search).get('src') === 'play' || /^android-app:\/\/io\.github\.xaner1327\.velmar/.test(document.referrer || ''); if (on) sessionStorage.setItem('velmar-src', 'play'); else on = sessionStorage.getItem('velmar-src') === 'play'; } catch (e) {} return on; })();
 const donateOK = () => !IN_APP && !/crazygames|poki/i.test(location.hostname + ' ' + (document.referrer || ''));
 let donPend = null;
 function donateQueue(k) {
@@ -6214,7 +6271,8 @@ $('cName').addEventListener('keydown', e => { if (e.key === 'Enter') finishCreat
   Promise.all([cloudInit(), accInit()]).then(ready, ready); setTimeout(ready, 4000);
 }
 addEventListener('pagehide', () => { save(); cloudPush(true); accPush(true); });
-document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) save(); else if (STORE) billRecover(); });
+if (STORE) setTimeout(billInit, 1500);
 
 P = newPlayer();
 resize();
